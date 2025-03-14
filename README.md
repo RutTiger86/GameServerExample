@@ -23,22 +23,22 @@
 
 ## 🏗️ 프로젝트 구조
 
-\`\`\`
-GameServerExample
-│
-├── AuthServer                # 인증 서버 (로그인, 캐릭터 생성 등)
-├── AuthDBServer             # 인증 DB 연동 서버
-├── WorldServer               # 게임 월드 서버 (게임 플레이, 캐릭터 관리)
-├── WorldDBServer             # 월드 DB 연동 서버
-│
-├── Commons                  # 모든 서버에서 공용 사용
-│   ├── Server.Core          # Listener, Session, PacketSession 등 네트워크 핵심 모듈
-│   └── Server.Data          # Protobuf 기반 통신 프로토콜 정의
-│
-└── DataBase                 # 데이터베이스 관련
-    ├── AuthDB              # 인증 관련 DB
-    └── WorldDB             # 게임 월드 관련 DB
-\`\`\`
+```  
+GameServerExample  
+│  
+├── AuthServer                # 인증 서버 (로그인, 캐릭터 생성 등)  
+├── AuthDBServer             # 인증 DB 연동 서버  
+├── WorldServer               # 게임 월드 서버 (게임 플레이, 캐릭터 관리)  
+├── WorldDBServer             # 월드 DB 연동 서버  
+│  
+├── Commons                  # 모든 서버에서 공용 사용  
+│   ├── Server.Core          # Listener, Session, PacketSession 등 네트워크 핵심 모듈  
+│   └── Server.Data          # Protobuf 기반 통신 프로토콜 정의  
+│  
+└── DataBase                 # 데이터베이스 관련  
+    ├── AuthDB              # 인증 관련 DB  
+    └── WorldDB             # 게임 월드 관련 DB  
+```
 
 ---
 
