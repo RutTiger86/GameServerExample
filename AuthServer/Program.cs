@@ -1,8 +1,10 @@
 ﻿using AuthServer.Commons;
+using AuthServer.Session;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Reflection;
 
 namespace AuthServer
@@ -14,7 +16,7 @@ namespace AuthServer
         static void Main(string[] args)
         {
             // 01. Log4Net 설정
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly()!);
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
             // 02. Host 빌드 및 서비스 DI
@@ -33,8 +35,37 @@ namespace AuthServer
             }
 
             // 04. 서버 시작 예시
-             var server = AppHost.Services.GetRequiredService<AuthServer>();
-             server.Start();
+            var server = AppHost.Services.GetRequiredService<AuthServer>();
+            server.Start();
+
+            CommandProcess();
+        }
+
+        private static void CommandProcess()
+        {
+            var logFactory = AppHost!.Services.GetRequiredService<ILogFactory>();
+
+            ILog log = logFactory.CreateLogger<ClientSession>();
+
+            while (true)
+            {
+                Console.WriteLine("Enter command: [quit]");
+                string? command = Console.ReadLine();
+
+                if (command == null)
+                    continue;
+
+                switch (command.ToLower())
+                {
+                    case "quit":
+                        AppHost.Services.GetRequiredService<AuthServer>().Stop();
+                        return;
+
+                    default:
+                        Console.WriteLine("Unknown command.");
+                        break;
+                }
+            }
         }
 
         private static void ConfigureServices(IServiceCollection services)
@@ -42,6 +73,7 @@ namespace AuthServer
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager>();               // config
             services.AddSingleton<AuthServer>();
+            services.AddSingleton<SessionManager>();
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+package server.data.worldauth;
+
+option csharp_namespace = "Server.Data.WorldAuth";
+
+enum ReqPacketId {
+  AW_SERVER_STATE = 0;
+}
+
+enum ResPacketId {
+  WA_SERVER_STATE = 0;
+}

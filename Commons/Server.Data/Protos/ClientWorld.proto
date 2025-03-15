@@ -1,0 +1,13 @@
+﻿syntax = "proto3";
+
+package server.data.clientworld;
+
+option csharp_namespace = "Server.Data.ClientWorld";
+
+enum ReqPacketId {
+  CW_SERVER_STATE = 0;
+}
+
+enum ResPacketId {
+  AW_SERVER_STATE = 0;
+}

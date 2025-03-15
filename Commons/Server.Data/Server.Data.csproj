@@ -6,4 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Generated\Generated\**" />
+    <EmbeddedResource Remove="Generated\Generated\**" />
+    <None Remove="Generated\Generated\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.30.1" />
+    <PackageReference Include="Google.Protobuf.Tools" Version="3.30.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Generated\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="call &quot;$(ProjectDir)generate_protos.bat&quot; &quot;$(USERPROFILE)\.nuget\packages\google.protobuf.tools\3.30.1\tools&quot; &quot;$(USERPROFILE)\.nuget\packages\google.protobuf.tools\3.30.1\tools&quot; &quot;$(ProjectDir)Protos&quot; &quot;$(ProjectDir)Generated&quot;" />
+  </Target>
 </Project>

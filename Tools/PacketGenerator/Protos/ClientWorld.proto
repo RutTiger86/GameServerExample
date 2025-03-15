@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package server.data.clientworld;
+
+option csharp_namespace = "Server.Data.ClientWorld";
+
+enum ClientWorldPacketId {
+  CW_SERVER_STATE = 0;
+  WC_SERVER_STATE = 1;
+}
+
+
+message CW_Server_State {
+
+}
+
+message WC_Server_State {
+
+}

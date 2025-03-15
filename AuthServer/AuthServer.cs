@@ -1,5 +1,7 @@
 ﻿using AuthServer.Commons;
+using AuthServer.Session;
 using log4net;
+using Server.Core;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -7,19 +9,13 @@ using System.Threading;
 
 namespace AuthServer
 {
-    public class AuthServer
+    public class AuthServer(ILogFactory logFactory, ConfigManager configManager, SessionManager sessionManager)
     {
-        private readonly ILog log;
-        private readonly ConfigManager configManager;
+        private readonly ILog log = logFactory.CreateLogger<AuthServer>();
+        private readonly ConfigManager configManager = configManager;
+        private readonly SessionManager sessionManager = sessionManager;
 
-        private Socket listenerSocket;
-        private CancellationTokenSource cts;
-
-        public AuthServer(ILogFactory logFactory, ConfigManager configManager)
-        {
-            log = logFactory.CreateLogger<AuthServer>();
-            this.configManager = configManager;
-        }
+        private Listener<ClientSession>? clientListener;
 
         /// <summary>
         /// 서버 시작
@@ -37,15 +33,11 @@ namespace AuthServer
 
             try
             {
-                listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                listenerSocket.Bind(new IPEndPoint(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort));
-                listenerSocket.Listen(serverConfig.Backlog);
+                IPEndPoint endPoint =  new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
+                clientListener = new Listener<ClientSession>(endPoint, sessionManager.Generate, serverConfig.Backlog , HandleClientListenerError);
+                clientListener.StartListener(serverConfig.MaxAcceptCount);
 
                 log.Info($"[AuthServer] Server listening on {serverConfig.ListenIP}:{serverConfig.ListenPort}");
-
-                cts = new CancellationTokenSource();
-
-                StartAcceptLoop(cts.Token);
             }
             catch (Exception ex)
             {
@@ -62,8 +54,7 @@ namespace AuthServer
 
             try
             {
-                cts?.Cancel();
-                listenerSocket?.Close();
+                clientListener?.Stop();
                 log.Info("[AuthServer] Server stopped.");
             }
             catch (Exception ex)
@@ -72,29 +63,10 @@ namespace AuthServer
             }
         }
 
-        /// <summary>
-        /// Accept 루프 시작
-        /// </summary>
-        private void StartAcceptLoop(CancellationToken cancellationToken)
-        {
-            ThreadPool.QueueUserWorkItem(async _ =>
-            {
-                while (!cancellationToken.IsCancellationRequested)
-                {
-                    try
-                    {
-                        var clientSocket = await listenerSocket.AcceptAsync();
-                        log.Info($"[AuthServer] Client connected: {clientSocket.RemoteEndPoint}");
 
-                        var session = new ClientSession(clientSocket, log);
-                        session.Start();
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error($"[AuthServer] Accept failed: {ex.Message}", ex);
-                    }
-                }
-            });
+        private void HandleClientListenerError(Exception ex)
+        {
+            log.Error($"[ClientListenerError]: {ex.Message}", ex);
         }
     }
 }

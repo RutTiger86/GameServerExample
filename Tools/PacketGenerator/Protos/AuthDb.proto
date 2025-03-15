@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package server.data.authdb;
+
+option csharp_namespace = "Server.Data.AuthDb";
+
+enum AuthDbPacketId {
+  DA_SERVER_STATE = 0;
+  AD_SERVER_STATE = 1;
+}
+
+message DA_Server_State {
+
+}
+
+message AD_Server_State {
+
+}

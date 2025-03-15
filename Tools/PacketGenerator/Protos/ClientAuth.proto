@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package server.data.clientauth;
+
+option csharp_namespace = "Server.Data.ClientAuth";
+
+enum ClientAuthPacketId {
+  CA_SERVER_STATE = 0;
+  AC_SERVER_STATE = 1;
+}
+
+message CA_Server_State {
+
+}
+
+message AC_Server_State {
+
+}

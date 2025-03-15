@@ -3,19 +3,22 @@ using System.Net.Sockets;
 
 namespace Server.Core
 {
-    public class Listener<T> where T : ISession, new()
+    public class Listener<TSession> where TSession : ISession
     {
         private readonly Socket listenerSocket;
         private readonly  CancellationTokenSource cts;
         private readonly Action<Exception> errorHandler;
+        private readonly Func<TSession> sessionFactory;
+        private bool isStopping = false; // 종료 플래그
 
-        public Listener(IPEndPoint endPoint, int backlog = 100, Action<Exception>? errorHandler = null)
+        public Listener(IPEndPoint endPoint, Func<TSession> sessionFactory, int backlog = 100, Action<Exception>? errorHandler = null)
         {
             listenerSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             listenerSocket.Bind(endPoint);
             listenerSocket.Listen(backlog);
             cts = new CancellationTokenSource();
             this.errorHandler = errorHandler ?? (ex => Console.WriteLine($"[ERROR] {ex.Message}", ex));
+            this.sessionFactory = sessionFactory;
         }
 
         /// <summary>
@@ -39,14 +42,16 @@ namespace Server.Core
         {
             try
             {
-                cts?.Cancel();
-                listenerSocket?.Close();
+                isStopping = true; // 종료 플래그 활성화
+                cts?.Cancel(); // 토큰 취소
+                listenerSocket?.Close(); // 소켓 닫기 (Accept 깨기)
             }
             catch (Exception ex)
             {
                 errorHandler(ex);
             }
         }
+
 
         /// <summary>
         /// Accept 루프 여러 개 시작 (멀티 Accept)
@@ -59,12 +64,29 @@ namespace Server.Core
                 {
                     try
                     {
-                        var clientSocket = await listenerSocket.AcceptAsync();
-                        ISession session = new T();
+                        var clientSocket = await listenerSocket!.AcceptAsync();
+
+                        ISession session = sessionFactory();
                         session.Start(clientSocket);
+                    }
+                    catch (SocketException ex)
+                    {
+                        // 소켓 닫힘으로 인한 종료 예외는 무시
+                        if (isStopping)
+                        {
+                            break; // 루프 탈출
+                        }
+
+                        errorHandler(ex); // 예기치 않은 소켓 예외
                     }
                     catch (Exception ex)
                     {
+                        // 일반 예외 처리
+                        if (isStopping)
+                        {
+                            break;
+                        }
+
                         errorHandler(ex);
                     }
                 }

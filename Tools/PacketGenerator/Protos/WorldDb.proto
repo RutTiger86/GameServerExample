@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package server.data.worlddb;
+
+option csharp_namespace = "Server.Data.WorldDb";
+
+enum WorldDbPacketId {
+  DW_SERVER_STATE = 0;
+  WD_SERVER_STATE = 1;
+}
+
+message DW_Server_State {
+
+}
+
+message WD_Server_State {
+
+}
