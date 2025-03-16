@@ -1,23 +1,23 @@
-﻿using AuthServer.Commons;
-using AuthServer.Extensions;
+﻿using DummyClient.Extensions;
 using Google.Protobuf;
-using log4net;
 using Server.Core;
 using Server.Data.ClientAuth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AuthServer.Session
+namespace DummyClient.Sessions
 {
-    public class ClientSession(ILogFactory logFactory) : PacketSession
+    public class AuthSession : PacketSession
     {
-        private readonly ILog log = logFactory.CreateLogger<ClientSession>();
-
-        public int SessionId { get; set; }
-
         public void Send(IMessage packet)
         {
             string packName = packet.Descriptor.Name.ToPascalCase();
-            ClientAuthPacketId packetId  = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
+
+            ClientAuthPacketId packetId = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
             
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
@@ -29,22 +29,22 @@ namespace AuthServer.Session
 
         public override void OnConnected(EndPoint endPoint)
         {
-            log.Info($"ClientSession OnConnected : {endPoint}");
-        }
-
-        public override void OnRecvPacket(ReadOnlySpan<byte> buffer)
-        {
-            log.Info($"ClientSession OnRecvPacket");
+            Console.WriteLine($"Auth Connected {endPoint.AddressFamily}");
         }
 
         public override void OnDisconnected(EndPoint endPoint)
         {
-            log.Info($"ClientSession OnDisconnected : {endPoint}");
+            Console.WriteLine($"Auth DisConnected {endPoint.AddressFamily}");
+        }
+
+        public override void OnRecvPacket(ReadOnlySpan<byte> buffer)
+        {
+            Console.WriteLine($"Auth OnRecvPacket");
         }
 
         public override void OnSend(int numOfBytes)
         {
-
+            Console.WriteLine($"Auth OnSend");
         }
     }
 }

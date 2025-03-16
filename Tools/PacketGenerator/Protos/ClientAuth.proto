@@ -7,6 +7,32 @@ option csharp_namespace = "Server.Data.ClientAuth";
 enum ClientAuthPacketId {
   CA_SERVER_STATE = 0;
   AC_SERVER_STATE = 1;
+  CA_LOGIN =2;
+  AC_LOGIN =3;
+  CA_WORLD_LIST=4;
+  AC_WORLD_LIST=5;
+  CA_ENTER_WORLD=6;
+  AC_ENTER_WORLD=7;
+}
+
+enum AuthServerState
+{
+	INTERNAL_ACCESS =0;
+    PUBLIC_ACCESS =1;
+}
+
+enum LoginDenyReason
+{
+	NONE = 0;
+	ACCOUNT_NOT_FOUND = 1;
+	INVALID_PASSWORD = 2;
+	ACCOUNT_BANNED = 3;
+	SERVER_MAINTENANCE  = 4;
+	SERVER_FULL = 5;
+	INTERNAL_ACCESS_ONLY = 6;
+	DUPLICATE_LOGIN = 7;
+	CLIENT_VERSION_MISMATCH = 8;
+	UNKNOWN_ERROR = 9;
 }
 
 message CA_Server_State {
@@ -14,5 +40,20 @@ message CA_Server_State {
 }
 
 message AC_Server_State {
+	AuthServerState ServerState = 1;
+}
+
+message CA_Login{
+	string UserId = 1;
+	string HashPassword =2;
+}
+message AC_Login{
+	LoginDenyReason Result = 1;	
+}
+
+message CA_WorldList{
+
+}
+message AC_WorldList{
 
 }

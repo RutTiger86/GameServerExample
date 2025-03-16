@@ -12,6 +12,7 @@ set AUTH_OUTPUT_PATH=%OUTPUT_PATH%AuthServer\Packets
 set AUTH_DB_OUTPUT_PATH=%OUTPUT_PATH%AuthDBServer\Packets
 set WORLD_OUTPUT_PATH=%OUTPUT_PATH%WorldServer\Packets
 set WORLD_DB_OUTPUT_PATH=%OUTPUT_PATH%WorldDBServer\Packets
+set CLIENT_OUTPUT_PATH=%OUTPUT_PATH%Tools\DummyClient\Packets
 
 echo Starting protoc generation...
 echo Using protoc.exe at: %PROTOC_EXE%
@@ -20,7 +21,7 @@ echo Output will be generated in: %OUTPUT_PATH%
 echo Well-known types path: %WELL_KNOWN_TYPES%
 
 REM 초기화
-for %%D in ("%AUTH_OUTPUT_PATH%" "%AUTH_DB_OUTPUT_PATH%" "%WORLD_OUTPUT_PATH%" "%WORLD_DB_OUTPUT_PATH%") do (
+for %%D in ("%AUTH_OUTPUT_PATH%" "%AUTH_DB_OUTPUT_PATH%" "%WORLD_OUTPUT_PATH%" "%WORLD_DB_OUTPUT_PATH%" "%CLIENT_OUTPUT_PATH%") do (
     if exist %%D (
         echo Deleting all contents in: %%D
         rmdir /s /q %%D
@@ -30,6 +31,9 @@ for %%D in ("%AUTH_OUTPUT_PATH%" "%AUTH_DB_OUTPUT_PATH%" "%WORLD_OUTPUT_PATH%" "
 )
 
 REM 공통 함수로 프로토 처리
+
+call :ProcessProto "ClientAuth.proto" "%CLIENT_OUTPUT_PATH%"
+call :ProcessProto "ClientWorld.proto" "%CLIENT_OUTPUT_PATH%"
 
 call :ProcessProto "WorldAuth.proto" "%AUTH_OUTPUT_PATH%"
 call :ProcessProto "ClientAuth.proto" "%AUTH_OUTPUT_PATH%"
