@@ -24,15 +24,15 @@ namespace Server.Data.WorldDb {
     static WorldDbReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1Xb3JsZERiLnByb3RvEhNzZXJ2ZXIuZGF0YS53b3JsZGRiIhEKD0RXX1Nl",
-            "cnZlcl9TdGF0ZSIRCg9XRF9TZXJ2ZXJfU3RhdGUqOwoPV29ybGREYlBhY2tl",
-            "dElkEhMKD0RXX1NFUlZFUl9TVEFURRAAEhMKD1dEX1NFUlZFUl9TVEFURRAB",
-            "QhaqAhNTZXJ2ZXIuRGF0YS5Xb3JsZERiYgZwcm90bzM="));
+            "Cg1Xb3JsZERiLnByb3RvEhNzZXJ2ZXIuZGF0YS53b3JsZGRiIg8KDUR3U2Vy",
+            "dmVyU3RhdGUiDwoNV2RTZXJ2ZXJTdGF0ZSo7Cg9Xb3JsZERiUGFja2V0SWQS",
+            "EwoPRFdfU0VSVkVSX1NUQVRFEAASEwoPV0RfU0VSVkVSX1NUQVRFEAFCFqoC",
+            "E1NlcnZlci5EYXRhLldvcmxkRGJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.WorldDb.WorldDbPacketId), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldDb.DW_Server_State), global::Server.Data.WorldDb.DW_Server_State.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldDb.WD_Server_State), global::Server.Data.WorldDb.WD_Server_State.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldDb.DwServerState), global::Server.Data.WorldDb.DwServerState.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldDb.WdServerState), global::Server.Data.WorldDb.WdServerState.Parser, null, null, null, null, null)
           }));
     }
     #endregion
@@ -48,16 +48,16 @@ namespace Server.Data.WorldDb {
 
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class DW_Server_State : pb::IMessage<DW_Server_State>
+  public sealed partial class DwServerState : pb::IMessage<DwServerState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<DW_Server_State> _parser = new pb::MessageParser<DW_Server_State>(() => new DW_Server_State());
+    private static readonly pb::MessageParser<DwServerState> _parser = new pb::MessageParser<DwServerState>(() => new DwServerState());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<DW_Server_State> Parser { get { return _parser; } }
+    public static pb::MessageParser<DwServerState> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -73,7 +73,7 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DW_Server_State() {
+    public DwServerState() {
       OnConstruction();
     }
 
@@ -81,25 +81,25 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DW_Server_State(DW_Server_State other) : this() {
+    public DwServerState(DwServerState other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public DW_Server_State Clone() {
-      return new DW_Server_State(this);
+    public DwServerState Clone() {
+      return new DwServerState(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as DW_Server_State);
+      return Equals(other as DwServerState);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(DW_Server_State other) {
+    public bool Equals(DwServerState other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -159,7 +159,7 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(DW_Server_State other) {
+    public void MergeFrom(DwServerState other) {
       if (other == null) {
         return;
       }
@@ -209,16 +209,16 @@ namespace Server.Data.WorldDb {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class WD_Server_State : pb::IMessage<WD_Server_State>
+  public sealed partial class WdServerState : pb::IMessage<WdServerState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<WD_Server_State> _parser = new pb::MessageParser<WD_Server_State>(() => new WD_Server_State());
+    private static readonly pb::MessageParser<WdServerState> _parser = new pb::MessageParser<WdServerState>(() => new WdServerState());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<WD_Server_State> Parser { get { return _parser; } }
+    public static pb::MessageParser<WdServerState> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -234,7 +234,7 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WD_Server_State() {
+    public WdServerState() {
       OnConstruction();
     }
 
@@ -242,25 +242,25 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WD_Server_State(WD_Server_State other) : this() {
+    public WdServerState(WdServerState other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WD_Server_State Clone() {
-      return new WD_Server_State(this);
+    public WdServerState Clone() {
+      return new WdServerState(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as WD_Server_State);
+      return Equals(other as WdServerState);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(WD_Server_State other) {
+    public bool Equals(WdServerState other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -320,7 +320,7 @@ namespace Server.Data.WorldDb {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(WD_Server_State other) {
+    public void MergeFrom(WdServerState other) {
       if (other == null) {
         return;
       }

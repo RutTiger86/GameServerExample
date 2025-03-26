@@ -8,11 +8,11 @@ set OUTPUT_PATH=%~3
 REM protoc.exe와 Well-known types 경로 설정
 set PROTOC_EXE=%TOOLS_PATH%\windows_x64\protoc.exe
 
-set AUTH_OUTPUT_PATH=%OUTPUT_PATH%AuthServer\Packets
-set AUTH_DB_OUTPUT_PATH=%OUTPUT_PATH%AuthDBServer\Packets
-set WORLD_OUTPUT_PATH=%OUTPUT_PATH%WorldServer\Packets
-set WORLD_DB_OUTPUT_PATH=%OUTPUT_PATH%WorldDBServer\Packets
-set CLIENT_OUTPUT_PATH=%OUTPUT_PATH%Tools\DummyClient\Packets
+set AUTH_OUTPUT_PATH=%OUTPUT_PATH%AuthServer\Packets\Models
+set AUTH_DB_OUTPUT_PATH=%OUTPUT_PATH%AuthDBServer\Packets\Models
+set WORLD_OUTPUT_PATH=%OUTPUT_PATH%WorldServer\Packets\Models
+set WORLD_DB_OUTPUT_PATH=%OUTPUT_PATH%WorldDBServer\Packets\Models
+set CLIENT_OUTPUT_PATH=%OUTPUT_PATH%Tools\DummyClient\Packets\Models
 
 echo Starting protoc generation...
 echo Using protoc.exe at: %PROTOC_EXE%

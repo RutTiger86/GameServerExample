@@ -9,10 +9,10 @@ enum AuthDbPacketId {
   AD_SERVER_STATE = 1;
 }
 
-message DA_Server_State {
+message DaServerState {
 
 }
 
-message AD_Server_State {
+message AdServerState {
 
 }

@@ -24,33 +24,36 @@ namespace Server.Data.ClientAuth {
     static ClientAuthReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBDbGllbnRBdXRoLnByb3RvEhZzZXJ2ZXIuZGF0YS5jbGllbnRhdXRoIhEK",
-            "D0NBX1NlcnZlcl9TdGF0ZSJPCg9BQ19TZXJ2ZXJfU3RhdGUSPAoLU2VydmVy",
-            "U3RhdGUYASABKA4yJy5zZXJ2ZXIuZGF0YS5jbGllbnRhdXRoLkF1dGhTZXJ2",
-            "ZXJTdGF0ZSIwCghDQV9Mb2dpbhIOCgZVc2VySWQYASABKAkSFAoMSGFzaFBh",
-            "c3N3b3JkGAIgASgJIkMKCEFDX0xvZ2luEjcKBlJlc3VsdBgBIAEoDjInLnNl",
-            "cnZlci5kYXRhLmNsaWVudGF1dGguTG9naW5EZW55UmVhc29uIg4KDENBX1dv",
-            "cmxkTGlzdCIOCgxBQ19Xb3JsZExpc3QqqAEKEkNsaWVudEF1dGhQYWNrZXRJ",
-            "ZBITCg9DQV9TRVJWRVJfU1RBVEUQABITCg9BQ19TRVJWRVJfU1RBVEUQARIM",
-            "CghDQV9MT0dJThACEgwKCEFDX0xPR0lOEAMSEQoNQ0FfV09STERfTElTVBAE",
-            "EhEKDUFDX1dPUkxEX0xJU1QQBRISCg5DQV9FTlRFUl9XT1JMRBAGEhIKDkFD",
-            "X0VOVEVSX1dPUkxEEAcqOQoPQXV0aFNlcnZlclN0YXRlEhMKD0lOVEVSTkFM",
-            "X0FDQ0VTUxAAEhEKDVBVQkxJQ19BQ0NFU1MQASrkAQoPTG9naW5EZW55UmVh",
-            "c29uEggKBE5PTkUQABIVChFBQ0NPVU5UX05PVF9GT1VORBABEhQKEElOVkFM",
-            "SURfUEFTU1dPUkQQAhISCg5BQ0NPVU5UX0JBTk5FRBADEhYKElNFUlZFUl9N",
-            "QUlOVEVOQU5DRRAEEg8KC1NFUlZFUl9GVUxMEAUSGAoUSU5URVJOQUxfQUND",
-            "RVNTX09OTFkQBhITCg9EVVBMSUNBVEVfTE9HSU4QBxIbChdDTElFTlRfVkVS",
-            "U0lPTl9NSVNNQVRDSBAIEhEKDVVOS05PV05fRVJST1IQCUIZqgIWU2VydmVy",
-            "LkRhdGEuQ2xpZW50QXV0aGIGcHJvdG8z"));
+            "ChBDbGllbnRBdXRoLnByb3RvEhZzZXJ2ZXIuZGF0YS5jbGllbnRhdXRoIg8K",
+            "DUNhU2VydmVyU3RhdGUiTQoNQWNTZXJ2ZXJTdGF0ZRI8CgtTZXJ2ZXJTdGF0",
+            "ZRgBIAEoDjInLnNlcnZlci5kYXRhLmNsaWVudGF1dGguQXV0aFNlcnZlclN0",
+            "YXRlIi8KB0NhTG9naW4SDgoGVXNlcklkGAEgASgJEhQKDEhhc2hQYXNzd29y",
+            "ZBgCIAEoCSJCCgdBY0xvZ2luEjcKBlJlc3VsdBgBIAEoDjInLnNlcnZlci5k",
+            "YXRhLmNsaWVudGF1dGguTG9naW5EZW55UmVhc29uIg0KC0NhV29ybGRMaXN0",
+            "Ig0KC0FjV29ybGRMaXN0Ig4KDENhRW50ZXJXb3JsZCIOCgxBY0VudGVyV29y",
+            "bGQqqAEKEkNsaWVudEF1dGhQYWNrZXRJZBITCg9DQV9TRVJWRVJfU1RBVEUQ",
+            "ABITCg9BQ19TRVJWRVJfU1RBVEUQARIMCghDQV9MT0dJThACEgwKCEFDX0xP",
+            "R0lOEAMSEQoNQ0FfV09STERfTElTVBAEEhEKDUFDX1dPUkxEX0xJU1QQBRIS",
+            "Cg5DQV9FTlRFUl9XT1JMRBAGEhIKDkFDX0VOVEVSX1dPUkxEEAcqOQoPQXV0",
+            "aFNlcnZlclN0YXRlEhMKD0lOVEVSTkFMX0FDQ0VTUxAAEhEKDVBVQkxJQ19B",
+            "Q0NFU1MQASrkAQoPTG9naW5EZW55UmVhc29uEggKBE5PTkUQABIVChFBQ0NP",
+            "VU5UX05PVF9GT1VORBABEhQKEElOVkFMSURfUEFTU1dPUkQQAhISCg5BQ0NP",
+            "VU5UX0JBTk5FRBADEhYKElNFUlZFUl9NQUlOVEVOQU5DRRAEEg8KC1NFUlZF",
+            "Ul9GVUxMEAUSGAoUSU5URVJOQUxfQUNDRVNTX09OTFkQBhITCg9EVVBMSUNB",
+            "VEVfTE9HSU4QBxIbChdDTElFTlRfVkVSU0lPTl9NSVNNQVRDSBAIEhEKDVVO",
+            "S05PV05fRVJST1IQCUIZqgIWU2VydmVyLkRhdGEuQ2xpZW50QXV0aGIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.ClientAuth.ClientAuthPacketId), typeof(global::Server.Data.ClientAuth.AuthServerState), typeof(global::Server.Data.ClientAuth.LoginDenyReason), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CA_Server_State), global::Server.Data.ClientAuth.CA_Server_State.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AC_Server_State), global::Server.Data.ClientAuth.AC_Server_State.Parser, new[]{ "ServerState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CA_Login), global::Server.Data.ClientAuth.CA_Login.Parser, new[]{ "UserId", "HashPassword" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AC_Login), global::Server.Data.ClientAuth.AC_Login.Parser, new[]{ "Result" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CA_WorldList), global::Server.Data.ClientAuth.CA_WorldList.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AC_WorldList), global::Server.Data.ClientAuth.AC_WorldList.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaServerState), global::Server.Data.ClientAuth.CaServerState.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcServerState), global::Server.Data.ClientAuth.AcServerState.Parser, new[]{ "ServerState" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaLogin), global::Server.Data.ClientAuth.CaLogin.Parser, new[]{ "UserId", "HashPassword" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcLogin), global::Server.Data.ClientAuth.AcLogin.Parser, new[]{ "Result" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaWorldList), global::Server.Data.ClientAuth.CaWorldList.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcWorldList), global::Server.Data.ClientAuth.AcWorldList.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaEnterWorld), global::Server.Data.ClientAuth.CaEnterWorld.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcEnterWorld), global::Server.Data.ClientAuth.AcEnterWorld.Parser, null, null, null, null, null)
           }));
     }
     #endregion
@@ -90,16 +93,16 @@ namespace Server.Data.ClientAuth {
 
   #region Messages
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class CA_Server_State : pb::IMessage<CA_Server_State>
+  public sealed partial class CaServerState : pb::IMessage<CaServerState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CA_Server_State> _parser = new pb::MessageParser<CA_Server_State>(() => new CA_Server_State());
+    private static readonly pb::MessageParser<CaServerState> _parser = new pb::MessageParser<CaServerState>(() => new CaServerState());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CA_Server_State> Parser { get { return _parser; } }
+    public static pb::MessageParser<CaServerState> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -115,7 +118,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Server_State() {
+    public CaServerState() {
       OnConstruction();
     }
 
@@ -123,25 +126,25 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Server_State(CA_Server_State other) : this() {
+    public CaServerState(CaServerState other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Server_State Clone() {
-      return new CA_Server_State(this);
+    public CaServerState Clone() {
+      return new CaServerState(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CA_Server_State);
+      return Equals(other as CaServerState);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CA_Server_State other) {
+    public bool Equals(CaServerState other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -201,7 +204,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CA_Server_State other) {
+    public void MergeFrom(CaServerState other) {
       if (other == null) {
         return;
       }
@@ -251,16 +254,16 @@ namespace Server.Data.ClientAuth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class AC_Server_State : pb::IMessage<AC_Server_State>
+  public sealed partial class AcServerState : pb::IMessage<AcServerState>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<AC_Server_State> _parser = new pb::MessageParser<AC_Server_State>(() => new AC_Server_State());
+    private static readonly pb::MessageParser<AcServerState> _parser = new pb::MessageParser<AcServerState>(() => new AcServerState());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<AC_Server_State> Parser { get { return _parser; } }
+    public static pb::MessageParser<AcServerState> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -276,7 +279,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Server_State() {
+    public AcServerState() {
       OnConstruction();
     }
 
@@ -284,15 +287,15 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Server_State(AC_Server_State other) : this() {
+    public AcServerState(AcServerState other) : this() {
       serverState_ = other.serverState_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Server_State Clone() {
-      return new AC_Server_State(this);
+    public AcServerState Clone() {
+      return new AcServerState(this);
     }
 
     /// <summary>Field number for the "ServerState" field.</summary>
@@ -310,12 +313,12 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as AC_Server_State);
+      return Equals(other as AcServerState);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(AC_Server_State other) {
+    public bool Equals(AcServerState other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -388,7 +391,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(AC_Server_State other) {
+    public void MergeFrom(AcServerState other) {
       if (other == null) {
         return;
       }
@@ -449,16 +452,16 @@ namespace Server.Data.ClientAuth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class CA_Login : pb::IMessage<CA_Login>
+  public sealed partial class CaLogin : pb::IMessage<CaLogin>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CA_Login> _parser = new pb::MessageParser<CA_Login>(() => new CA_Login());
+    private static readonly pb::MessageParser<CaLogin> _parser = new pb::MessageParser<CaLogin>(() => new CaLogin());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CA_Login> Parser { get { return _parser; } }
+    public static pb::MessageParser<CaLogin> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -474,7 +477,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Login() {
+    public CaLogin() {
       OnConstruction();
     }
 
@@ -482,7 +485,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Login(CA_Login other) : this() {
+    public CaLogin(CaLogin other) : this() {
       userId_ = other.userId_;
       hashPassword_ = other.hashPassword_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -490,8 +493,8 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_Login Clone() {
-      return new CA_Login(this);
+    public CaLogin Clone() {
+      return new CaLogin(this);
     }
 
     /// <summary>Field number for the "UserId" field.</summary>
@@ -521,12 +524,12 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CA_Login);
+      return Equals(other as CaLogin);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CA_Login other) {
+    public bool Equals(CaLogin other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -612,7 +615,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CA_Login other) {
+    public void MergeFrom(CaLogin other) {
       if (other == null) {
         return;
       }
@@ -684,16 +687,16 @@ namespace Server.Data.ClientAuth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class AC_Login : pb::IMessage<AC_Login>
+  public sealed partial class AcLogin : pb::IMessage<AcLogin>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<AC_Login> _parser = new pb::MessageParser<AC_Login>(() => new AC_Login());
+    private static readonly pb::MessageParser<AcLogin> _parser = new pb::MessageParser<AcLogin>(() => new AcLogin());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<AC_Login> Parser { get { return _parser; } }
+    public static pb::MessageParser<AcLogin> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -709,7 +712,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Login() {
+    public AcLogin() {
       OnConstruction();
     }
 
@@ -717,15 +720,15 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Login(AC_Login other) : this() {
+    public AcLogin(AcLogin other) : this() {
       result_ = other.result_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_Login Clone() {
-      return new AC_Login(this);
+    public AcLogin Clone() {
+      return new AcLogin(this);
     }
 
     /// <summary>Field number for the "Result" field.</summary>
@@ -743,12 +746,12 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as AC_Login);
+      return Equals(other as AcLogin);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(AC_Login other) {
+    public bool Equals(AcLogin other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -821,7 +824,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(AC_Login other) {
+    public void MergeFrom(AcLogin other) {
       if (other == null) {
         return;
       }
@@ -882,16 +885,16 @@ namespace Server.Data.ClientAuth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class CA_WorldList : pb::IMessage<CA_WorldList>
+  public sealed partial class CaWorldList : pb::IMessage<CaWorldList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<CA_WorldList> _parser = new pb::MessageParser<CA_WorldList>(() => new CA_WorldList());
+    private static readonly pb::MessageParser<CaWorldList> _parser = new pb::MessageParser<CaWorldList>(() => new CaWorldList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<CA_WorldList> Parser { get { return _parser; } }
+    public static pb::MessageParser<CaWorldList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -907,7 +910,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_WorldList() {
+    public CaWorldList() {
       OnConstruction();
     }
 
@@ -915,25 +918,25 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_WorldList(CA_WorldList other) : this() {
+    public CaWorldList(CaWorldList other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public CA_WorldList Clone() {
-      return new CA_WorldList(this);
+    public CaWorldList Clone() {
+      return new CaWorldList(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as CA_WorldList);
+      return Equals(other as CaWorldList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(CA_WorldList other) {
+    public bool Equals(CaWorldList other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -993,7 +996,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(CA_WorldList other) {
+    public void MergeFrom(CaWorldList other) {
       if (other == null) {
         return;
       }
@@ -1043,16 +1046,16 @@ namespace Server.Data.ClientAuth {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class AC_WorldList : pb::IMessage<AC_WorldList>
+  public sealed partial class AcWorldList : pb::IMessage<AcWorldList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<AC_WorldList> _parser = new pb::MessageParser<AC_WorldList>(() => new AC_WorldList());
+    private static readonly pb::MessageParser<AcWorldList> _parser = new pb::MessageParser<AcWorldList>(() => new AcWorldList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<AC_WorldList> Parser { get { return _parser; } }
+    public static pb::MessageParser<AcWorldList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1068,7 +1071,7 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_WorldList() {
+    public AcWorldList() {
       OnConstruction();
     }
 
@@ -1076,25 +1079,25 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_WorldList(AC_WorldList other) : this() {
+    public AcWorldList(AcWorldList other) : this() {
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AC_WorldList Clone() {
-      return new AC_WorldList(this);
+    public AcWorldList Clone() {
+      return new AcWorldList(this);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as AC_WorldList);
+      return Equals(other as AcWorldList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(AC_WorldList other) {
+    public bool Equals(AcWorldList other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1154,7 +1157,329 @@ namespace Server.Data.ClientAuth {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(AC_WorldList other) {
+    public void MergeFrom(AcWorldList other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class CaEnterWorld : pb::IMessage<CaEnterWorld>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CaEnterWorld> _parser = new pb::MessageParser<CaEnterWorld>(() => new CaEnterWorld());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CaEnterWorld> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Server.Data.ClientAuth.ClientAuthReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CaEnterWorld() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CaEnterWorld(CaEnterWorld other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CaEnterWorld Clone() {
+      return new CaEnterWorld(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CaEnterWorld);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CaEnterWorld other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CaEnterWorld other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class AcEnterWorld : pb::IMessage<AcEnterWorld>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AcEnterWorld> _parser = new pb::MessageParser<AcEnterWorld>(() => new AcEnterWorld());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<AcEnterWorld> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Server.Data.ClientAuth.ClientAuthReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AcEnterWorld() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AcEnterWorld(AcEnterWorld other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AcEnterWorld Clone() {
+      return new AcEnterWorld(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as AcEnterWorld);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(AcEnterWorld other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(AcEnterWorld other) {
       if (other == null) {
         return;
       }

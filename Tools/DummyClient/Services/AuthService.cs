@@ -59,7 +59,7 @@ namespace DummyClient.Service
             if (authSession == null)
                 return;
 
-            var loginPacket = new CA_Login()
+            var loginPacket = new CaLogin()
             {
                 UserId = id,
                 HashPassword = password

@@ -9,10 +9,10 @@ enum WorldDbPacketId {
   WD_SERVER_STATE = 1;
 }
 
-message DW_Server_State {
+message DwServerState {
 
 }
 
-message WD_Server_State {
+message WdServerState {
 
 }

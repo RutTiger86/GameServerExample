@@ -28,7 +28,8 @@
                     break;
 
                 // [Header + Body] 전체 패킷 전달 (Span 유지)
-                OnRecvPacket(span.Slice(0, size));
+                var packetBuffer = new ReadOnlyMemory<byte>(buffer.Array, buffer.Offset + processLen, size);
+                OnRecvPacket(packetBuffer);
 
                 processLen += size;
                 span = span.Slice(size); // 남은 데이터로 이동
@@ -38,7 +39,7 @@
         }
 
         // Span 기반 패킷 처리 (Zero-Copy 가능)
-        public abstract void OnRecvPacket(ReadOnlySpan<byte> buffer);
+        public abstract void OnRecvPacket(ReadOnlyMemory<byte> buffer);
     }
 
 }

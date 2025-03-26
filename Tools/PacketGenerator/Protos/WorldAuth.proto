@@ -9,10 +9,10 @@ enum WorldAuthPacketId {
   WA_SERVER_STATE = 1;
 }
 
-message AW_Server_State {
+message AwServerState {
 
 }
 
-message WA_Server_State {
+message WaServerState {
 
 }

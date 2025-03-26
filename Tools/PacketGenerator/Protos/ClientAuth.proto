@@ -35,25 +35,31 @@ enum LoginDenyReason
 	UNKNOWN_ERROR = 9;
 }
 
-message CA_Server_State {
+message CaServerState {
 
 }
 
-message AC_Server_State {
+message AcServerState {
 	AuthServerState ServerState = 1;
 }
 
-message CA_Login{
+message CaLogin{
 	string UserId = 1;
 	string HashPassword =2;
 }
-message AC_Login{
+message AcLogin{
 	LoginDenyReason Result = 1;	
 }
 
-message CA_WorldList{
+message CaWorldList{
 
 }
-message AC_WorldList{
+message AcWorldList{
+
+}
+message CaEnterWorld{
+
+}
+message AcEnterWorld{
 
 }

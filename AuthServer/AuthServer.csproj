@@ -27,9 +27,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Packets\" />
-  </ItemGroup>
 
 </Project>

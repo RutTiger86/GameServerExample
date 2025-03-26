@@ -16,7 +16,7 @@ namespace AuthServer.Session
 
         public void Send(IMessage packet)
         {
-            string packName = packet.Descriptor.Name.ToPascalCase();
+            string packName = packet.Descriptor.Name;
             ClientAuthPacketId packetId  = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
             
             ushort size = (ushort)packet.CalculateSize();
@@ -32,9 +32,9 @@ namespace AuthServer.Session
             log.Info($"ClientSession OnConnected : {endPoint}");
         }
 
-        public override void OnRecvPacket(ReadOnlySpan<byte> buffer)
+        public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
-            log.Info($"ClientSession OnRecvPacket");
+            ClientAuthPacketManager.Instance.OnRecvPacket(this, buffer);
         }
 
         public override void OnDisconnected(EndPoint endPoint)

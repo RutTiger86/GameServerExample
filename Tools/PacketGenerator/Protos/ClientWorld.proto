@@ -10,10 +10,10 @@ enum ClientWorldPacketId {
 }
 
 
-message CW_Server_State {
+message CwServerState {
 
 }
 
-message WC_Server_State {
+message WcServerState {
 
 }

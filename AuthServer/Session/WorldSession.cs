@@ -31,7 +31,7 @@ namespace AuthServer.Session
             log.Info($"WorldSession OnConnected : {endPoint}");
         }
 
-        public override void OnRecvPacket(ReadOnlySpan<byte> buffer)
+        public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
             log.Info($"WorldSession OnRecvPacket");
         }
