@@ -1,10 +1,9 @@
-﻿using AuthServer.Commons;
-using AuthServer.Session;
+﻿using AuthServer.Models.Configs;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
+using Server.Utill;
 using System.Reflection;
 
 namespace AuthServer
@@ -28,7 +27,7 @@ namespace AuthServer
                 }).Build();
 
             // 03. ConfigManager 로드
-            var configManager = AppHost.Services.GetRequiredService<ConfigManager>();
+            var configManager = AppHost.Services.GetRequiredService<ConfigManager<AppConfig>>();
             if (!configManager.Load("appsettings.json"))
             {
                 return;
@@ -45,7 +44,7 @@ namespace AuthServer
         {
             var logFactory = AppHost!.Services.GetRequiredService<ILogFactory>();
 
-            ILog log = logFactory.CreateLogger<ClientSession>();
+            ILog log = logFactory.CreateLogger<Program>();
 
             while (true)
             {
@@ -71,9 +70,8 @@ namespace AuthServer
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
-            services.AddSingleton<ConfigManager>();               // config
+            services.AddSingleton<ConfigManager<AppConfig>>();               // config
             services.AddSingleton<AuthServer>();
-            services.AddSingleton<SessionManager>();
         }
     }
 }

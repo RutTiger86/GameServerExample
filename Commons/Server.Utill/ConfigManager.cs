@@ -1,40 +1,30 @@
-﻿using AuthServer.Models.Configs;
-using log4net;
+﻿using log4net;
 using System.Text.Json;
 
-namespace AuthServer.Commons
+namespace Server.Utill
 {
-    public class ConfigManager
+    public class ConfigManager<TConfig> where TConfig : new()
     {
         private readonly ILog log;
-        private AppConfig? config;
+        public TConfig? config { get; private set; }
 
         public ConfigManager(ILogFactory logFactory)
         {
-            log = logFactory.CreateLogger<ConfigManager>();
+            config = new TConfig();
+            log = logFactory.CreateLogger<ConfigManager<TConfig>>();
         }
 
-        public AuthServerSetting? AuthServer
-        {
-            get
-            {
-                return config?.AuthServer;
-            }
-        }
-
-        public AuthDBServerSetting? AuthDBServer
-        {
-            get
-            {
-                return config?.AuthDBServer;
-            }
-        }
 
         private static readonly JsonSerializerOptions s_readOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
 
+        public object? GetSettingConfig(string settingName)
+        {
+            var property = config?.GetType().GetProperty(settingName);
+            return property?.GetValue(this);
+        }
 
         /// <summary>
         /// JSON 파일 로드
@@ -44,7 +34,7 @@ namespace AuthServer.Commons
             try
             {
                 var json = File.ReadAllText(filePath);
-                config = JsonSerializer.Deserialize<AppConfig>(json, s_readOptions);
+                config = JsonSerializer.Deserialize<TConfig>(json, s_readOptions);
 
                 if (config == null)
                 {

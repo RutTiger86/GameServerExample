@@ -1,30 +1,58 @@
-﻿using AuthServer.Commons;
+﻿using AuthServer.Models.Configs;
 using AuthServer.Session;
 using log4net;
 using Server.Core;
-using System;
+using Server.Utill;
 using System.Net;
-using System.Net.Sockets;
-using System.Threading;
 
 namespace AuthServer
 {
-    public class AuthServer(ILogFactory logFactory, ConfigManager configManager, SessionManager sessionManager)
+    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthServer>();
-        private readonly ConfigManager configManager = configManager;
-        private readonly SessionManager sessionManager = sessionManager;
+        private readonly ConfigManager<AppConfig> configManager = configManager;
 
+        private readonly SessionManager<ClientSession> clientSessionManager = new SessionManager<ClientSession>(logFactory);
         private Listener<ClientSession>? clientListener;
+
+
+        private static AuthDBSession? authDbSession;
+        private Connector<AuthDBSession>? connector;
 
         /// <summary>
         /// 서버 시작
         /// </summary>
         public void Start()
         {
-            log.Info("[AuthServer] Starting server...");
+            log.Info("[AuthServer] Starting Auth Server...");
 
-            var serverConfig = configManager.AuthServer;
+            ConnectAuthDbServer();
+
+            StartClientListen();
+
+           
+        }
+
+        private async void ConnectAuthDbServer()
+        {
+            var serverConfig = configManager.config?.AuthDBServer;
+            if (serverConfig == null)
+            {
+                log.Error("[AuthServer] Server configuration is null. Startup aborted.");
+                return;
+            }
+
+            if (IPAddress.TryParse(serverConfig.ConnectIP, out IPAddress? address))
+            {
+                authDbSession = new AuthDBSession(logFactory);
+                connector = new Connector<AuthDBSession>(() => authDbSession);
+                await connector.StartConnectorAsync(new IPEndPoint(address, serverConfig.ConnectPort));
+            }
+        }
+
+        private void StartClientListen()
+        {
+            var serverConfig = configManager.config?.AuthServer;
             if (serverConfig == null)
             {
                 log.Error("[AuthServer] Server configuration is null. Startup aborted.");
@@ -33,8 +61,8 @@ namespace AuthServer
 
             try
             {
-                IPEndPoint endPoint =  new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
-                clientListener = new Listener<ClientSession>(endPoint, sessionManager.Generate, serverConfig.Backlog , HandleClientListenerError);
+                IPEndPoint endPoint = new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
+                clientListener = new Listener<ClientSession>(endPoint, clientSessionManager.Generate, serverConfig.Backlog, HandleClientListenerError);
                 clientListener.StartListener(serverConfig.MaxAcceptCount);
 
                 log.Info($"[AuthServer] Server listening on {serverConfig.ListenIP}:{serverConfig.ListenPort}");

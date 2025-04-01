@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Commons\Server.Core\Server.Core.csproj" />
+    <ProjectReference Include="..\Commons\Server.Utill\Server.Utill.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,10 @@
     <None Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commons\" />
   </ItemGroup>
 
 </Project>

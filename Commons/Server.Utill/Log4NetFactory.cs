@@ -1,6 +1,6 @@
 ﻿using log4net;
 
-namespace AuthServer.Commons
+namespace Server.Utill
 {
     public interface ILogFactory
     {

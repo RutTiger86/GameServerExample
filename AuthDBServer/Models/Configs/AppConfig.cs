@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthServer.Models.Configs
+namespace AuthDBServer.Models.Configs
 {
     public class AppConfig 
     {
-        public AuthServerSetting? AuthServer { get; set; }
-        public AuthDBServerSetting? AuthDBServer { get; set; }
+        public AuthDBServerSetting? AuthDbServer { get; set; }
     }
 }

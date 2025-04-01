@@ -1,17 +1,21 @@
-﻿using AuthServer.Commons;
-using Google.Protobuf;
+﻿using Google.Protobuf;
 using log4net;
 using Server.Core;
 using Server.Data.WorldAuth;
+using Server.Utill;
+using Server.Utill.Interface;
 using System.Net;
 
 namespace AuthServer.Session
 {
-    public class WorldSession(ILogFactory logFactory) : PacketSession
+    public class WorldSession(ILogFactory logFactory) : PacketSession, ILogCreater<WorldSession>
     {
         private readonly ILog log = logFactory.CreateLogger<WorldSession>();
 
-        public int SessionId { get; set; }
+        public static WorldSession Create(ILogFactory logFactory)
+        {
+            return new WorldSession(logFactory);
+        }
 
         public void Send(IMessage packet)
         {
@@ -45,5 +49,6 @@ namespace AuthServer.Session
         {
 
         }
+
     }
 }

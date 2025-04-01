@@ -16,6 +16,8 @@ namespace Server.Core
 
     public abstract class Session : ISession
     {
+        public int SessionId { get; set; }
+
         private Socket? socket;
         private byte[]? recvBuffer;
         private static readonly ArrayPool<byte> bufferPool = ArrayPool<byte>.Shared;
