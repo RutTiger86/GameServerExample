@@ -5,6 +5,10 @@ using Microsoft.Extensions.Hosting;
 using Server.Utill;
 using System.Reflection;
 using AuthDBServer.Models.Configs;
+using AuthDB.Data;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace AuthDBServer
 {
@@ -23,8 +27,11 @@ namespace AuthDBServer
                 .ConfigureServices((context, services) =>
                 {
                     context.HostingEnvironment.ApplicationName = "AuthServer";
+                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
+                    services.AddDbContext<AuthDbContext>(options =>options.UseSqlServer(connectionString));
                     ConfigureServices(services);
-                }).Build();
+                })
+                .Build();
 
             // 03. ConfigManager 로드
             var configManager = AppHost.Services.GetRequiredService<ConfigManager<AppConfig>>();

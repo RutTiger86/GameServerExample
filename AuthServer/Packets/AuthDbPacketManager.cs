@@ -27,7 +27,9 @@ class AuthDbPacketManager
 	{
 				
 		_onRecv.Add((ushort)AuthDbPacketId.DaServerState, MakePacket<DaServerState>);
-		_handler.Add((ushort)AuthDbPacketId.DaServerState, AuthDbPacketHandler.DaServerStateHandler);
+		_handler.Add((ushort)AuthDbPacketId.DaServerState, AuthDbPacketHandler.DaServerStateHandler);		
+		_onRecv.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, MakePacket<DaGetAccountVerifyInfo>);
+		_handler.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, AuthDbPacketHandler.DaGetAccountVerifyInfoHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)

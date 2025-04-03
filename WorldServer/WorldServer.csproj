@@ -18,4 +18,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Commons\Server.Core\Server.Core.csproj" />
+    <ProjectReference Include="..\Commons\Server.Utill\Server.Utill.csproj" />
+  </ItemGroup>
 </Project>

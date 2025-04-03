@@ -26,6 +26,8 @@
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.30.1" />
     <PackageReference Include="log4net" Version="3.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
@@ -35,6 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Commons\Server.Core\Server.Core.csproj" />
     <ProjectReference Include="..\Commons\Server.Utill\Server.Utill.csproj" />
+    <ProjectReference Include="..\DataBase\AuthDB\AuthDB.csproj" />
   </ItemGroup>
 
 

@@ -61,7 +61,7 @@ namespace DummyClient.Service
 
             var loginPacket = new CaLogin()
             {
-                UserId = id,
+                AccountId = id,
                 HashPassword = password
             };
 

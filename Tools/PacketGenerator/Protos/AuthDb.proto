@@ -7,6 +7,8 @@ option csharp_namespace = "Server.Data.AuthDb";
 enum AuthDbPacketId {
   DA_SERVER_STATE = 0;
   AD_SERVER_STATE = 1;
+  DA_GET_ACCOUNT_VERIFY_INFO = 2;
+  AD_GET_ACCOUNT_VERIFY_INFO = 3;
 }
 
 message DaServerState {
@@ -15,4 +17,19 @@ message DaServerState {
 
 message AdServerState {
 
+}
+
+message DaGetAccountVerifyInfo
+{
+	int64 id = 1;
+    int32 login_type = 2; 
+    string account_id = 3;
+    string account_name = 4;
+    string password_hash = 5;
+}
+
+message AdGetAccountVerifyInfo
+{	
+    int32 SessionId = 2;
+	string AccountId = 1; 
 }

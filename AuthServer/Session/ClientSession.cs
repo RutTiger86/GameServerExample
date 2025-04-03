@@ -1,4 +1,5 @@
-﻿using Google.Protobuf;
+﻿using AuthServer.Models.Account;
+using Google.Protobuf;
 using log4net;
 using Server.Core;
 using Server.Data.ClientAuth;
@@ -12,6 +13,7 @@ namespace AuthServer.Session
     {
         private readonly ILog log = logFactory.CreateLogger<ClientSession>();
 
+        public LoginInfo? LoginInfo { get; set; }
         public static ClientSession Create(ILogFactory logFactory)
         {
             return new ClientSession(logFactory);

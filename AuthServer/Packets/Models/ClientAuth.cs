@@ -27,28 +27,28 @@ namespace Server.Data.ClientAuth {
             "ChBDbGllbnRBdXRoLnByb3RvEhZzZXJ2ZXIuZGF0YS5jbGllbnRhdXRoIg8K",
             "DUNhU2VydmVyU3RhdGUiTQoNQWNTZXJ2ZXJTdGF0ZRI8CgtTZXJ2ZXJTdGF0",
             "ZRgBIAEoDjInLnNlcnZlci5kYXRhLmNsaWVudGF1dGguQXV0aFNlcnZlclN0",
-            "YXRlIi8KB0NhTG9naW4SDgoGVXNlcklkGAEgASgJEhQKDEhhc2hQYXNzd29y",
-            "ZBgCIAEoCSJCCgdBY0xvZ2luEjcKBlJlc3VsdBgBIAEoDjInLnNlcnZlci5k",
-            "YXRhLmNsaWVudGF1dGguTG9naW5EZW55UmVhc29uIg0KC0NhV29ybGRMaXN0",
-            "Ig0KC0FjV29ybGRMaXN0Ig4KDENhRW50ZXJXb3JsZCIOCgxBY0VudGVyV29y",
-            "bGQqqAEKEkNsaWVudEF1dGhQYWNrZXRJZBITCg9DQV9TRVJWRVJfU1RBVEUQ",
-            "ABITCg9BQ19TRVJWRVJfU1RBVEUQARIMCghDQV9MT0dJThACEgwKCEFDX0xP",
-            "R0lOEAMSEQoNQ0FfV09STERfTElTVBAEEhEKDUFDX1dPUkxEX0xJU1QQBRIS",
-            "Cg5DQV9FTlRFUl9XT1JMRBAGEhIKDkFDX0VOVEVSX1dPUkxEEAcqOQoPQXV0",
-            "aFNlcnZlclN0YXRlEhMKD0lOVEVSTkFMX0FDQ0VTUxAAEhEKDVBVQkxJQ19B",
-            "Q0NFU1MQASrkAQoPTG9naW5EZW55UmVhc29uEggKBE5PTkUQABIVChFBQ0NP",
-            "VU5UX05PVF9GT1VORBABEhQKEElOVkFMSURfUEFTU1dPUkQQAhISCg5BQ0NP",
-            "VU5UX0JBTk5FRBADEhYKElNFUlZFUl9NQUlOVEVOQU5DRRAEEg8KC1NFUlZF",
-            "Ul9GVUxMEAUSGAoUSU5URVJOQUxfQUNDRVNTX09OTFkQBhITCg9EVVBMSUNB",
-            "VEVfTE9HSU4QBxIbChdDTElFTlRfVkVSU0lPTl9NSVNNQVRDSBAIEhEKDVVO",
-            "S05PV05fRVJST1IQCUIZqgIWU2VydmVyLkRhdGEuQ2xpZW50QXV0aGIGcHJv",
-            "dG8z"));
+            "YXRlIjIKB0NhTG9naW4SEQoJQWNjb3VudElkGAEgASgJEhQKDEhhc2hQYXNz",
+            "d29yZBgCIAEoCSJCCgdBY0xvZ2luEjcKBlJlc3VsdBgBIAEoDjInLnNlcnZl",
+            "ci5kYXRhLmNsaWVudGF1dGguTG9naW5EZW55UmVhc29uIg0KC0NhV29ybGRM",
+            "aXN0Ig0KC0FjV29ybGRMaXN0Ig4KDENhRW50ZXJXb3JsZCIOCgxBY0VudGVy",
+            "V29ybGQqqAEKEkNsaWVudEF1dGhQYWNrZXRJZBITCg9DQV9TRVJWRVJfU1RB",
+            "VEUQABITCg9BQ19TRVJWRVJfU1RBVEUQARIMCghDQV9MT0dJThACEgwKCEFD",
+            "X0xPR0lOEAMSEQoNQ0FfV09STERfTElTVBAEEhEKDUFDX1dPUkxEX0xJU1QQ",
+            "BRISCg5DQV9FTlRFUl9XT1JMRBAGEhIKDkFDX0VOVEVSX1dPUkxEEAcqOQoP",
+            "QXV0aFNlcnZlclN0YXRlEhMKD0lOVEVSTkFMX0FDQ0VTUxAAEhEKDVBVQkxJ",
+            "Q19BQ0NFU1MQASrkAQoPTG9naW5EZW55UmVhc29uEggKBE5PTkUQABIVChFB",
+            "Q0NPVU5UX05PVF9GT1VORBABEhQKEElOVkFMSURfUEFTU1dPUkQQAhISCg5B",
+            "Q0NPVU5UX0JBTk5FRBADEhYKElNFUlZFUl9NQUlOVEVOQU5DRRAEEg8KC1NF",
+            "UlZFUl9GVUxMEAUSGAoUSU5URVJOQUxfQUNDRVNTX09OTFkQBhITCg9EVVBM",
+            "SUNBVEVfTE9HSU4QBxIbChdDTElFTlRfVkVSU0lPTl9NSVNNQVRDSBAIEhEK",
+            "DVVOS05PV05fRVJST1IQCUIZqgIWU2VydmVyLkRhdGEuQ2xpZW50QXV0aGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.ClientAuth.ClientAuthPacketId), typeof(global::Server.Data.ClientAuth.AuthServerState), typeof(global::Server.Data.ClientAuth.LoginDenyReason), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaServerState), global::Server.Data.ClientAuth.CaServerState.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcServerState), global::Server.Data.ClientAuth.AcServerState.Parser, new[]{ "ServerState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaLogin), global::Server.Data.ClientAuth.CaLogin.Parser, new[]{ "UserId", "HashPassword" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaLogin), global::Server.Data.ClientAuth.CaLogin.Parser, new[]{ "AccountId", "HashPassword" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcLogin), global::Server.Data.ClientAuth.AcLogin.Parser, new[]{ "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaWorldList), global::Server.Data.ClientAuth.CaWorldList.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcWorldList), global::Server.Data.ClientAuth.AcWorldList.Parser, null, null, null, null, null),
@@ -486,7 +486,7 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CaLogin(CaLogin other) : this() {
-      userId_ = other.userId_;
+      accountId_ = other.accountId_;
       hashPassword_ = other.hashPassword_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -497,15 +497,15 @@ namespace Server.Data.ClientAuth {
       return new CaLogin(this);
     }
 
-    /// <summary>Field number for the "UserId" field.</summary>
-    public const int UserIdFieldNumber = 1;
-    private string userId_ = "";
+    /// <summary>Field number for the "AccountId" field.</summary>
+    public const int AccountIdFieldNumber = 1;
+    private string accountId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string UserId {
-      get { return userId_; }
+    public string AccountId {
+      get { return accountId_; }
       set {
-        userId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        accountId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -536,7 +536,7 @@ namespace Server.Data.ClientAuth {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (UserId != other.UserId) return false;
+      if (AccountId != other.AccountId) return false;
       if (HashPassword != other.HashPassword) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -545,7 +545,7 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (UserId.Length != 0) hash ^= UserId.GetHashCode();
+      if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
       if (HashPassword.Length != 0) hash ^= HashPassword.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -565,9 +565,9 @@ namespace Server.Data.ClientAuth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (UserId.Length != 0) {
+      if (AccountId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(UserId);
+        output.WriteString(AccountId);
       }
       if (HashPassword.Length != 0) {
         output.WriteRawTag(18);
@@ -583,9 +583,9 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (UserId.Length != 0) {
+      if (AccountId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(UserId);
+        output.WriteString(AccountId);
       }
       if (HashPassword.Length != 0) {
         output.WriteRawTag(18);
@@ -601,8 +601,8 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (UserId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
+      if (AccountId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
       }
       if (HashPassword.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(HashPassword);
@@ -619,8 +619,8 @@ namespace Server.Data.ClientAuth {
       if (other == null) {
         return;
       }
-      if (other.UserId.Length != 0) {
-        UserId = other.UserId;
+      if (other.AccountId.Length != 0) {
+        AccountId = other.AccountId;
       }
       if (other.HashPassword.Length != 0) {
         HashPassword = other.HashPassword;
@@ -645,7 +645,7 @@ namespace Server.Data.ClientAuth {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            UserId = input.ReadString();
+            AccountId = input.ReadString();
             break;
           }
           case 18: {
@@ -672,7 +672,7 @@ namespace Server.Data.ClientAuth {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            UserId = input.ReadString();
+            AccountId = input.ReadString();
             break;
           }
           case 18: {

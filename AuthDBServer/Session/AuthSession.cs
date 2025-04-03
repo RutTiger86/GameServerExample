@@ -33,17 +33,17 @@ namespace AuthServer.Session
 
         public override void OnConnected(EndPoint endPoint)
         {
-            log.Info($"ClientSession OnConnected : {endPoint}");
+            log.Info($"AuthSession OnConnected : {endPoint}");
         }
 
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
-
+            log.Info($"AuthSession OnRecvPacket");
         }
 
         public override void OnDisconnected(EndPoint endPoint)
         {
-            log.Info($"ClientSession OnDisconnected : {endPoint}");
+            log.Info($"AuthSession OnDisconnected : {endPoint}");
         }
 
         public override void OnSend(int numOfBytes)

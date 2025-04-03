@@ -21,9 +21,24 @@ namespace AuthServer.Packets
             CaLogin caLogin = packet as CaLogin;
             ClientSession clientSession = session as ClientSession;
 
-            Console.WriteLine($"SessionId : {clientSession.SessionId}, ID : {caLogin.UserId}, PW : {caLogin.HashPassword}");
-            //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 
+            if(caLogin == null || clientSession == null)
+            {
+                return;
+            }
 
+            clientSession.LoginInfo = new Models.Account.LoginInfo()
+            {
+                AccountId = caLogin.AccountId,
+                PasswordHash = caLogin.HashPassword
+            };
+
+            Console.WriteLine($"SessionId : {clientSession.SessionId}, ID : {caLogin.AccountId}, PW : {caLogin.HashPassword}");
+
+            //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 
+            if (AuthDBSession.Instance != null)
+            {
+                AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId);
+            }
         }
         public static void CaWorldListHandler(PacketSession session, IMessage packet)
         {

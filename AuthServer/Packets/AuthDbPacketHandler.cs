@@ -16,5 +16,10 @@ namespace AuthServer.Packets
         {
 
         }
+
+        public static void DaGetAccountVerifyInfoHandler(PacketSession session, IMessage packet)
+        {
+
+        }
     }
 }

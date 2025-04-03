@@ -44,7 +44,7 @@ message AcServerState {
 }
 
 message CaLogin{
-	string UserId = 1;
+	string AccountId = 1;
 	string HashPassword =2;
 }
 message AcLogin{

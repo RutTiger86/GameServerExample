@@ -8,26 +8,38 @@ using System.Net;
 
 namespace AuthServer.Session
 {
-    public class AuthDBSession(ILogFactory logFactory) : PacketSession , ILogCreater<AuthDBSession>
+    public class AuthDBSession : PacketSession
     {
-        private readonly ILog log = logFactory.CreateLogger<AuthDBSession>();
+        public static AuthDBSession? Instance { get; private set; }
 
-        public static AuthDBSession Create(ILogFactory logFactory)
+        private readonly ILog log;
+        public AuthDBSession(ILogFactory logFactory)
         {
-            return new AuthDBSession(logFactory);
+            log = logFactory.CreateLogger<AuthDBSession>();
+            Instance = this;
         }
 
         public void Send(IMessage packet)
         {
             string packName = packet.Descriptor.Name;
-            AuthDbPacketId packetId  = (AuthDbPacketId)Enum.Parse(typeof(AuthDbPacketId), packName);
-            
+            AuthDbPacketId packetId = (AuthDbPacketId)Enum.Parse(typeof(AuthDbPacketId), packName);
+
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
             Array.Copy(BitConverter.GetBytes((ushort)packetId), 0, sendBuffer, 2, sizeof(ushort));
             Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
             Send(new ArraySegment<byte>(sendBuffer));
+        }
+
+        public void SendLoginRequest(string accountId)
+        {
+            var packet = new AdGetAccountVerifyInfo
+            {
+                AccountId = accountId
+            };
+
+            Send(packet);
         }
 
         public override void OnConnected(EndPoint endPoint)
@@ -50,6 +62,6 @@ namespace AuthServer.Session
 
         }
 
-       
+
     }
 }
