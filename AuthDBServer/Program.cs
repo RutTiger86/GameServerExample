@@ -10,6 +10,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using AuthDBServer.Packets;
+using AuthDBServer.Repositories;
+using Microsoft.Extensions.Logging;
+using AuthDBServer.Session;
 
 namespace AuthDBServer
 {
@@ -29,7 +32,11 @@ namespace AuthDBServer
                 {
                     context.HostingEnvironment.ApplicationName = "AuthServer";
                     var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
-                    services.AddDbContext<AuthDbContext>(options =>options.UseSqlServer(connectionString));
+                    services.AddDbContext<AuthDbContext>(options =>
+                    { 
+                        options.UseSqlServer(connectionString);
+                    }
+                    );
                     ConfigureServices(services);
                 })
                 .Build();
@@ -79,9 +86,15 @@ namespace AuthDBServer
         {
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
-            services.AddSingleton<AuthDbPacketHandler>();               // config
-            services.AddSingleton<AuthDbPacketManager>();               // config
+
+
+            services.AddSingleton<SessionManager<AuthSession, AuthDbPacketManager>>();
+            services.AddSingleton<AuthDbPacketHandler>();               
+            services.AddSingleton<AuthDbPacketManager>();               
             services.AddSingleton<AuthDBServer>();
+
+
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
     }
 }

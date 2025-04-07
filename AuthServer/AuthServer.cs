@@ -7,11 +7,10 @@ using System.Net;
 
 namespace AuthServer
 {
-    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, ClientAuthPacketManager clientAuthPacketManager, AuthDbPacketManager authDbPacketManager)
+    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, SessionManager<ClientSession, ClientAuthPacketManager> clientSessionManager, AuthDbPacketManager authDbPacketManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthServer>();
         private readonly ConfigManager<AppConfig> configManager = configManager;
-        private readonly SessionManager<ClientSession> clientSessionManager = new(logFactory, clientAuthPacketManager);
         private Listener<ClientSession>? clientListener;
 
 

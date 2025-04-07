@@ -36,7 +36,7 @@ namespace AuthServer.Packets
             //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 
             if (AuthDBSession.Instance != null)
             {
-                AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId);
+                AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId, clientSession.SessionId);
             }
         }
         public void CaWorldListHandler(PacketSession session, IMessage packet)

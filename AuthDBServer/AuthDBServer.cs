@@ -7,11 +7,10 @@ using System.Net;
 
 namespace AuthDBServer
 {
-    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, AuthDbPacketManager authPacketManager)
+    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, SessionManager<AuthSession, AuthDbPacketManager> authSessionManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthDBServer>();
         private readonly ConfigManager<AppConfig> configManager = configManager;
-        private readonly SessionManager<AuthSession> authSessionManager = new(logFactory, authPacketManager);
 
         private Listener<AuthSession>? clientListener;
 

@@ -6,9 +6,11 @@ using Server.Utill.Interface;
 
 namespace Server.Utill
 {
-    public class SessionManager<TSession>(ILogFactory logFactory, IPacketManager packetManager) where TSession : Session, ILogCreater<TSession>
+    public class SessionManager<TSession, TPacketManager>(ILogFactory logFactory, TPacketManager packetManager) 
+        where TSession : Session, ILogCreater<TSession>
+        where TPacketManager : IPacketManager
     {
-        private readonly ILog log = logFactory.CreateLogger<SessionManager<TSession>>();
+        private readonly ILog log = logFactory.CreateLogger<SessionManager<TSession, TPacketManager>>();
         private readonly IPacketManager packetManager = packetManager;
 
         int sessionId = 0;
