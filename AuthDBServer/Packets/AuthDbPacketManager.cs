@@ -1,37 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PacketManagerGenerator
-{
-    public class PacketManagerFormat
-    {
-        // {0} using 등록
-		// {1} 패킷매니저명 등록
-		// {2} 패킷 등록
-        public static string managerFormat =
-@"using Google.Protobuf;
+using Google.Protobuf;
 using Server.Core;
 using System;
 using System.Collections.Generic;
 using Server.Core.Interface;
 using Server.Utill;
 using log4net;
-{0}
+using AuthDBServer.Packets;
+using Server.Data.AuthDb;
 
-public class {1}PacketManager : IPacketManager
-{{
+
+public class AuthDbPacketManager : IPacketManager
+{
     private readonly ILog log;
-	private readonly {1}PacketHandler packetHandler;
+	private readonly AuthDbPacketHandler packetHandler;
 
-	public {1}PacketManager(ILogFactory logFactory, {1}PacketHandler packetHandler)
-	{{
-		log = logFactory.CreateLogger<{1}PacketManager>();
+	public AuthDbPacketManager(ILogFactory logFactory, AuthDbPacketHandler packetHandler)
+	{
+		log = logFactory.CreateLogger<AuthDbPacketManager>();
 		this.packetHandler = packetHandler;
 		Register();
-	}}
+	}
 
 	private Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
 	private Dictionary<ushort, Action<PacketSession, IMessage>> handler = [];
@@ -39,12 +27,16 @@ public class {1}PacketManager : IPacketManager
 	public Action<PacketSession, IMessage, ushort>? CustomHandler;
 
 	private void Register()
-	{{
-		{2}
-	}}
+	{
+				
+		onRecv.Add((ushort)AuthDbPacketId.AdServerState, MakePacket<AdServerState>);
+		handler.Add((ushort)AuthDbPacketId.AdServerState, packetHandler.AdServerStateHandler);		
+		onRecv.Add((ushort)AuthDbPacketId.AdGetAccountVerifyInfo, MakePacket<AdGetAccountVerifyInfo>);
+		handler.Add((ushort)AuthDbPacketId.AdGetAccountVerifyInfo, packetHandler.AdGetAccountVerifyInfoHandler);
+	}
 
 	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)
-	{{
+	{
 		ushort count = 0;
         var span = buffer.Span;
 
@@ -56,33 +48,23 @@ public class {1}PacketManager : IPacketManager
 		Action<PacketSession, ReadOnlyMemory<byte>, ushort> action = null;
 		if (onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
-	}}
+	}
 
 	private void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
-	{{
+	{
 		T pkt = new T();       
 
         pkt.MergeFrom(buffer.Span.Slice(4)); // Skip 4바이트 (size + id)
 
 		if(CustomHandler != null)
-		{{
+		{
 			CustomHandler.Invoke(session, pkt, id);
-		}}
+		}
 		else
-		{{
+		{
             Action<PacketSession, IMessage> action = null;
             if (handler.TryGetValue(id, out action))
                 action.Invoke(session, pkt);
-        }}		
-	}}
-}}";
-
-        // {0} MsgId
-        // {1} 패킷 이름
-        // {1} 패킷 핸들러 이름
-        public static string managerRegisterFormat =
-@"		
-		onRecv.Add((ushort){0}.{1}, MakePacket<{1}>);
-		handler.Add((ushort){0}.{1}, packetHandler.{1}Handler);";
-    }
+        }		
+	}
 }

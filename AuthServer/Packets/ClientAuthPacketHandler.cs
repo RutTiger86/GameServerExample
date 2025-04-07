@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Packets
 {
-    internal class ClientAuthPacketHandler
+    public class ClientAuthPacketHandler
     {
-        public static void CaServerStateHandler(PacketSession session, IMessage packet)
+        public void CaServerStateHandler(PacketSession session, IMessage packet)
         {
 
         }
-        public static void CaLoginHandler(PacketSession session, IMessage packet)
+
+        public void CaLoginHandler(PacketSession session, IMessage packet)
         {
             CaLogin caLogin = packet as CaLogin;
             ClientSession clientSession = session as ClientSession;
@@ -32,19 +33,17 @@ namespace AuthServer.Packets
                 PasswordHash = caLogin.HashPassword
             };
 
-            Console.WriteLine($"SessionId : {clientSession.SessionId}, ID : {caLogin.AccountId}, PW : {caLogin.HashPassword}");
-
             //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 
             if (AuthDBSession.Instance != null)
             {
                 AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId);
             }
         }
-        public static void CaWorldListHandler(PacketSession session, IMessage packet)
+        public void CaWorldListHandler(PacketSession session, IMessage packet)
         {
 
         }
-        public static void CaEnterWorldHandler(PacketSession session, IMessage packet)
+        public void CaEnterWorldHandler(PacketSession session, IMessage packet)
         {
 
         }

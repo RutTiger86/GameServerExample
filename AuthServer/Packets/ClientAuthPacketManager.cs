@@ -2,38 +2,41 @@ using Google.Protobuf;
 using Server.Core;
 using System;
 using System.Collections.Generic;
+using Server.Core.Interface;
+using Server.Utill;
+using log4net;
 using AuthServer.Packets;
 using Server.Data.ClientAuth;
 
 
-class ClientAuthPacketManager
+public class ClientAuthPacketManager : IPacketManager
 {
-	#region Singleton
-	static ClientAuthPacketManager _instance = new ClientAuthPacketManager();
-	public static ClientAuthPacketManager Instance { get { return _instance; } }
-	#endregion
+    private readonly ILog log;
+	private readonly ClientAuthPacketHandler packetHandler;
 
-	ClientAuthPacketManager()
+	public ClientAuthPacketManager(ILogFactory logFactory, ClientAuthPacketHandler packetHandler)
 	{
+		log = logFactory.CreateLogger<ClientAuthPacketManager>();
+		this.packetHandler = packetHandler;
 		Register();
 	}
 
-	Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
+	private Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
+	private Dictionary<ushort, Action<PacketSession, IMessage>> handler = [];
 
-	public Action<PacketSession, IMessage, ushort> CustomHandler;
+	public Action<PacketSession, IMessage, ushort>? CustomHandler;
 
-	public void Register()
+	private void Register()
 	{
 				
-		_onRecv.Add((ushort)ClientAuthPacketId.CaServerState, MakePacket<CaServerState>);
-		_handler.Add((ushort)ClientAuthPacketId.CaServerState, ClientAuthPacketHandler.CaServerStateHandler);		
-		_onRecv.Add((ushort)ClientAuthPacketId.CaLogin, MakePacket<CaLogin>);
-		_handler.Add((ushort)ClientAuthPacketId.CaLogin, ClientAuthPacketHandler.CaLoginHandler);		
-		_onRecv.Add((ushort)ClientAuthPacketId.CaWorldList, MakePacket<CaWorldList>);
-		_handler.Add((ushort)ClientAuthPacketId.CaWorldList, ClientAuthPacketHandler.CaWorldListHandler);		
-		_onRecv.Add((ushort)ClientAuthPacketId.CaEnterWorld, MakePacket<CaEnterWorld>);
-		_handler.Add((ushort)ClientAuthPacketId.CaEnterWorld, ClientAuthPacketHandler.CaEnterWorldHandler);
+		onRecv.Add((ushort)ClientAuthPacketId.CaServerState, MakePacket<CaServerState>);
+		handler.Add((ushort)ClientAuthPacketId.CaServerState, packetHandler.CaServerStateHandler);		
+		onRecv.Add((ushort)ClientAuthPacketId.CaLogin, MakePacket<CaLogin>);
+		handler.Add((ushort)ClientAuthPacketId.CaLogin, packetHandler.CaLoginHandler);		
+		onRecv.Add((ushort)ClientAuthPacketId.CaWorldList, MakePacket<CaWorldList>);
+		handler.Add((ushort)ClientAuthPacketId.CaWorldList, packetHandler.CaWorldListHandler);		
+		onRecv.Add((ushort)ClientAuthPacketId.CaEnterWorld, MakePacket<CaEnterWorld>);
+		handler.Add((ushort)ClientAuthPacketId.CaEnterWorld, packetHandler.CaEnterWorldHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)
@@ -47,11 +50,11 @@ class ClientAuthPacketManager
         count += 2;
 
 		Action<PacketSession, ReadOnlyMemory<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
+		if (onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
 
-	void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
+	private void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
 	{
 		T pkt = new T();       
 
@@ -64,16 +67,8 @@ class ClientAuthPacketManager
 		else
 		{
             Action<PacketSession, IMessage> action = null;
-            if (_handler.TryGetValue(id, out action))
+            if (handler.TryGetValue(id, out action))
                 action.Invoke(session, pkt);
         }		
-	}
-
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
 	}
 }

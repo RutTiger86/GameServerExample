@@ -36,6 +36,21 @@ namespace PacketManagerGenerator
                 File.WriteAllText($@"{outputPath}\AuthServer\Packets\{fileName}PacketManager.cs", authServerManagerText);
             }
 
+            var authDbProtoFiles = protoFiles
+                .Where(file => Path.GetFileName(file).Contains("AuthDb", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            string authDbPattern = @"\b[A-Z]D_";
+
+            foreach (string protoFile in authDbProtoFiles)
+            {
+                string fileName = Path.GetFileName(protoFile).Split(".")[0];
+                string usingString = $"using AuthDBServer.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";
+
+                string authServerManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, authDbPattern));
+                File.WriteAllText($@"{outputPath}\AuthDBServer\Packets\{fileName}PacketManager.cs", authServerManagerText);
+            }
+
         }
 
         public static string CrateFormatString(string file, string pattern)
@@ -68,9 +83,8 @@ namespace PacketManagerGenerator
                 if (Regex.IsMatch(name, pattern))
                 {
                     string packetName = name.ToPascalCase();
-                    string packetHandlerName = Path.GetFileName(file).Split(".")[0];
 
-                    registerFormat += string.Format(PacketManagerFormat.managerRegisterFormat, enumName, packetName, packetHandlerName);
+                    registerFormat += string.Format(PacketManagerFormat.managerRegisterFormat, enumName, packetName);
                 }
             }
 

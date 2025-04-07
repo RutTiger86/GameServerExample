@@ -9,6 +9,7 @@ using AuthDB.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using AuthDBServer.Packets;
 
 namespace AuthDBServer
 {
@@ -78,6 +79,8 @@ namespace AuthDBServer
         {
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
+            services.AddSingleton<AuthDbPacketHandler>();               // config
+            services.AddSingleton<AuthDbPacketManager>();               // config
             services.AddSingleton<AuthDBServer>();
         }
     }

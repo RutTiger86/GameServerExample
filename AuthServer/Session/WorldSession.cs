@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.WorldAuth;
 using Server.Utill;
 using Server.Utill.Interface;
@@ -8,13 +9,13 @@ using System.Net;
 
 namespace AuthServer.Session
 {
-    public class WorldSession(ILogFactory logFactory) : PacketSession, ILogCreater<WorldSession>
+    public class WorldSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession, ILogCreater<WorldSession>
     {
         private readonly ILog log = logFactory.CreateLogger<WorldSession>();
 
-        public static WorldSession Create(ILogFactory logFactory)
+        public static WorldSession Create(ILogFactory logFactory, IPacketManager packetManager)
         {
-            return new WorldSession(logFactory);
+            return new WorldSession(logFactory, packetManager);
         }
 
         public void Send(IMessage packet)

@@ -1,5 +1,5 @@
 ﻿using AuthDBServer.Models.Configs;
-using AuthServer.Session;
+using AuthDBServer.Session;
 using log4net;
 using Server.Core;
 using Server.Utill;
@@ -7,11 +7,11 @@ using System.Net;
 
 namespace AuthDBServer
 {
-    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager)
+    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, AuthDbPacketManager authPacketManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthDBServer>();
         private readonly ConfigManager<AppConfig> configManager = configManager;
-        private readonly SessionManager<AuthSession> authSessionManager = new  SessionManager<AuthSession>(logFactory);
+        private readonly SessionManager<AuthSession> authSessionManager = new(logFactory, authPacketManager);
 
         private Listener<AuthSession>? clientListener;
 

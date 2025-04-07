@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Packets
 {
-    internal class AuthDbPacketHandler
+    public class AuthDbPacketHandler
     {
-        public static void DaServerStateHandler(PacketSession session, IMessage packet)
+        public void DaServerStateHandler(PacketSession session, IMessage packet)
         {
 
         }
 
-        public static void DaGetAccountVerifyInfoHandler(PacketSession session, IMessage packet)
+        public void DaGetAccountVerifyInfoHandler(PacketSession session, IMessage packet)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using Server.Core;
+using Server.Core.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Server.Utill.Interface
 {
     public interface ILogCreater<TSession>
     {
-       abstract static TSession Create(ILogFactory logFactory);
+       abstract static TSession Create(ILogFactory logFactory, IPacketManager packetManager);
     }
 }

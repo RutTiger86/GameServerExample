@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Packets
 {
-    internal class WorldAuthPacketHandler
+    public class WorldAuthPacketHandler
     {
-        public static void WaServerStateHandler(PacketSession session, IMessage packet)
+        public void WaServerStateHandler(PacketSession session, IMessage packet)
         {
 
         }

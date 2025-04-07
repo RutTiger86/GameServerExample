@@ -1,20 +1,22 @@
 ﻿using Google.Protobuf;
 using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
 using Server.Utill.Interface;
 using System.Net;
 
-namespace AuthServer.Session
+namespace AuthDBServer.Session
 {
-    public class AuthSession(ILogFactory logFactory) : PacketSession , ILogCreater<AuthSession>
+    public class AuthSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession , ILogCreater<AuthSession>
     {
         private readonly ILog log = logFactory.CreateLogger<AuthSession>();
+        private readonly IPacketManager packetManager = packetManager;
 
-        public static AuthSession Create(ILogFactory logFactory)
+        public static AuthSession Create(ILogFactory logFactory, IPacketManager packetManager)
         {
-            return new AuthSession(logFactory);
+            return new AuthSession(logFactory, packetManager);
         }
 
         public void Send(IMessage packet)
@@ -33,17 +35,17 @@ namespace AuthServer.Session
 
         public override void OnConnected(EndPoint endPoint)
         {
-            log.Info($"AuthSession OnConnected : {endPoint}");
+            log.Info($"AuthDBSession OnConnected : {endPoint}");
         }
 
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
-            log.Info($"AuthSession OnRecvPacket");
+            packetManager.OnRecvPacket(this, buffer);
         }
 
         public override void OnDisconnected(EndPoint endPoint)
         {
-            log.Info($"AuthSession OnDisconnected : {endPoint}");
+            log.Info($"AuthDBSession OnDisconnected : {endPoint}");
         }
 
         public override void OnSend(int numOfBytes)

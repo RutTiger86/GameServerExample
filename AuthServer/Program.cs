@@ -1,4 +1,5 @@
 ﻿using AuthServer.Models.Configs;
+using AuthServer.Packets;
 using log4net;
 using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,6 +72,14 @@ namespace AuthServer
         {
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
+
+            services.AddSingleton<AuthDbPacketHandler>();               
+            services.AddSingleton<AuthDbPacketManager>(); 
+            services.AddSingleton<ClientAuthPacketHandler>();
+            services.AddSingleton<ClientAuthPacketManager>(); 
+            services.AddSingleton<WorldAuthPacketHandler>();
+            services.AddSingleton<WorldAuthPacketManager>();
+
             services.AddSingleton<AuthServer>();
         }
     }

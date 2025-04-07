@@ -2,6 +2,7 @@
 using Google.Protobuf;
 using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.ClientAuth;
 using Server.Utill;
 using Server.Utill.Interface;
@@ -9,14 +10,15 @@ using System.Net;
 
 namespace AuthServer.Session
 {
-    public class ClientSession(ILogFactory logFactory) : PacketSession , ILogCreater<ClientSession>
+    public class ClientSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession , ILogCreater<ClientSession>
     {
         private readonly ILog log = logFactory.CreateLogger<ClientSession>();
+        private readonly IPacketManager packetManager = packetManager;
 
         public LoginInfo? LoginInfo { get; set; }
-        public static ClientSession Create(ILogFactory logFactory)
+        public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager)
         {
-            return new ClientSession(logFactory);
+            return new ClientSession(logFactory, packetManager);
         }
 
         public void Send(IMessage packet)
@@ -39,7 +41,7 @@ namespace AuthServer.Session
 
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
-            ClientAuthPacketManager.Instance.OnRecvPacket(this, buffer);
+            packetManager.OnRecvPacket(this, buffer);
         }
 
         public override void OnDisconnected(EndPoint endPoint)

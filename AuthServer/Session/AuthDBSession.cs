@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
 using Server.Utill.Interface;
@@ -13,9 +14,11 @@ namespace AuthServer.Session
         public static AuthDBSession? Instance { get; private set; }
 
         private readonly ILog log;
-        public AuthDBSession(ILogFactory logFactory)
+        private readonly IPacketManager packetManager;
+        public AuthDBSession(ILogFactory logFactory, IPacketManager packetManager)
         {
             log = logFactory.CreateLogger<AuthDBSession>();
+            this.packetManager = packetManager;
             Instance = this;
         }
 
@@ -49,7 +52,7 @@ namespace AuthServer.Session
 
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
-            AuthDbPacketManager.Instance.OnRecvPacket(this, buffer);
+            packetManager.OnRecvPacket(this, buffer);
         }
 
         public override void OnDisconnected(EndPoint endPoint)

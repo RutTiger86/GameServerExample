@@ -2,32 +2,35 @@ using Google.Protobuf;
 using Server.Core;
 using System;
 using System.Collections.Generic;
+using Server.Core.Interface;
+using Server.Utill;
+using log4net;
 using AuthServer.Packets;
 using Server.Data.WorldAuth;
 
 
-class WorldAuthPacketManager
+public class WorldAuthPacketManager : IPacketManager
 {
-	#region Singleton
-	static WorldAuthPacketManager _instance = new WorldAuthPacketManager();
-	public static WorldAuthPacketManager Instance { get { return _instance; } }
-	#endregion
+    private readonly ILog log;
+	private readonly WorldAuthPacketHandler packetHandler;
 
-	WorldAuthPacketManager()
+	public WorldAuthPacketManager(ILogFactory logFactory, WorldAuthPacketHandler packetHandler)
 	{
+		log = logFactory.CreateLogger<WorldAuthPacketManager>();
+		this.packetHandler = packetHandler;
 		Register();
 	}
 
-	Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
+	private Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
+	private Dictionary<ushort, Action<PacketSession, IMessage>> handler = [];
 
-	public Action<PacketSession, IMessage, ushort> CustomHandler;
+	public Action<PacketSession, IMessage, ushort>? CustomHandler;
 
-	public void Register()
+	private void Register()
 	{
 				
-		_onRecv.Add((ushort)WorldAuthPacketId.WaServerState, MakePacket<WaServerState>);
-		_handler.Add((ushort)WorldAuthPacketId.WaServerState, WorldAuthPacketHandler.WaServerStateHandler);
+		onRecv.Add((ushort)WorldAuthPacketId.WaServerState, MakePacket<WaServerState>);
+		handler.Add((ushort)WorldAuthPacketId.WaServerState, packetHandler.WaServerStateHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)
@@ -41,11 +44,11 @@ class WorldAuthPacketManager
         count += 2;
 
 		Action<PacketSession, ReadOnlyMemory<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
+		if (onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
 
-	void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
+	private void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
 	{
 		T pkt = new T();       
 
@@ -58,16 +61,8 @@ class WorldAuthPacketManager
 		else
 		{
             Action<PacketSession, IMessage> action = null;
-            if (_handler.TryGetValue(id, out action))
+            if (handler.TryGetValue(id, out action))
                 action.Invoke(session, pkt);
         }		
-	}
-
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
 	}
 }

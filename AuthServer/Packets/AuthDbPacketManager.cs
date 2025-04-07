@@ -2,34 +2,37 @@ using Google.Protobuf;
 using Server.Core;
 using System;
 using System.Collections.Generic;
+using Server.Core.Interface;
+using Server.Utill;
+using log4net;
 using AuthServer.Packets;
 using Server.Data.AuthDb;
 
 
-class AuthDbPacketManager
+public class AuthDbPacketManager : IPacketManager
 {
-	#region Singleton
-	static AuthDbPacketManager _instance = new AuthDbPacketManager();
-	public static AuthDbPacketManager Instance { get { return _instance; } }
-	#endregion
+    private readonly ILog log;
+	private readonly AuthDbPacketHandler packetHandler;
 
-	AuthDbPacketManager()
+	public AuthDbPacketManager(ILogFactory logFactory, AuthDbPacketHandler packetHandler)
 	{
+		log = logFactory.CreateLogger<AuthDbPacketManager>();
+		this.packetHandler = packetHandler;
 		Register();
 	}
 
-	Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
+	private Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
+	private Dictionary<ushort, Action<PacketSession, IMessage>> handler = [];
 
-	public Action<PacketSession, IMessage, ushort> CustomHandler;
+	public Action<PacketSession, IMessage, ushort>? CustomHandler;
 
-	public void Register()
+	private void Register()
 	{
 				
-		_onRecv.Add((ushort)AuthDbPacketId.DaServerState, MakePacket<DaServerState>);
-		_handler.Add((ushort)AuthDbPacketId.DaServerState, AuthDbPacketHandler.DaServerStateHandler);		
-		_onRecv.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, MakePacket<DaGetAccountVerifyInfo>);
-		_handler.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, AuthDbPacketHandler.DaGetAccountVerifyInfoHandler);
+		onRecv.Add((ushort)AuthDbPacketId.DaServerState, MakePacket<DaServerState>);
+		handler.Add((ushort)AuthDbPacketId.DaServerState, packetHandler.DaServerStateHandler);		
+		onRecv.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, MakePacket<DaGetAccountVerifyInfo>);
+		handler.Add((ushort)AuthDbPacketId.DaGetAccountVerifyInfo, packetHandler.DaGetAccountVerifyInfoHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)
@@ -43,11 +46,11 @@ class AuthDbPacketManager
         count += 2;
 
 		Action<PacketSession, ReadOnlyMemory<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
+		if (onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
 
-	void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
+	private void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
 	{
 		T pkt = new T();       
 
@@ -60,16 +63,8 @@ class AuthDbPacketManager
 		else
 		{
             Action<PacketSession, IMessage> action = null;
-            if (_handler.TryGetValue(id, out action))
+            if (handler.TryGetValue(id, out action))
                 action.Invoke(session, pkt);
         }		
-	}
-
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
 	}
 }

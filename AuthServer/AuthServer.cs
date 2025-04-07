@@ -7,12 +7,11 @@ using System.Net;
 
 namespace AuthServer
 {
-    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager)
+    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, ClientAuthPacketManager clientAuthPacketManager, AuthDbPacketManager authDbPacketManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthServer>();
         private readonly ConfigManager<AppConfig> configManager = configManager;
-
-        private readonly SessionManager<ClientSession> clientSessionManager = new SessionManager<ClientSession>(logFactory);
+        private readonly SessionManager<ClientSession> clientSessionManager = new(logFactory, clientAuthPacketManager);
         private Listener<ClientSession>? clientListener;
 
 
@@ -42,7 +41,7 @@ namespace AuthServer
 
             if (IPAddress.TryParse(serverConfig.ConnectIP, out IPAddress? address))
             {
-                authDbSession = new AuthDBSession(logFactory);
+                authDbSession = new AuthDBSession(logFactory, authDbPacketManager);
                 connector = new Connector<AuthDBSession>(() => authDbSession);
                 await connector.StartConnectorAsync(new IPEndPoint(address, serverConfig.ConnectPort));
             }
