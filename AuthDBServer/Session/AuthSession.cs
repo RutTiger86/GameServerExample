@@ -6,6 +6,7 @@ using Server.Data.AuthDb;
 using Server.Utill;
 using Server.Utill.Interface;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AuthDBServer.Session
 {
@@ -14,7 +15,7 @@ namespace AuthDBServer.Session
         private readonly ILog log = logFactory.CreateLogger<AuthSession>();
         private readonly IPacketManager packetManager = packetManager;
 
-        public static AuthSession Create(ILogFactory logFactory, IPacketManager packetManager)
+        public static AuthSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
         {
             return new AuthSession(logFactory, packetManager);
         }

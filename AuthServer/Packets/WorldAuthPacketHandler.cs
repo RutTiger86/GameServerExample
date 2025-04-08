@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Server.Core;
+using Server.Core.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace AuthServer.Packets
 {
     public class WorldAuthPacketHandler
     {
-        public void WaServerStateHandler(PacketSession session, IMessage packet)
+        public void WaServerStateHandler(ISession session, IMessage packet)
         {
 
         }

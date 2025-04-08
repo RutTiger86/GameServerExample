@@ -7,18 +7,32 @@ using Server.Data.ClientAuth;
 using Server.Utill;
 using Server.Utill.Interface;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AuthServer.Session
 {
-    public class ClientSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession , ILogCreater<ClientSession>
+    public class ClientSession : SecurePacketServerSession, ILogCreater<ClientSession>
     {
-        private readonly ILog log = logFactory.CreateLogger<ClientSession>();
-        private readonly IPacketManager packetManager = packetManager;
+        private readonly ILog log ;
+        private readonly IPacketManager packetManager;
 
         public LoginInfo? LoginInfo { get; set; }
-        public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager)
+
+        public ClientSession(X509Certificate2 cert, ILogFactory logFactory, IPacketManager packetManager)
+       : base(cert)
         {
-            return new ClientSession(logFactory, packetManager);
+            log = logFactory.CreateLogger<ClientSession>();
+            this.packetManager = packetManager;
+        }
+
+        public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
+        {
+            if (cert == null)
+            {
+                throw new ArgumentNullException("cert is Null");
+            }
+
+            return new ClientSession(cert,logFactory, packetManager);
         }
 
         public void Send(IMessage packet)
@@ -53,7 +67,5 @@ namespace AuthServer.Session
         {
 
         }
-
-       
     }
 }

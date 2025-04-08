@@ -1,6 +1,8 @@
-﻿namespace Server.Core
+﻿using Server.Core.Interface;
+
+namespace Server.Core
 {
-    public abstract class PacketSession : Session
+    public abstract class PacketSession : Session , IPacketSession
     {
         public static readonly int HeaderSize = 4; // size(2) + packetId(2)
         

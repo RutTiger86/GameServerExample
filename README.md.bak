@@ -120,7 +120,7 @@ dotnet run --project AuthServer
 
 이 저장소에 포함된 `mycert.pfx`는 로컬 테스트용 TLS 인증서입니다.
 
-- CN: `127.0.0.1`
+- CN: `localhost`
 - 비밀번호: `1234`
 - 보안성이 없으며, 실제 서비스에 절대 사용하지 마세요.
 - 외부 공개용 TLS 인증서가 필요하다면 정식 CA 또는 Let's Encrypt를 사용하세요.

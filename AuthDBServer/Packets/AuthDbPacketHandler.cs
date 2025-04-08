@@ -3,6 +3,7 @@ using AuthDBServer.Session;
 using Google.Protobuf;
 using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
 using System;
@@ -20,11 +21,11 @@ namespace AuthDBServer.Packets
         private readonly ILog log = logFactory.CreateLogger<AuthDBServer>();
         private readonly IAuthRepository authRepository = authRepository;
 
-        public void AdServerStateHandler(PacketSession session, IMessage packet)
+        public void AdServerStateHandler(ISession session, IMessage packet)
         {
         }
 
-        public async void AdGetAccountVerifyInfoHandler(PacketSession session, IMessage packet)
+        public async void AdGetAccountVerifyInfoHandler(ISession session, IMessage packet)
         {
             AdGetAccountVerifyInfo? adGetAccountVerifyInfo = packet as AdGetAccountVerifyInfo;
             AuthSession? authSession = session as AuthSession;

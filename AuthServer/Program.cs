@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Utill;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AuthServer
 {
@@ -35,7 +36,12 @@ namespace AuthServer
                 return;
             }
 
-            // 04. 서버 시작 예시
+            //04. 인증서 등록 
+            var clientSessionManager = AppHost.Services.GetRequiredService<SessionManager<ClientSession, ClientAuthPacketManager>>();
+            var cert = new X509Certificate2(configManager.config.Secure.CertPath, configManager.config.Secure.CertPassworld);
+            clientSessionManager.SetCert(cert);
+
+            // 05. 서버 시작 예시
             var server = AppHost.Services.GetRequiredService<AuthServer>();
             server.Start();
 

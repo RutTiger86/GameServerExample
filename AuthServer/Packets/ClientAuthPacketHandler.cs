@@ -1,7 +1,10 @@
 ﻿using AuthServer.Session;
 using Google.Protobuf;
+using log4net;
 using Server.Core;
+using Server.Core.Interface;
 using Server.Data.ClientAuth;
+using Server.Utill;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +13,18 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Packets
 {
-    public class ClientAuthPacketHandler
+    public class ClientAuthPacketHandler(ILogFactory logFactory)
     {
-        public void CaServerStateHandler(PacketSession session, IMessage packet)
+        private readonly ILog log = logFactory.CreateLogger<ClientAuthPacketHandler>();
+        public void CaServerStateHandler(ISession session, IMessage packet)
         {
 
         }
 
-        public void CaLoginHandler(PacketSession session, IMessage packet)
+        public void CaLoginHandler(ISession session, IMessage packet)
         {
-            CaLogin caLogin = packet as CaLogin;
-            ClientSession clientSession = session as ClientSession;
+            CaLogin? caLogin = packet as CaLogin;
+            ClientSession? clientSession = session as ClientSession;
 
             if(caLogin == null || clientSession == null)
             {
@@ -39,11 +43,11 @@ namespace AuthServer.Packets
                 AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId, clientSession.SessionId);
             }
         }
-        public void CaWorldListHandler(PacketSession session, IMessage packet)
+        public void CaWorldListHandler(ISession session, IMessage packet)
         {
 
         }
-        public void CaEnterWorldHandler(PacketSession session, IMessage packet)
+        public void CaEnterWorldHandler(ISession session, IMessage packet)
         {
 
         }

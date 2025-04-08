@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,9 @@ namespace DummyClient.Service
         }
 
         private Connector<AuthSession>? connector;
+        public AuthService()
+        {
+        }
 
         public void SetAuthCommand(string command)
         {
@@ -46,7 +50,7 @@ namespace DummyClient.Service
         {
             if (IPAddress.TryParse(IpAddr, out IPAddress? address))
             {
-                authSession = new AuthSession();
+                authSession = new AuthSession(IpAddr);
                 connector = new Connector<AuthSession>(() => authSession);
                 await connector.StartConnectorAsync(new IPEndPoint(address, port));
             }

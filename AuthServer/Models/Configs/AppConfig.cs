@@ -10,5 +10,6 @@ namespace AuthServer.Models.Configs
     {
         public AuthServerSetting? AuthServer { get; set; }
         public AuthDBServerSetting? AuthDBServer { get; set; }
+        public SecureSetting? Secure { get; set; }
     }
 }

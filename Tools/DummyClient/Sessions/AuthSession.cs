@@ -6,13 +6,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DummyClient.Sessions
 {
-    public class AuthSession : PacketSession
+    public class AuthSession : SecurePacketClientSession
     {
+        public AuthSession(string hostName, SslProtocols sslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13) : base(hostName, sslProtocols)
+        {
+
+        }
+
         public void Send(IMessage packet)
         {
             string packName = packet.Descriptor.Name;

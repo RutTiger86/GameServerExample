@@ -33,4 +33,10 @@
     <Folder Include="Commons\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\Certs\testcert.pfx" Link="testcert.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

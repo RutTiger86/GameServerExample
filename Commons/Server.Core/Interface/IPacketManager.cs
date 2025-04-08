@@ -2,6 +2,7 @@
 {
     public  interface IPacketManager
     {
-        public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer);
+        public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer);
     }
+
 }

@@ -1,19 +1,10 @@
-﻿using System.Buffers;
+﻿using Server.Core.Interface;
+using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 
 namespace Server.Core
 {
-    public interface ISession
-    {
-        public Action<Exception>? ErrorHandler { get; set; }
-        public void Start(Socket socket);
-        public abstract void OnConnected(EndPoint endPoint);
-        public abstract int OnRecv(ArraySegment<byte> buffer);
-        public abstract void OnSend(int numOfBytes);
-        public abstract void OnDisconnected(EndPoint endPoint);
-    }
-
     public abstract class Session : ISession
     {
         public int SessionId { get; set; }
@@ -29,7 +20,6 @@ namespace Server.Core
 
         public Action<Exception> ErrorHandler { get; set; } = ex => Console.WriteLine($"[ERROR] {ex.Message}{Environment.NewLine}{ex}");
 
-
         private readonly SocketAsyncEventArgs sendArgs;
         private readonly SocketAsyncEventArgs recvArgs;
 
@@ -42,7 +32,7 @@ namespace Server.Core
 
         protected Session()
         {
-            sendArgs = new(); 
+            sendArgs = new();
             recvArgs = new();
 
             recvArgs.Completed += OnRecvCompleted;
@@ -236,5 +226,4 @@ namespace Server.Core
         #endregion
 
     }
-
 }

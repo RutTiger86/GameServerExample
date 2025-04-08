@@ -21,10 +21,10 @@ public class ClientAuthPacketManager : IPacketManager
 		Register();
 	}
 
-	private Dictionary<ushort, Action<PacketSession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
-	private Dictionary<ushort, Action<PacketSession, IMessage>> handler = [];
+	private Dictionary<ushort, Action<ISession, ReadOnlyMemory<byte>, ushort>> onRecv = [];
+	private Dictionary<ushort, Action<ISession, IMessage>> handler = [];
 
-	public Action<PacketSession, IMessage, ushort>? CustomHandler;
+	public Action<ISession, IMessage, ushort>? CustomHandler;
 
 	private void Register()
 	{
@@ -39,7 +39,7 @@ public class ClientAuthPacketManager : IPacketManager
 		handler.Add((ushort)ClientAuthPacketId.CaEnterWorld, packetHandler.CaEnterWorldHandler);
 	}
 
-	public void OnRecvPacket(PacketSession session, ReadOnlyMemory<byte> buffer)
+	public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)
 	{
 		ushort count = 0;
         var span = buffer.Span;
@@ -49,16 +49,16 @@ public class ClientAuthPacketManager : IPacketManager
         ushort id = BitConverter.ToUInt16(span.Slice(count, 2));
         count += 2;
 
-		Action<PacketSession, ReadOnlyMemory<byte>, ushort> action = null;
+		Action<ISession, ReadOnlyMemory<byte>, ushort> action = null;
 		if (onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
 
-	private void MakePacket<T>(PacketSession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
+	private void MakePacket<T>(ISession session, ReadOnlyMemory<byte> buffer, ushort id) where T : IMessage, new()
 	{
 		T pkt = new T();       
 
-        pkt.MergeFrom(buffer.Span.Slice(4)); // Skip 4바이트 (size + id)
+        pkt.MergeFrom(buffer.Span.Slice(4)); // Skip 4바이??(size + id)
 
 		if(CustomHandler != null)
 		{
@@ -66,7 +66,7 @@ public class ClientAuthPacketManager : IPacketManager
 		}
 		else
 		{
-            Action<PacketSession, IMessage> action = null;
+            Action<ISession, IMessage> action = null;
             if (handler.TryGetValue(id, out action))
                 action.Invoke(session, pkt);
         }		

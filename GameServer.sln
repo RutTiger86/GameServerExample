@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DummyClient", "Tools\DummyC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Utill", "Commons\Server.Utill\Server.Utill.csproj", "{4C405265-8E06-4096-A1C1-EFBA43C271F2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certs", "Certs", "{C3AC11B4-7BBB-4559-97BF-FDFE00DAB01B}"
+	ProjectSection(SolutionItems) = preProject
+		Certs\testcert.pfx = Certs\testcert.pfx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

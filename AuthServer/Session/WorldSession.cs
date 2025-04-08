@@ -6,6 +6,7 @@ using Server.Data.WorldAuth;
 using Server.Utill;
 using Server.Utill.Interface;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AuthServer.Session
 {
@@ -13,7 +14,7 @@ namespace AuthServer.Session
     {
         private readonly ILog log = logFactory.CreateLogger<WorldSession>();
 
-        public static WorldSession Create(ILogFactory logFactory, IPacketManager packetManager)
+        public static WorldSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
         {
             return new WorldSession(logFactory, packetManager);
         }
