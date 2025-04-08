@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace AuthDBServer.Session
 {
-    public class AuthSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession , ILogCreater<AuthSession>
+    public class AuthSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession, ILogCreater<AuthSession>
     {
         private readonly ILog log = logFactory.CreateLogger<AuthSession>();
         private readonly IPacketManager packetManager = packetManager;
@@ -24,8 +24,8 @@ namespace AuthDBServer.Session
         {
             string packName = packet.Descriptor.Name;
 
-            AuthDbPacketId packetId  = (AuthDbPacketId)Enum.Parse(typeof(AuthDbPacketId), packName);
-            
+            AuthDbPacketId packetId = (AuthDbPacketId)Enum.Parse(typeof(AuthDbPacketId), packName);
+
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
@@ -54,6 +54,6 @@ namespace AuthDBServer.Session
 
         }
 
-       
+
     }
 }

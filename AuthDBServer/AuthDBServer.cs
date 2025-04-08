@@ -30,8 +30,8 @@ namespace AuthDBServer
 
             try
             {
-                IPEndPoint endPoint =  new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
-                clientListener = new Listener<AuthSession>(endPoint, authSessionManager.Generate, serverConfig.Backlog , HandleClientListenerError);
+                IPEndPoint endPoint = new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
+                clientListener = new Listener<AuthSession>(endPoint, authSessionManager.Generate, serverConfig.Backlog, HandleClientListenerError);
                 clientListener.StartListener(serverConfig.MaxAcceptCount);
 
                 log.Info($"[AuthDBServer] Server listening on {serverConfig.ListenIP}:{serverConfig.ListenPort}");

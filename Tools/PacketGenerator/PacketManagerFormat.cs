@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PacketManagerGenerator
+﻿namespace PacketManagerGenerator
 {
     public class PacketManagerFormat
     {
         // {0} using 등록
-		// {1} 패킷매니저명 등록
-		// {2} 패킷 등록
+        // {1} 패킷매니저명 등록
+        // {2} 패킷 등록
         public static string managerFormat =
 @"using Google.Protobuf;
 using Server.Core;

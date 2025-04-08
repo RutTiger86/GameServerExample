@@ -1,13 +1,11 @@
 ﻿using log4net;
-using Server.Core;
 using Server.Core.Interface;
-using Server.Utill;
 using Server.Utill.Interface;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Server.Utill
 {
-    public class SessionManager<TSession, TPacketManager>(ILogFactory logFactory, TPacketManager packetManager) 
+    public class SessionManager<TSession, TPacketManager>(ILogFactory logFactory, TPacketManager packetManager)
         where TSession : ISession, ILogCreater<TSession>
         where TPacketManager : IPacketManager
     {

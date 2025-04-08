@@ -1,6 +1,4 @@
 ﻿using DummyClient.Handlers;
-using DummyClient.Service;
-using System.Text;
 
 namespace DummyClient
 {

@@ -1,15 +1,9 @@
 ﻿using AuthServer.Session;
 using Google.Protobuf;
 using log4net;
-using Server.Core;
 using Server.Core.Interface;
 using Server.Data.ClientAuth;
 using Server.Utill;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AuthServer.Packets
 {
@@ -26,7 +20,7 @@ namespace AuthServer.Packets
             CaLogin? caLogin = packet as CaLogin;
             ClientSession? clientSession = session as ClientSession;
 
-            if(caLogin == null || clientSession == null)
+            if (caLogin == null || clientSession == null)
             {
                 return;
             }
@@ -34,7 +28,7 @@ namespace AuthServer.Packets
             clientSession.LoginInfo = new Models.Account.LoginInfo()
             {
                 AccountId = caLogin.AccountId,
-                PasswordHash = caLogin.HashPassword
+                Password = caLogin.Password
             };
 
             //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 

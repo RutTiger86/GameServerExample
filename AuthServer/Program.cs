@@ -80,12 +80,12 @@ namespace AuthServer
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
-            services.AddSingleton<SessionManager<ClientSession,ClientAuthPacketManager>>();
+            services.AddSingleton<SessionManager<ClientSession, ClientAuthPacketManager>>();
 
-            services.AddSingleton<AuthDbPacketHandler>();               
-            services.AddSingleton<AuthDbPacketManager>(); 
+            services.AddSingleton<AuthDbPacketHandler>();
+            services.AddSingleton<AuthDbPacketManager>();
             services.AddSingleton<ClientAuthPacketHandler>();
-            services.AddSingleton<ClientAuthPacketManager>(); 
+            services.AddSingleton<ClientAuthPacketManager>();
             services.AddSingleton<WorldAuthPacketHandler>();
             services.AddSingleton<WorldAuthPacketManager>();
 

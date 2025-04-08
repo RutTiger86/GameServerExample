@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using AuthDB.Models;
+﻿using AuthDB.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthDB.Data
 {

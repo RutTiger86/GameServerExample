@@ -2,17 +2,9 @@
 using AuthDBServer.Session;
 using Google.Protobuf;
 using log4net;
-using Server.Core;
 using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AuthDBServer.Packets
 {
@@ -35,17 +27,18 @@ namespace AuthDBServer.Packets
                 log.Error("[ERROR] Wrong packet or Session by [AdGetAccountVerifyInfoHandler]");
                 return;
             }
-            
-            var account =  await authRepository.GetAccountByAccountId(adGetAccountVerifyInfo.AccountId);
+
+            var account = await authRepository.GetAccountByAccountId(adGetAccountVerifyInfo.AccountId);
 
             DaGetAccountVerifyInfo response = new DaGetAccountVerifyInfo()
             {
                 SessionId = adGetAccountVerifyInfo.SessionId,
                 AccountId = account?.AccountId,
                 AccountName = account?.AccountName,
-                Id = account==null? -1: account.Id,
+                Id = account == null ? -1 : account.Id,
                 LoginType = account == null ? 0 : (int)account.LoginType,
-                PasswordHash = account?.PasswordHash,               
+                PasswordHash = account?.PasswordHash != null ? ByteString.CopyFrom(account.PasswordHash) : ByteString.Empty,
+                Salt = account?.Salt != null ? ByteString.CopyFrom(account.Salt) : ByteString.Empty
             };
 
             authSession.Send(response);

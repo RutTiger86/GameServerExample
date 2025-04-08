@@ -22,8 +22,8 @@ namespace AuthServer.Session
         public void Send(IMessage packet)
         {
             string packName = packet.Descriptor.Name.Replace("_", string.Empty);
-            WorldAuthPacketId packetId  = (WorldAuthPacketId)Enum.Parse(typeof(WorldAuthPacketId), packName);
-            
+            WorldAuthPacketId packetId = (WorldAuthPacketId)Enum.Parse(typeof(WorldAuthPacketId), packName);
+
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));

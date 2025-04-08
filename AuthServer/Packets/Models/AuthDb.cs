@@ -25,21 +25,21 @@ namespace Server.Data.AuthDb {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgxBdXRoRGIucHJvdG8SEnNlcnZlci5kYXRhLmF1dGhkYiIPCg1EYVNlcnZl",
-            "clN0YXRlIg8KDUFkU2VydmVyU3RhdGUijAEKFkRhR2V0QWNjb3VudFZlcmlm",
+            "clN0YXRlIg8KDUFkU2VydmVyU3RhdGUimgEKFkRhR2V0QWNjb3VudFZlcmlm",
             "eUluZm8SEQoJU2Vzc2lvbklkGAEgASgFEgoKAmlkGAIgASgDEhIKCmxvZ2lu",
             "X3R5cGUYAyABKAUSEgoKYWNjb3VudF9pZBgEIAEoCRIUCgxhY2NvdW50X25h",
-            "bWUYBSABKAkSFQoNcGFzc3dvcmRfaGFzaBgGIAEoCSI+ChZBZEdldEFjY291",
-            "bnRWZXJpZnlJbmZvEhEKCUFjY291bnRJZBgBIAEoCRIRCglTZXNzaW9uSWQY",
-            "AiABKAUqegoOQXV0aERiUGFja2V0SWQSEwoPREFfU0VSVkVSX1NUQVRFEAAS",
-            "EwoPQURfU0VSVkVSX1NUQVRFEAESHgoaREFfR0VUX0FDQ09VTlRfVkVSSUZZ",
-            "X0lORk8QAhIeChpBRF9HRVRfQUNDT1VOVF9WRVJJRllfSU5GTxADQhWqAhJT",
-            "ZXJ2ZXIuRGF0YS5BdXRoRGJiBnByb3RvMw=="));
+            "bWUYBSABKAkSFQoNcGFzc3dvcmRfaGFzaBgGIAEoDBIMCgRzYWx0GAcgASgM",
+            "Ij4KFkFkR2V0QWNjb3VudFZlcmlmeUluZm8SEQoJQWNjb3VudElkGAEgASgJ",
+            "EhEKCVNlc3Npb25JZBgCIAEoBSp6Cg5BdXRoRGJQYWNrZXRJZBITCg9EQV9T",
+            "RVJWRVJfU1RBVEUQABITCg9BRF9TRVJWRVJfU1RBVEUQARIeChpEQV9HRVRf",
+            "QUNDT1VOVF9WRVJJRllfSU5GTxACEh4KGkFEX0dFVF9BQ0NPVU5UX1ZFUklG",
+            "WV9JTkZPEANCFaoCElNlcnZlci5EYXRhLkF1dGhEYmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.AuthDb.AuthDbPacketId), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.AuthDb.DaServerState), global::Server.Data.AuthDb.DaServerState.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.AuthDb.AdServerState), global::Server.Data.AuthDb.AdServerState.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.AuthDb.DaGetAccountVerifyInfo), global::Server.Data.AuthDb.DaGetAccountVerifyInfo.Parser, new[]{ "SessionId", "Id", "LoginType", "AccountId", "AccountName", "PasswordHash" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.AuthDb.DaGetAccountVerifyInfo), global::Server.Data.AuthDb.DaGetAccountVerifyInfo.Parser, new[]{ "SessionId", "Id", "LoginType", "AccountId", "AccountName", "PasswordHash", "Salt" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.AuthDb.AdGetAccountVerifyInfo), global::Server.Data.AuthDb.AdGetAccountVerifyInfo.Parser, new[]{ "AccountId", "SessionId" }, null, null, null, null)
           }));
     }
@@ -420,6 +420,7 @@ namespace Server.Data.AuthDb {
       accountId_ = other.accountId_;
       accountName_ = other.accountName_;
       passwordHash_ = other.passwordHash_;
+      salt_ = other.salt_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -491,13 +492,25 @@ namespace Server.Data.AuthDb {
 
     /// <summary>Field number for the "password_hash" field.</summary>
     public const int PasswordHashFieldNumber = 6;
-    private string passwordHash_ = "";
+    private pb::ByteString passwordHash_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string PasswordHash {
+    public pb::ByteString PasswordHash {
       get { return passwordHash_; }
       set {
         passwordHash_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "salt" field.</summary>
+    public const int SaltFieldNumber = 7;
+    private pb::ByteString salt_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString Salt {
+      get { return salt_; }
+      set {
+        salt_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -522,6 +535,7 @@ namespace Server.Data.AuthDb {
       if (AccountId != other.AccountId) return false;
       if (AccountName != other.AccountName) return false;
       if (PasswordHash != other.PasswordHash) return false;
+      if (Salt != other.Salt) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -535,6 +549,7 @@ namespace Server.Data.AuthDb {
       if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
       if (AccountName.Length != 0) hash ^= AccountName.GetHashCode();
       if (PasswordHash.Length != 0) hash ^= PasswordHash.GetHashCode();
+      if (Salt.Length != 0) hash ^= Salt.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -575,7 +590,11 @@ namespace Server.Data.AuthDb {
       }
       if (PasswordHash.Length != 0) {
         output.WriteRawTag(50);
-        output.WriteString(PasswordHash);
+        output.WriteBytes(PasswordHash);
+      }
+      if (Salt.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteBytes(Salt);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -609,7 +628,11 @@ namespace Server.Data.AuthDb {
       }
       if (PasswordHash.Length != 0) {
         output.WriteRawTag(50);
-        output.WriteString(PasswordHash);
+        output.WriteBytes(PasswordHash);
+      }
+      if (Salt.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteBytes(Salt);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -637,7 +660,10 @@ namespace Server.Data.AuthDb {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountName);
       }
       if (PasswordHash.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(PasswordHash);
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(PasswordHash);
+      }
+      if (Salt.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Salt);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -668,6 +694,9 @@ namespace Server.Data.AuthDb {
       }
       if (other.PasswordHash.Length != 0) {
         PasswordHash = other.PasswordHash;
+      }
+      if (other.Salt.Length != 0) {
+        Salt = other.Salt;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -709,7 +738,11 @@ namespace Server.Data.AuthDb {
             break;
           }
           case 50: {
-            PasswordHash = input.ReadString();
+            PasswordHash = input.ReadBytes();
+            break;
+          }
+          case 58: {
+            Salt = input.ReadBytes();
             break;
           }
         }
@@ -752,7 +785,11 @@ namespace Server.Data.AuthDb {
             break;
           }
           case 50: {
-            PasswordHash = input.ReadString();
+            PasswordHash = input.ReadBytes();
+            break;
+          }
+          case 58: {
+            Salt = input.ReadBytes();
             break;
           }
         }

@@ -4,7 +4,6 @@ using Server.Core;
 using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
-using Server.Utill.Interface;
 using System.Net;
 
 namespace AuthServer.Session

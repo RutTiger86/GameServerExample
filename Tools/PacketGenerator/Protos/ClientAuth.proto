@@ -45,7 +45,7 @@ message AcServerState {
 
 message CaLogin{
 	string AccountId = 1;
-	string HashPassword =2;
+	string Password =2;
 }
 message AcLogin{
 	LoginDenyReason Result = 1;	

@@ -26,7 +26,7 @@ namespace AuthServer
 
             ConnectAuthDbServer();
 
-            StartClientListen();           
+            StartClientListen();
         }
 
         private async void ConnectAuthDbServer()

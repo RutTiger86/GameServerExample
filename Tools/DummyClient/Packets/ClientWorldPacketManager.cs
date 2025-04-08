@@ -1,19 +1,19 @@
-using AuthServer.Packets;
+using DummyClient.Packets;
 using Google.Protobuf;
 using log4net;
 using Server.Core.Interface;
-using Server.Data.ClientAuth;
+using Server.Data.ClientWorld;
 using Server.Utill;
 
 
-public class ClientAuthPacketManager : IPacketManager
+public class ClientWorldPacketManager : IPacketManager
 {
     private readonly ILog log;
-    private readonly ClientAuthPacketHandler packetHandler;
+    private readonly ClientWorldPacketHandler packetHandler;
 
-    public ClientAuthPacketManager(ILogFactory logFactory, ClientAuthPacketHandler packetHandler)
+    public ClientWorldPacketManager(ILogFactory logFactory, ClientWorldPacketHandler packetHandler)
     {
-        log = logFactory.CreateLogger<ClientAuthPacketManager>();
+        log = logFactory.CreateLogger<ClientWorldPacketManager>();
         this.packetHandler = packetHandler;
         Register();
     }
@@ -26,14 +26,8 @@ public class ClientAuthPacketManager : IPacketManager
     private void Register()
     {
 
-        onRecv.Add((ushort)ClientAuthPacketId.CaServerState, MakePacket<CaServerState>);
-        handler.Add((ushort)ClientAuthPacketId.CaServerState, packetHandler.CaServerStateHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaLogin, MakePacket<CaLogin>);
-        handler.Add((ushort)ClientAuthPacketId.CaLogin, packetHandler.CaLoginHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaWorldList, MakePacket<CaWorldList>);
-        handler.Add((ushort)ClientAuthPacketId.CaWorldList, packetHandler.CaWorldListHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaEnterWorld, MakePacket<CaEnterWorld>);
-        handler.Add((ushort)ClientAuthPacketId.CaEnterWorld, packetHandler.CaEnterWorldHandler);
+        onRecv.Add((ushort)ClientWorldPacketId.WcServerState, MakePacket<WcServerState>);
+        handler.Add((ushort)ClientWorldPacketId.WcServerState, packetHandler.WcServerStateHandler);
     }
 
     public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)

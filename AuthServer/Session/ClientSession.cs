@@ -13,7 +13,7 @@ namespace AuthServer.Session
 {
     public class ClientSession : SecurePacketServerSession, ILogCreater<ClientSession>
     {
-        private readonly ILog log ;
+        private readonly ILog log;
         private readonly IPacketManager packetManager;
 
         public LoginInfo? LoginInfo { get; set; }
@@ -32,14 +32,14 @@ namespace AuthServer.Session
                 throw new ArgumentNullException("cert is Null");
             }
 
-            return new ClientSession(cert,logFactory, packetManager);
+            return new ClientSession(cert, logFactory, packetManager);
         }
 
         public void Send(IMessage packet)
         {
             string packName = packet.Descriptor.Name;
-            ClientAuthPacketId packetId  = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
-            
+            ClientAuthPacketId packetId = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
+
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));

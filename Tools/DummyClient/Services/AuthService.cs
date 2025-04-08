@@ -1,15 +1,7 @@
 ﻿using DummyClient.Sessions;
 using Server.Core;
 using Server.Data.ClientAuth;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DummyClient.Service
 {
@@ -46,7 +38,7 @@ namespace DummyClient.Service
             }
         }
 
-        public async void ConnectAuth(string IpAddr , int port)
+        public async void ConnectAuth(string IpAddr, int port)
         {
             if (IPAddress.TryParse(IpAddr, out IPAddress? address))
             {
@@ -66,7 +58,7 @@ namespace DummyClient.Service
             var loginPacket = new CaLogin()
             {
                 AccountId = id,
-                HashPassword = password
+                Password = password
             };
 
             authSession.Send(loginPacket);

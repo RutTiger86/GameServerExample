@@ -1,5 +1,4 @@
 ﻿using PacketGenerator.Extensions;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace PacketManagerGenerator
@@ -29,7 +28,7 @@ namespace PacketManagerGenerator
             foreach (string protoFile in authProtoFiles)
             {
                 string fileName = Path.GetFileName(protoFile).Split(".")[0];
-                string usingString = $"using AuthServer.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";               
+                string usingString = $"using AuthServer.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";
 
 
                 string authServerManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, authPattern));
@@ -49,6 +48,22 @@ namespace PacketManagerGenerator
 
                 string authServerManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, authDbPattern));
                 File.WriteAllText($@"{outputPath}\AuthDBServer\Packets\{fileName}PacketManager.cs", authServerManagerText);
+            }
+
+
+            var clientProtoFiles = protoFiles
+                .Where(file => Path.GetFileName(file).Contains("Client", StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            string clientPattern = @"\b[A-Z]C_";
+
+            foreach (string protoFile in clientProtoFiles)
+            {
+                string fileName = Path.GetFileName(protoFile).Split(".")[0];
+                string usingString = $"using DummyClient.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";
+
+                string ClientManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, clientPattern));
+                File.WriteAllText($@"{outputPath}\Tools\DummyClient\Packets\{fileName}PacketManager.cs", ClientManagerText);
             }
 
         }

@@ -33,7 +33,11 @@ GameServerExample
 │  
 ├── Commons                  # 모든 서버에서 공용 사용  
 │   ├── Server.Core          # Listener, Session, PacketSession 등 네트워크 핵심 모듈  
-│   └── Server.Data          # Protobuf 기반 통신 프로토콜 정의  
+│   └── Server.Utill          # 각종 헬퍼   
+│ 
+├── Tools                  # 모든 서버에서 공용 사용  
+│   ├── DummyClient          # 테스트 클라이언트
+│   └── PacketGenerator          # Proto 및 코드 자동화   
 │  
 └── DataBase                 # 데이터베이스 관련  
     ├── AuthDB              # 인증 관련 DB  
@@ -50,10 +54,11 @@ GameServerExample
 | **AuthDBServer**   | **AuthServer와 연동**, 인증/계정 관련 DB 처리 전담                      |
 | **WorldServer**    | 실제 게임 **월드 관리, 캐릭터 이동, 인게임 기능** 처리                   |
 | **WorldDBServer**  | **WorldServer와 연동**, 게임 월드 데이터(DB) 처리 전담                   |
-| **Commons**        | 모든 서버에서 사용하는 **공통 네트워크 로직 및 프로토콜 정의**            |
 | **Server.Core**    | **Listener, Session, PacketSession** 등 기본 네트워크 처리 모듈           |
-| **Server.Data**    | **Protobuf** 기반 경량화 프로토콜 정의                                 |
-| **DataBase**       | 실제 서비스 데이터베이스 (AuthDB, WorldDB) 구성 및 테이블 정의              |
+| **Server.Util**    | **SessionManager, Log4NetFactory** 등 기본 헬퍼 모듈           |
+| **DataBase(폴더)**   | 실제 서비스 데이터베이스 (AuthDB, WorldDB) 구성 및 테이블 정의              |
+| **DummyClient**    | 테스트 클라이언트              |
+| **PacketGenerator**  | Proto 및 Packet 관련 자동화 Generator              |
 
 ---
 
@@ -89,12 +94,16 @@ GameServerExample
 
 | 모듈                      | 진행 상황         |
 |-----------------------|---------------|
-| **AuthServer**          | ✅ 개발 시작 (기본 구조 및 Listener 구성 완료) |
-| **AuthDBServer**       | ⏳ 미구현 (계획 예정)       |
+| **AuthServer**         | ✅ 개발 중 (ID/PW Login 추가 완료 ) |
+| **AuthDBServer**       | ✅ 개발 중 (DB 조회 기능 추가 완료 ) |
 | **WorldServer**        | ⏳ 미구현 (계획 예정)       |
 | **WorldDBServer**      | ⏳ 미구현 (계획 예정)       |
-| **Server.Core**        | ✅ 개발 시작 (Listener, Session 진행 중) |
-| **Server.Data (Protobuf)** | ⏳ 미구현 (향후 작업 예정)   |
+| **Server.Core**        | ✅ 개발 중 (Listener, Session 및 TLS 적용완료) |
+| **Server.Util**        | ✅ 개발 중 (Session Manager 및 기타 Utill 추가중) |
+| **AuthDB**             | ✅ 개발 중 (Account테이블 구성완료 Migration 추가 완료 )   |
+| **WorldDB**            | ⏳ 미구현 (향후 작업 예정)   |
+| **DummyClient**        | ✅ 개발 중 (Client-Auth 연결 및 Login 구성완료)   |
+| **PacketGenerator**    | ✅ 개발 중 (자동화 기능 추가, Proto 생성 구성 완료)  |
 
 ---
 

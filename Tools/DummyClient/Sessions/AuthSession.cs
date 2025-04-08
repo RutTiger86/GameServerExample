@@ -1,23 +1,20 @@
-﻿using DummyClient.Extensions;
-using Google.Protobuf;
+﻿using Google.Protobuf;
 using Server.Core;
 using Server.Data.ClientAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Server.Utill;
 using System.Net;
 using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DummyClient.Sessions
 {
     public class AuthSession : SecurePacketClientSession
     {
+
+        private ClientAuthPacketManager packetManager;
+
         public AuthSession(string hostName, SslProtocols sslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13) : base(hostName, sslProtocols)
         {
-
+            packetManager = new ClientAuthPacketManager(new Log4NetFactory(), new Packets.ClientAuthPacketHandler());
         }
 
         public void Send(IMessage packet)
@@ -25,7 +22,7 @@ namespace DummyClient.Sessions
             string packName = packet.Descriptor.Name;
 
             ClientAuthPacketId packetId = (ClientAuthPacketId)Enum.Parse(typeof(ClientAuthPacketId), packName);
-            
+
             ushort size = (ushort)packet.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes((ushort)(size + 4)), 0, sendBuffer, 0, sizeof(ushort));
@@ -47,6 +44,7 @@ namespace DummyClient.Sessions
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
         {
             Console.WriteLine($"Auth OnRecvPacket");
+            packetManager.OnRecvPacket(this, buffer);
         }
 
         public override void OnSend(int numOfBytes)

@@ -1,4 +1,4 @@
-using AuthServer.Packets;
+using DummyClient.Packets;
 using Google.Protobuf;
 using log4net;
 using Server.Core.Interface;
@@ -26,14 +26,14 @@ public class ClientAuthPacketManager : IPacketManager
     private void Register()
     {
 
-        onRecv.Add((ushort)ClientAuthPacketId.CaServerState, MakePacket<CaServerState>);
-        handler.Add((ushort)ClientAuthPacketId.CaServerState, packetHandler.CaServerStateHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaLogin, MakePacket<CaLogin>);
-        handler.Add((ushort)ClientAuthPacketId.CaLogin, packetHandler.CaLoginHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaWorldList, MakePacket<CaWorldList>);
-        handler.Add((ushort)ClientAuthPacketId.CaWorldList, packetHandler.CaWorldListHandler);
-        onRecv.Add((ushort)ClientAuthPacketId.CaEnterWorld, MakePacket<CaEnterWorld>);
-        handler.Add((ushort)ClientAuthPacketId.CaEnterWorld, packetHandler.CaEnterWorldHandler);
+        onRecv.Add((ushort)ClientAuthPacketId.AcServerState, MakePacket<AcServerState>);
+        handler.Add((ushort)ClientAuthPacketId.AcServerState, packetHandler.AcServerStateHandler);
+        onRecv.Add((ushort)ClientAuthPacketId.AcLogin, MakePacket<AcLogin>);
+        handler.Add((ushort)ClientAuthPacketId.AcLogin, packetHandler.AcLoginHandler);
+        onRecv.Add((ushort)ClientAuthPacketId.AcWorldList, MakePacket<AcWorldList>);
+        handler.Add((ushort)ClientAuthPacketId.AcWorldList, packetHandler.AcWorldListHandler);
+        onRecv.Add((ushort)ClientAuthPacketId.AcEnterWorld, MakePacket<AcEnterWorld>);
+        handler.Add((ushort)ClientAuthPacketId.AcEnterWorld, packetHandler.AcEnterWorldHandler);
     }
 
     public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)

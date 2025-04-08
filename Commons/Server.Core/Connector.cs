@@ -1,7 +1,6 @@
 ﻿using Server.Core.Interface;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 
 namespace Server.Core
 {

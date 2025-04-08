@@ -7,7 +7,7 @@ namespace Server.Core
     public class Listener<TSession> where TSession : ISession
     {
         private readonly Socket listenerSocket;
-        private readonly  CancellationTokenSource cts;
+        private readonly CancellationTokenSource cts;
         private readonly Action<Exception> errorHandler;
         private readonly Func<TSession> sessionFactory;
         private bool isStopping = false; // 종료 플래그

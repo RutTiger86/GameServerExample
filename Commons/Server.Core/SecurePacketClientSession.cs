@@ -1,5 +1,4 @@
 ﻿using Server.Core.Interface;
-using System.Buffers;
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Security;
@@ -47,7 +46,7 @@ namespace Server.Core
                 using var netStream = tcpClient!.GetStream();
                 sslStream = new SslStream(netStream, false, ValidateClientCertificate);
 
-                await sslStream.AuthenticateAsClientAsync(hostName,null,sslProtocols, false);
+                await sslStream.AuthenticateAsClientAsync(hostName, null, sslProtocols, false);
 
                 OnConnected(tcpClient.Client.RemoteEndPoint!);
 

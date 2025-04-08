@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AuthDB.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using AuthDB.Data;
 using Microsoft.Extensions.Configuration;
 
 namespace AuthDB.Factories

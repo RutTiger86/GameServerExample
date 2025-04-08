@@ -1,18 +1,16 @@
-﻿using log4net.Config;
+﻿using AuthDB.Data;
+using AuthDBServer.Models.Configs;
+using AuthDBServer.Packets;
+using AuthDBServer.Repositories;
+using AuthDBServer.Session;
 using log4net;
+using log4net.Config;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Utill;
 using System.Reflection;
-using AuthDBServer.Models.Configs;
-using AuthDB.Data;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using AuthDBServer.Packets;
-using AuthDBServer.Repositories;
-using Microsoft.Extensions.Logging;
-using AuthDBServer.Session;
 
 namespace AuthDBServer
 {
@@ -33,7 +31,7 @@ namespace AuthDBServer
                     context.HostingEnvironment.ApplicationName = "AuthServer";
                     var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
                     services.AddDbContext<AuthDbContext>(options =>
-                    { 
+                    {
                         options.UseSqlServer(connectionString);
                     }
                     );
@@ -89,8 +87,8 @@ namespace AuthDBServer
 
 
             services.AddSingleton<SessionManager<AuthSession, AuthDbPacketManager>>();
-            services.AddSingleton<AuthDbPacketHandler>();               
-            services.AddSingleton<AuthDbPacketManager>();               
+            services.AddSingleton<AuthDbPacketHandler>();
+            services.AddSingleton<AuthDbPacketManager>();
             services.AddSingleton<AuthDBServer>();
 
 
