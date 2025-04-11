@@ -35,6 +35,14 @@ enum LoginDenyReason
 	UNKNOWN_ERROR = 9;
 }
 
+enum ServerStatus {
+  PREPARING = 0;
+  MAINTENANCE = 1;
+  SMOOTH = 2;
+  BUSY = 3;
+}
+
+
 message CaServerState {
 
 }
@@ -54,9 +62,17 @@ message AcLogin{
 message CaWorldList{
 
 }
-message AcWorldList{
 
+message ServerInfo {
+	int32 serverId = 1;
+	string name = 2;
+	ServerStatus status = 3;
 }
+
+message AcWorldList{
+	repeated ServerInfo servers = 1;
+}
+
 message CaEnterWorld{
 
 }

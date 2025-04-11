@@ -1,15 +1,19 @@
-﻿using AuthServer.Session;
+﻿using AuthServer.Services;
+using AuthServer.Session;
 using Google.Protobuf;
 using log4net;
 using Server.Core.Interface;
 using Server.Data.ClientAuth;
 using Server.Utill;
+using System.Net.Http.Headers;
 
 namespace AuthServer.Packets
 {
-    public class ClientAuthPacketHandler(ILogFactory logFactory)
+    public class ClientAuthPacketHandler(ILogFactory logFactory, IGameServerRegistry  gameServerRegistry)
     {
         private readonly ILog log = logFactory.CreateLogger<ClientAuthPacketHandler>();
+
+        private readonly IGameServerRegistry gameServerRegistry = gameServerRegistry;
         public void CaServerStateHandler(ISession session, IMessage packet)
         {
 
@@ -39,7 +43,19 @@ namespace AuthServer.Packets
         }
         public void CaWorldListHandler(ISession session, IMessage packet)
         {
+            ClientSession? clientSession = session as ClientSession;
 
+            var gameServerList = gameServerRegistry.GetAllServerList();
+
+            AcWorldList acWorldList = new AcWorldList();
+            acWorldList.Servers.AddRange(gameServerList.Select(p => new ServerInfo
+            {
+                Name = p.Name,
+                ServerId = p.ServerId,
+                Status = p.Status
+            }));
+
+            clientSession?.Send(acWorldList);
         }
         public void CaEnterWorldHandler(ISession session, IMessage packet)
         {

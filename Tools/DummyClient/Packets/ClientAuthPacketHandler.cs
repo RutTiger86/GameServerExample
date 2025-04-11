@@ -21,6 +21,19 @@ namespace DummyClient.Packets
 
         public void AcWorldListHandler(ISession session, IMessage packet)
         {
+            AcWorldList? acWorldList = packet as AcWorldList;
+            AuthSession? authSession = session as AuthSession;
+
+            if(acWorldList ==null)
+            {
+                Console.WriteLine($"WorldList Packet is Null!!");
+                return;
+            }
+
+            foreach (var server in acWorldList.Servers)
+            {
+                Console.WriteLine($"[Server] [ {server.ServerId} ] {server.Name}  ({server.Status})");
+            }
         }
 
         public void AcEnterWorldHandler(ISession session, IMessage packet)

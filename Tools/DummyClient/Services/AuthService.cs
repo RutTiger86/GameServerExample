@@ -30,6 +30,8 @@ namespace DummyClient.Service
             {
                 case var cmd when cmd.StartsWith("auth-longin"):
                     break;
+                case var cmd when cmd.StartsWith("auth-worldlist"):
+                    break;
                 case var cmd when cmd.StartsWith("auth-enterworld"):
                     break;
                 default:
@@ -62,6 +64,18 @@ namespace DummyClient.Service
             };
 
             authSession.Send(loginPacket);
+        }
+
+        public void SendWorldList()
+        {
+            if (connector == null)
+                return;
+            if (authSession == null)
+                return;
+
+            var worldList = new CaWorldList();
+
+            authSession.Send(worldList);
         }
 
         public void SendEnterWorld(string worldId)

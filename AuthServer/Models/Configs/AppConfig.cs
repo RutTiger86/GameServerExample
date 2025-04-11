@@ -5,5 +5,7 @@
         public AuthServerSetting? AuthServer { get; set; }
         public AuthDBServerSetting? AuthDBServer { get; set; }
         public SecureSetting? Secure { get; set; }
+
+        public List<InitialServerInfo> Servers { get; set; } = new();
     }
 }

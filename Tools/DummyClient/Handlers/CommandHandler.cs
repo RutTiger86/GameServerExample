@@ -12,6 +12,7 @@ namespace DummyClient.Handlers
             commandMap["connect-auth"] = ConnectAuth;
             commandMap["disconnect-auth"] = DisConnectAuth;
             commandMap["auth-login"] = AuthLogin;
+            commandMap["auth-worldlist"] = AuthWorldList;
             commandMap["auth-enterworld"] = AuthEnterWorld;
             // 추가 가능
         }
@@ -42,6 +43,7 @@ namespace DummyClient.Handlers
             Console.WriteLine("Available commands:");
             Console.WriteLine("- connect-auth {IP} {Port}");
             Console.WriteLine("- auth-login {ID} {Password}");
+            Console.WriteLine("- auth-worldlist");
             Console.WriteLine("- auth-enterworld {WorldId}");
             Console.WriteLine("- disconnect-auth");
             Console.WriteLine("- quit");
@@ -79,6 +81,10 @@ namespace DummyClient.Handlers
                 return;
             }
             AuthService.Instance.SendLogin(args[1], args[2]);
+        }
+        static void AuthWorldList(string[] args)
+        {
+            AuthService.Instance.SendWorldList();
         }
 
         static void AuthEnterWorld(string[] args)

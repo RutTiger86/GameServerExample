@@ -1,5 +1,6 @@
 ﻿using AuthServer.Models.Configs;
 using AuthServer.Packets;
+using AuthServer.Services;
 using AuthServer.Session;
 using log4net;
 using log4net.Config;
@@ -81,6 +82,7 @@ namespace AuthServer
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
             services.AddSingleton<SessionManager<ClientSession, ClientAuthPacketManager>>();
+            services.AddSingleton<IGameServerRegistry, GameServerRegistry>();
 
             services.AddSingleton<AuthDbPacketHandler>();
             services.AddSingleton<AuthDbPacketManager>();
