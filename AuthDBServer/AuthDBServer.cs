@@ -3,6 +3,7 @@ using AuthDBServer.Session;
 using log4net;
 using Server.Core;
 using Server.Utill;
+using Server.Utill.Interface;
 using System.Net;
 
 namespace AuthDBServer

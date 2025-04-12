@@ -34,7 +34,7 @@ namespace AuthServer.Session
             Send(new ArraySegment<byte>(sendBuffer));
         }
 
-        public void SendLoginRequest(string accountId, int sessionId)
+        public void SendLoginRequest(string accountId, long sessionId)
         {
             var packet = new AdGetAccountVerifyInfo
             {

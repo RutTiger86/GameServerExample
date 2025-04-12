@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Utill;
+using Server.Utill.Interface;
 using System.Reflection;
 
 namespace AuthDBServer

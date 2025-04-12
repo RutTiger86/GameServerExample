@@ -6,6 +6,7 @@ using Server.Core.Interface;
 using Server.Data.ClientAuth;
 using Server.Utill;
 using Server.Utill.Interface;
+using StackExchange.Redis;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
@@ -15,25 +16,33 @@ namespace AuthServer.Session
     {
         private readonly ILog log;
         private readonly IPacketManager packetManager;
+        private readonly IRedisSession redisSession;
 
         public LoginInfo? LoginInfo { get; set; }
 
-        public ClientSession(X509Certificate2 cert, ILogFactory logFactory, IPacketManager packetManager)
+        public ClientSession(X509Certificate2 cert, ILogFactory logFactory, IPacketManager packetManager, IRedisSession redisSession)
        : base(cert)
         {
             log = logFactory.CreateLogger<ClientSession>();
             this.packetManager = packetManager;
+            this.redisSession = redisSession;
         }
 
-        public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
+        public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null, IRedisSession? redisSession = null)
         {
             if (cert == null)
             {
                 throw new ArgumentNullException("cert is Null");
             }
 
-            return new ClientSession(cert, logFactory, packetManager);
+            if (redisSession == null)
+            {
+                throw new ArgumentNullException("redisSession is Null");
+            }
+
+            return new ClientSession(cert, logFactory, packetManager, redisSession);
         }
+
 
         public void Send(IMessage packet)
         {
@@ -48,9 +57,13 @@ namespace AuthServer.Session
             Send(new ArraySegment<byte>(sendBuffer));
         }
 
-        public override void OnConnected(EndPoint endPoint)
+        public override async void OnConnected(EndPoint endPoint)
         {
-            log.Info($"ClientSession OnConnected : {endPoint}");
+            string ip = ((IPEndPoint)endPoint).Address.ToString();
+            int port = ((IPEndPoint)endPoint).Port;
+            await redisSession.RegisterSessionAsync(SessionId, ip, port);
+
+            log.Info($"[CONNECTED] SessionId: {SessionId} from {ip}:{port}");
         }
 
         public override void OnRecvPacket(ReadOnlyMemory<byte> buffer)
@@ -67,5 +80,6 @@ namespace AuthServer.Session
         {
 
         }
+
     }
 }

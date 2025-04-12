@@ -9,6 +9,18 @@ enum WorldAuthPacketId {
   WA_SERVER_STATE = 1;
 }
 
+
+enum SessionState
+{
+	CONNECTED =0;
+    AUTHENTICATED =2;
+    WORLD_SELECTING =3;
+    WAITING_ENTRY =4;
+    IN_WORLD =5;
+    DISCONNECTED =6;
+}
+
+
 message AwServerState {
 
 }

@@ -1,0 +1,45 @@
+@startuml
+title Redis 기반 인증 서버 & 월드 서버 세션 연동 구조
+
+actor Client
+participant "AuthServer A" as AuthA
+participant "AuthServer B" as AuthB
+participant "WorldServer" as World
+database "Redis" as Redis
+
+== 인증 서버 접속 ==
+Client -> AuthA : 연결 요청
+AuthA -> Redis : 세션 ID 생성 및 등록\n(SESSION:{sessionId}, owner=AuthA)
+
+== 로그인 처리 ==
+Client -> AuthA : 로그인 요청
+AuthA -> Redis : 로그인 유저정보 기록\n(LOGIN_STATE:{accountId})
+AuthA -> Client : 월드 리스트 전달
+
+== 월드 선택 ==
+Client -> AuthA : 월드 선택
+AuthA -> Redis : loginToken 및 worldId 등록\n(LOGIN_STATE:{accountId})
+AuthA -> Client : loginToken 전달
+Client -> AuthA : 연결 종료
+
+== 월드 서버 접속 ==
+Client -> World : loginToken으로 접속 요청
+World -> Redis : loginToken 검증\n(로그인 상태, worldId)
+alt 유효함
+    World -> Redis : SESSION:{accountId} 등록\nTTL 설정
+    World -> Client : 접속 허가
+else 유효하지 않음
+    World -> Client : 접속 거부
+end
+
+== 중복 로그인 검증 ==
+Client -> AuthB : 로그인 시도
+AuthB -> Redis : 로그인 유저정보 확인
+alt 로그인 상태 존재
+    AuthB -> Client : 로그인 거부 (중복)
+else 없음
+    AuthB -> Redis : 로그인 상태 갱신
+    AuthB -> Client : 로그인 허가
+end
+
+@enduml

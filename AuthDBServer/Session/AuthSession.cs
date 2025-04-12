@@ -15,7 +15,7 @@ namespace AuthDBServer.Session
         private readonly ILog log = logFactory.CreateLogger<AuthSession>();
         private readonly IPacketManager packetManager = packetManager;
 
-        public static AuthSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
+        public static AuthSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null, IRedisSession? redisSession = null)
         {
             return new AuthSession(logFactory, packetManager);
         }

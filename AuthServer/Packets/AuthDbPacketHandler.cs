@@ -6,6 +6,7 @@ using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Data.ClientAuth;
 using Server.Utill;
+using Server.Utill.Interface;
 
 namespace AuthServer.Packets
 {

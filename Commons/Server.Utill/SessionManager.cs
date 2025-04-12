@@ -12,35 +12,44 @@ namespace Server.Utill
         private readonly ILog log = logFactory.CreateLogger<SessionManager<TSession, TPacketManager>>();
         private readonly IPacketManager packetManager = packetManager;
 
-        int sessionId = 0;
-        private readonly Dictionary<int, TSession> sessions = [];
+        long sessionId = 0;
+        private readonly Dictionary<long, TSession> sessions = [];
         private readonly object lockObj = new();
 
         private X509Certificate2? cert = null;
+        private IRedisSession? redisSession = null;
 
         public void SetCert(X509Certificate2 cert)
         {
             this.cert = cert;
         }
 
-        public TSession Generate()
+        public void SetRedis(IRedisSession redisSession)
         {
-            lock (lockObj)
-            {
-                int Id = ++sessionId;
-
-                TSession session = TSession.Create(logFactory, packetManager, cert);
-
-                session.SessionId = sessionId;
-                sessions.Add(Id, session);
-
-                log.Info($"Connected : {sessionId}");
-
-                return session;
-            }
+            this.redisSession = redisSession;
         }
 
-        public TSession? Find(int id)
+        public async Task<TSession> Generate()
+        {
+            long id = ++sessionId;
+            if (redisSession != null)
+            {
+                id = await redisSession.GenerateSessionIdAsync();
+            }
+
+            TSession session = TSession.Create(logFactory, packetManager, cert, redisSession);
+            session.SessionId = sessionId;
+
+            lock (lockObj)
+            {
+                sessions.Add(id, session);
+            }
+
+            log.Info($"Connected : {sessionId}");
+            return session;
+        }
+
+        public TSession? Find(long id)
         {
             lock (lockObj)
             {

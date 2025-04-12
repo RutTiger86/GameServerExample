@@ -9,10 +9,10 @@ namespace Server.Core
         private readonly Socket listenerSocket;
         private readonly CancellationTokenSource cts;
         private readonly Action<Exception> errorHandler;
-        private readonly Func<TSession> sessionFactory;
+        private readonly Func<Task<TSession>> sessionFactory;
         private bool isStopping = false; // 종료 플래그
 
-        public Listener(IPEndPoint endPoint, Func<TSession> sessionFactory, int backlog = 100, Action<Exception>? errorHandler = null)
+        public Listener(IPEndPoint endPoint, Func<Task<TSession>> sessionFactory, int backlog = 100, Action<Exception>? errorHandler = null)
         {
             listenerSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             listenerSocket.Bind(endPoint);
@@ -67,7 +67,7 @@ namespace Server.Core
                     {
                         var clientSocket = await listenerSocket!.AcceptAsync();
 
-                        ISession session = sessionFactory();
+                        ISession session = await sessionFactory();
                         session.Start(clientSocket);
                     }
                     catch (SocketException ex)

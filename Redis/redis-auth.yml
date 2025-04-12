@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  redis-auth:
+    image: redis:7.2
+    container_name: redis-auth
+    ports:
+      - "${REDIS_PORT}:6379"
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    restart: unless-stopped

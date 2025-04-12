@@ -5,7 +5,7 @@ namespace Server.Utill.Interface
 {
     public interface ILogCreater<TSession>
     {
-        abstract static TSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null);
+        abstract static TSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null, IRedisSession? redisSession = null);
     }
 
 }

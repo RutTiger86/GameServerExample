@@ -7,7 +7,7 @@ namespace Server.Core
 {
     public abstract class Session : ISession
     {
-        public int SessionId { get; set; }
+        public long SessionId { get; set; }
 
         private Socket? socket;
         private byte[]? recvBuffer;

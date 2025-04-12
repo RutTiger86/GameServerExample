@@ -27,10 +27,13 @@ namespace Server.Data.WorldAuth {
             "Cg9Xb3JsZEF1dGgucHJvdG8SFXNlcnZlci5kYXRhLndvcmxkYXV0aCIPCg1B",
             "d1NlcnZlclN0YXRlIg8KDVdhU2VydmVyU3RhdGUqPQoRV29ybGRBdXRoUGFj",
             "a2V0SWQSEwoPQVdfU0VSVkVSX1NUQVRFEAASEwoPV0FfU0VSVkVSX1NUQVRF",
-            "EAFCGKoCFVNlcnZlci5EYXRhLldvcmxkQXV0aGIGcHJvdG8z"));
+            "EAEqeAoMU2Vzc2lvblN0YXRlEg0KCUNPTk5FQ1RFRBAAEhEKDUFVVEhFTlRJ",
+            "Q0FURUQQAhITCg9XT1JMRF9TRUxFQ1RJTkcQAxIRCg1XQUlUSU5HX0VOVFJZ",
+            "EAQSDAoISU5fV09STEQQBRIQCgxESVNDT05ORUNURUQQBkIYqgIVU2VydmVy",
+            "LkRhdGEuV29ybGRBdXRoYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.WorldAuth.WorldAuthPacketId), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.WorldAuth.WorldAuthPacketId), typeof(global::Server.Data.WorldAuth.SessionState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldAuth.AwServerState), global::Server.Data.WorldAuth.AwServerState.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.WorldAuth.WaServerState), global::Server.Data.WorldAuth.WaServerState.Parser, null, null, null, null, null)
           }));
@@ -42,6 +45,15 @@ namespace Server.Data.WorldAuth {
   public enum WorldAuthPacketId {
     [pbr::OriginalName("AW_SERVER_STATE")] AwServerState = 0,
     [pbr::OriginalName("WA_SERVER_STATE")] WaServerState = 1,
+  }
+
+  public enum SessionState {
+    [pbr::OriginalName("CONNECTED")] Connected = 0,
+    [pbr::OriginalName("AUTHENTICATED")] Authenticated = 2,
+    [pbr::OriginalName("WORLD_SELECTING")] WorldSelecting = 3,
+    [pbr::OriginalName("WAITING_ENTRY")] WaitingEntry = 4,
+    [pbr::OriginalName("IN_WORLD")] InWorld = 5,
+    [pbr::OriginalName("DISCONNECTED")] Disconnected = 6,
   }
 
   #endregion

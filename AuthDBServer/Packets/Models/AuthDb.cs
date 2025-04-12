@@ -26,11 +26,11 @@ namespace Server.Data.AuthDb {
           string.Concat(
             "CgxBdXRoRGIucHJvdG8SEnNlcnZlci5kYXRhLmF1dGhkYiIPCg1EYVNlcnZl",
             "clN0YXRlIg8KDUFkU2VydmVyU3RhdGUimgEKFkRhR2V0QWNjb3VudFZlcmlm",
-            "eUluZm8SEQoJU2Vzc2lvbklkGAEgASgFEgoKAmlkGAIgASgDEhIKCmxvZ2lu",
+            "eUluZm8SEQoJU2Vzc2lvbklkGAEgASgDEgoKAmlkGAIgASgDEhIKCmxvZ2lu",
             "X3R5cGUYAyABKAUSEgoKYWNjb3VudF9pZBgEIAEoCRIUCgxhY2NvdW50X25h",
             "bWUYBSABKAkSFQoNcGFzc3dvcmRfaGFzaBgGIAEoDBIMCgRzYWx0GAcgASgM",
             "Ij4KFkFkR2V0QWNjb3VudFZlcmlmeUluZm8SEQoJQWNjb3VudElkGAEgASgJ",
-            "EhEKCVNlc3Npb25JZBgCIAEoBSp6Cg5BdXRoRGJQYWNrZXRJZBITCg9EQV9T",
+            "EhEKCVNlc3Npb25JZBgCIAEoAyp6Cg5BdXRoRGJQYWNrZXRJZBITCg9EQV9T",
             "RVJWRVJfU1RBVEUQABITCg9BRF9TRVJWRVJfU1RBVEUQARIeChpEQV9HRVRf",
             "QUNDT1VOVF9WRVJJRllfSU5GTxACEh4KGkFEX0dFVF9BQ0NPVU5UX1ZFUklG",
             "WV9JTkZPEANCFaoCElNlcnZlci5EYXRhLkF1dGhEYmIGcHJvdG8z"));
@@ -432,10 +432,10 @@ namespace Server.Data.AuthDb {
 
     /// <summary>Field number for the "SessionId" field.</summary>
     public const int SessionIdFieldNumber = 1;
-    private int sessionId_;
+    private long sessionId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SessionId {
+    public long SessionId {
       get { return sessionId_; }
       set {
         sessionId_ = value;
@@ -543,7 +543,7 @@ namespace Server.Data.AuthDb {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (SessionId != 0) hash ^= SessionId.GetHashCode();
+      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
       if (Id != 0L) hash ^= Id.GetHashCode();
       if (LoginType != 0) hash ^= LoginType.GetHashCode();
       if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
@@ -568,9 +568,9 @@ namespace Server.Data.AuthDb {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (SessionId != 0) {
+      if (SessionId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(SessionId);
+        output.WriteInt64(SessionId);
       }
       if (Id != 0L) {
         output.WriteRawTag(16);
@@ -606,9 +606,9 @@ namespace Server.Data.AuthDb {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (SessionId != 0) {
+      if (SessionId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt32(SessionId);
+        output.WriteInt64(SessionId);
       }
       if (Id != 0L) {
         output.WriteRawTag(16);
@@ -644,8 +644,8 @@ namespace Server.Data.AuthDb {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (SessionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SessionId);
+      if (SessionId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
       }
       if (Id != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
@@ -677,7 +677,7 @@ namespace Server.Data.AuthDb {
       if (other == null) {
         return;
       }
-      if (other.SessionId != 0) {
+      if (other.SessionId != 0L) {
         SessionId = other.SessionId;
       }
       if (other.Id != 0L) {
@@ -718,7 +718,7 @@ namespace Server.Data.AuthDb {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            SessionId = input.ReadInt32();
+            SessionId = input.ReadInt64();
             break;
           }
           case 16: {
@@ -765,7 +765,7 @@ namespace Server.Data.AuthDb {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            SessionId = input.ReadInt32();
+            SessionId = input.ReadInt64();
             break;
           }
           case 16: {
@@ -859,10 +859,10 @@ namespace Server.Data.AuthDb {
 
     /// <summary>Field number for the "SessionId" field.</summary>
     public const int SessionIdFieldNumber = 2;
-    private int sessionId_;
+    private long sessionId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int SessionId {
+    public long SessionId {
       get { return sessionId_; }
       set {
         sessionId_ = value;
@@ -894,7 +894,7 @@ namespace Server.Data.AuthDb {
     public override int GetHashCode() {
       int hash = 1;
       if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
-      if (SessionId != 0) hash ^= SessionId.GetHashCode();
+      if (SessionId != 0L) hash ^= SessionId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -917,9 +917,9 @@ namespace Server.Data.AuthDb {
         output.WriteRawTag(10);
         output.WriteString(AccountId);
       }
-      if (SessionId != 0) {
+      if (SessionId != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt32(SessionId);
+        output.WriteInt64(SessionId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -935,9 +935,9 @@ namespace Server.Data.AuthDb {
         output.WriteRawTag(10);
         output.WriteString(AccountId);
       }
-      if (SessionId != 0) {
+      if (SessionId != 0L) {
         output.WriteRawTag(16);
-        output.WriteInt32(SessionId);
+        output.WriteInt64(SessionId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -952,8 +952,8 @@ namespace Server.Data.AuthDb {
       if (AccountId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
       }
-      if (SessionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SessionId);
+      if (SessionId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(SessionId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -970,7 +970,7 @@ namespace Server.Data.AuthDb {
       if (other.AccountId.Length != 0) {
         AccountId = other.AccountId;
       }
-      if (other.SessionId != 0) {
+      if (other.SessionId != 0L) {
         SessionId = other.SessionId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -997,7 +997,7 @@ namespace Server.Data.AuthDb {
             break;
           }
           case 16: {
-            SessionId = input.ReadInt32();
+            SessionId = input.ReadInt64();
             break;
           }
         }
@@ -1024,7 +1024,7 @@ namespace Server.Data.AuthDb {
             break;
           }
           case 16: {
-            SessionId = input.ReadInt32();
+            SessionId = input.ReadInt64();
             break;
           }
         }

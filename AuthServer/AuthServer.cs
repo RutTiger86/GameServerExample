@@ -3,6 +3,7 @@ using AuthServer.Session;
 using log4net;
 using Server.Core;
 using Server.Utill;
+using Server.Utill.Interface;
 using System.Net;
 
 namespace AuthServer
@@ -58,7 +59,10 @@ namespace AuthServer
             try
             {
                 IPEndPoint endPoint = new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
-                clientListener = new Listener<ClientSession>(endPoint, clientSessionManager.Generate, serverConfig.Backlog, HandleClientListenerError);
+                clientListener = new Listener<ClientSession>(endPoint,
+                    clientSessionManager.Generate, 
+                    serverConfig.Backlog, 
+                    HandleClientListenerError);
                 clientListener.StartListener(serverConfig.MaxAcceptCount);
 
                 log.Info($"[AuthServer] Server listening on {serverConfig.ListenIP}:{serverConfig.ListenPort}");

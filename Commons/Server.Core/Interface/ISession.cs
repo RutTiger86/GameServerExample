@@ -5,7 +5,7 @@ namespace Server.Core.Interface
 {
     public interface ISession
     {
-        public int SessionId { get; set; }
+        public long SessionId { get; set; }
         public Action<Exception>? ErrorHandler { get; set; }
         public void Start(Socket socket);
         public abstract void OnConnected(EndPoint endPoint);

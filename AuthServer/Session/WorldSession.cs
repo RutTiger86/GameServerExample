@@ -13,8 +13,9 @@ namespace AuthServer.Session
     public class WorldSession(ILogFactory logFactory, IPacketManager packetManager) : PacketSession, ILogCreater<WorldSession>
     {
         private readonly ILog log = logFactory.CreateLogger<WorldSession>();
+        private readonly IPacketManager packetManager = packetManager;
 
-        public static WorldSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null)
+        public static WorldSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null, IRedisSession? redisSession = null)
         {
             return new WorldSession(logFactory, packetManager);
         }

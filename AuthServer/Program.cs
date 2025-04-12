@@ -7,6 +7,7 @@ using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server.Utill;
+using Server.Utill.Interface;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
@@ -39,10 +40,14 @@ namespace AuthServer
 
             //04. 인증서 등록 
             var clientSessionManager = AppHost.Services.GetRequiredService<SessionManager<ClientSession, ClientAuthPacketManager>>();
-            var cert = new X509Certificate2(configManager.config.Secure.CertPath, configManager.config.Secure.CertPassworld);
+            var cert = new X509Certificate2(configManager.config!.Secure!.CertPath, configManager.config.Secure.CertPassworld);
             clientSessionManager.SetCert(cert);
 
-            // 05. 서버 시작 예시
+            //05. Client Session Redis 등록  
+            var redisSession = AppHost.Services.GetRequiredService<IRedisSession>();
+            clientSessionManager.SetRedis(redisSession);
+
+            // 06. 서버 시작 예시
             var server = AppHost.Services.GetRequiredService<AuthServer>();
             server.Start();
 
@@ -83,6 +88,7 @@ namespace AuthServer
 
             services.AddSingleton<SessionManager<ClientSession, ClientAuthPacketManager>>();
             services.AddSingleton<IGameServerRegistry, GameServerRegistry>();
+            services.AddSingleton<IRedisSession, RedisSession>();
 
             services.AddSingleton<AuthDbPacketHandler>();
             services.AddSingleton<AuthDbPacketManager>();
