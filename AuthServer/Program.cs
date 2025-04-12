@@ -89,6 +89,7 @@ namespace AuthServer
             services.AddSingleton<SessionManager<ClientSession, ClientAuthPacketManager>>();
             services.AddSingleton<IGameServerRegistry, GameServerRegistry>();
             services.AddSingleton<IRedisSession, RedisSession>();
+            services.AddSingleton<IClientService, ClientService>();
 
             services.AddSingleton<AuthDbPacketHandler>();
             services.AddSingleton<AuthDbPacketManager>();
