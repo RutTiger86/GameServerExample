@@ -23,16 +23,22 @@ enum AuthServerState
 
 enum LoginDenyReason
 {
-	NONE = 0;
+	LOGIN_DENY_REASON_NONE = 0;
 	ACCOUNT_NOT_FOUND = 1;
 	INVALID_PASSWORD = 2;
 	ACCOUNT_BANNED = 3;
-	SERVER_MAINTENANCE  = 4;
-	SERVER_FULL = 5;
-	INTERNAL_ACCESS_ONLY = 6;
-	DUPLICATE_LOGIN = 7;
-	CLIENT_VERSION_MISMATCH = 8;
-	UNKNOWN_ERROR = 9;
+	INTERNAL_ACCESS_ONLY = 4;
+	DUPLICATE_LOGIN = 5;
+	CLIENT_VERSION_MISMATCH = 6;
+	LOGIN_DENY_UNKNOWN = 7;
+}
+
+enum EnteredWorldDenyReason
+{
+	ENTERED_WORLD_DENY_REASON_NONE = 0;
+	SERVER_MAINTENANCE  = 1;
+	SERVER_FULL = 2;
+	ENTRED_WORLD_DENY_UNKNOWN = 3;
 }
 
 enum ServerStatus {
@@ -64,18 +70,19 @@ message CaWorldList{
 }
 
 message ServerInfo {
-	int32 serverId = 1;
-	string name = 2;
-	ServerStatus status = 3;
+	int32 ServerId = 1;
+	string Name = 2;
+	ServerStatus Status = 3;
 }
 
 message AcWorldList{
-	repeated ServerInfo servers = 1;
+	repeated ServerInfo Servers = 1;
 }
 
-message CaEnterWorld{
-
+message CaEnterWorld{	
+	int32 ServerId = 1;
 }
 message AcEnterWorld{
-
+	EnteredWorldDenyReason  Result = 1;
+	string Token = 2;
 }

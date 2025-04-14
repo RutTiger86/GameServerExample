@@ -39,7 +39,7 @@ namespace AuthServer
             }
 
             //04. 인증서 등록 
-            var clientSessionManager = AppHost.Services.GetRequiredService<SessionManager<ClientSession, ClientAuthPacketManager>>();
+            var clientSessionManager = AppHost.Services.GetRequiredService<ISessionManager<ClientSession>>();
             var cert = new X509Certificate2(configManager.config!.Secure!.CertPath, configManager.config.Secure.CertPassworld);
             clientSessionManager.SetCert(cert);
 
@@ -86,9 +86,10 @@ namespace AuthServer
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
-            services.AddSingleton<SessionManager<ClientSession, ClientAuthPacketManager>>();
+            services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
             services.AddSingleton<IGameServerRegistry, GameServerRegistry>();
             services.AddSingleton<IRedisSession, RedisSession>();
+            services.AddSingleton<AuthDBSession>();
             services.AddSingleton<IClientService, ClientService>();
 
             services.AddSingleton<AuthDbPacketHandler>();
@@ -102,3 +103,4 @@ namespace AuthServer
         }
     }
 }
+

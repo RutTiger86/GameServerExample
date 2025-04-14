@@ -8,7 +8,7 @@ using System.Net;
 
 namespace AuthDBServer
 {
-    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, SessionManager<AuthSession, AuthDbPacketManager> authSessionManager)
+    public class AuthDBServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, ISessionManager<AuthSession> authSessionManager, AuthDbPacketManager authDbPacketManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthDBServer>();
         private readonly ConfigManager<AppConfig> configManager = configManager;
@@ -32,7 +32,7 @@ namespace AuthDBServer
             try
             {
                 IPEndPoint endPoint = new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
-                clientListener = new Listener<AuthSession>(endPoint, authSessionManager.Generate, serverConfig.Backlog, HandleClientListenerError);
+                clientListener = new Listener<AuthSession>(endPoint, ()=>authSessionManager.Generate(authDbPacketManager), serverConfig.Backlog, HandleClientListenerError);
                 clientListener.StartListener(serverConfig.MaxAcceptCount);
 
                 log.Info($"[AuthDBServer] Server listening on {serverConfig.ListenIP}:{serverConfig.ListenPort}");

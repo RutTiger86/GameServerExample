@@ -1,16 +1,25 @@
 ﻿using log4net;
+using Server.Core;
 using Server.Core.Interface;
 using Server.Utill.Interface;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Server.Utill
 {
-    public class SessionManager<TSession, TPacketManager>(ILogFactory logFactory, TPacketManager packetManager)
-        where TSession : ISession, ILogCreater<TSession>
-        where TPacketManager : IPacketManager
+    public interface ISessionManager<TSession>
     {
-        private readonly ILog log = logFactory.CreateLogger<SessionManager<TSession, TPacketManager>>();
-        private readonly IPacketManager packetManager = packetManager;
+        void SetCert(X509Certificate2 cert);
+        void SetRedis(IRedisSession redisSession);
+
+        Task<TSession> Generate(IPacketManager packetManager);
+        TSession? Find(long id);
+        void Remove(TSession session);
+    }
+
+    public class SessionManager<TSession>(ILogFactory logFactory) :ISessionManager<TSession>
+        where TSession : ISession, ILogCreater<TSession>
+    {
+        private readonly ILog log = logFactory.CreateLogger<SessionManager<TSession>>();
 
         long sessionId = 0;
         private readonly Dictionary<long, TSession> sessions = [];
@@ -29,23 +38,22 @@ namespace Server.Utill
             this.redisSession = redisSession;
         }
 
-        public async Task<TSession> Generate()
+        public async Task<TSession> Generate(IPacketManager packetManager)
         {
             long id = ++sessionId;
             if (redisSession != null)
             {
                 id = await redisSession.GenerateSessionIdAsync();
             }
-
             TSession session = TSession.Create(logFactory, packetManager, cert, redisSession);
-            session.SessionId = sessionId;
+            session.SessionId = id;
 
             lock (lockObj)
             {
                 sessions.Add(id, session);
             }
 
-            log.Info($"Connected : {sessionId}");
+            log.Info($"SessionManager - Connected : {id}");
             return session;
         }
 

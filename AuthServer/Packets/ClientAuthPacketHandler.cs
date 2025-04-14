@@ -5,15 +5,12 @@ using log4net;
 using Server.Core.Interface;
 using Server.Data.ClientAuth;
 using Server.Utill;
-using System.Net.Http.Headers;
 
 namespace AuthServer.Packets
 {
-    public class ClientAuthPacketHandler(ILogFactory logFactory, IGameServerRegistry  gameServerRegistry)
+    public class ClientAuthPacketHandler(ILogFactory logFactory, IGameServerRegistry  gameServerRegistry, AuthDBSession authDBSession)
     {
         private readonly ILog log = logFactory.CreateLogger<ClientAuthPacketHandler>();
-
-        private readonly IGameServerRegistry gameServerRegistry = gameServerRegistry;
         public void CaServerStateHandler(ISession session, IMessage packet)
         {
 
@@ -34,12 +31,8 @@ namespace AuthServer.Packets
                 AccountId = caLogin.AccountId,
                 Password = caLogin.Password
             };
-
-            //TODO : AuthDB 서버로 넘겨서 DB 조회 후 검증 처리, 검증결과 Client로 전송 
-            if (AuthDBSession.Instance != null)
-            {
-                AuthDBSession.Instance.SendLoginRequest(caLogin.AccountId, clientSession.SessionId);
-            }
+            
+            authDBSession.SendLoginRequest(caLogin.AccountId, clientSession.SessionId);
         }
         public void CaWorldListHandler(ISession session, IMessage packet)
         {

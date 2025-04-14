@@ -8,14 +8,11 @@ using System.Net;
 
 namespace AuthServer
 {
-    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, SessionManager<ClientSession, ClientAuthPacketManager> clientSessionManager, AuthDbPacketManager authDbPacketManager)
+    public class AuthServer(ILogFactory logFactory, ConfigManager<AppConfig> configManager, ISessionManager<ClientSession> clientSessionManager, AuthDBSession authDBSession, ClientAuthPacketManager clientAuthPacketManager)
     {
         private readonly ILog log = logFactory.CreateLogger<AuthServer>();
-        private readonly ConfigManager<AppConfig> configManager = configManager;
+
         private Listener<ClientSession>? clientListener;
-
-
-        private static AuthDBSession? authDbSession;
         private Connector<AuthDBSession>? connector;
 
         /// <summary>
@@ -41,8 +38,7 @@ namespace AuthServer
 
             if (IPAddress.TryParse(serverConfig.ConnectIP, out IPAddress? address))
             {
-                authDbSession = new AuthDBSession(logFactory, authDbPacketManager);
-                connector = new Connector<AuthDBSession>(() => authDbSession);
+                connector = new Connector<AuthDBSession>(() => authDBSession);
                 await connector.StartConnectorAsync(new IPEndPoint(address, serverConfig.ConnectPort));
             }
         }
@@ -60,7 +56,7 @@ namespace AuthServer
             {
                 IPEndPoint endPoint = new(IPAddress.Parse(serverConfig.ListenIP), serverConfig.ListenPort);
                 clientListener = new Listener<ClientSession>(endPoint,
-                    clientSessionManager.Generate, 
+                    () =>clientSessionManager.Generate(clientAuthPacketManager), 
                     serverConfig.Backlog, 
                     HandleClientListenerError);
                 clientListener.StartListener(serverConfig.MaxAcceptCount);

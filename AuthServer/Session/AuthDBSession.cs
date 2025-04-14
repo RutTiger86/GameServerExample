@@ -8,18 +8,10 @@ using System.Net;
 
 namespace AuthServer.Session
 {
-    public class AuthDBSession : PacketSession
-    {
-        public static AuthDBSession? Instance { get; private set; }
 
-        private readonly ILog log;
-        private readonly IPacketManager packetManager;
-        public AuthDBSession(ILogFactory logFactory, IPacketManager packetManager)
-        {
-            log = logFactory.CreateLogger<AuthDBSession>();
-            this.packetManager = packetManager;
-            Instance = this;
-        }
+    public class AuthDBSession(ILogFactory logFactory, AuthDbPacketManager packetManager) : PacketSession
+    {
+        private readonly ILog log = logFactory.CreateLogger<AuthDBSession>();
 
         public void Send(IMessage packet)
         {

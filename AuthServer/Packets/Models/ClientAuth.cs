@@ -30,26 +30,31 @@ namespace Server.Data.ClientAuth {
             "YXRlIi4KB0NhTG9naW4SEQoJQWNjb3VudElkGAEgASgJEhAKCFBhc3N3b3Jk",
             "GAIgASgJIkIKB0FjTG9naW4SNwoGUmVzdWx0GAEgASgOMicuc2VydmVyLmRh",
             "dGEuY2xpZW50YXV0aC5Mb2dpbkRlbnlSZWFzb24iDQoLQ2FXb3JsZExpc3Qi",
-            "YgoKU2VydmVySW5mbxIQCghzZXJ2ZXJJZBgBIAEoBRIMCgRuYW1lGAIgASgJ",
-            "EjQKBnN0YXR1cxgDIAEoDjIkLnNlcnZlci5kYXRhLmNsaWVudGF1dGguU2Vy",
-            "dmVyU3RhdHVzIkIKC0FjV29ybGRMaXN0EjMKB3NlcnZlcnMYASADKAsyIi5z",
-            "ZXJ2ZXIuZGF0YS5jbGllbnRhdXRoLlNlcnZlckluZm8iDgoMQ2FFbnRlcldv",
-            "cmxkIg4KDEFjRW50ZXJXb3JsZCqoAQoSQ2xpZW50QXV0aFBhY2tldElkEhMK",
-            "D0NBX1NFUlZFUl9TVEFURRAAEhMKD0FDX1NFUlZFUl9TVEFURRABEgwKCENB",
-            "X0xPR0lOEAISDAoIQUNfTE9HSU4QAxIRCg1DQV9XT1JMRF9MSVNUEAQSEQoN",
-            "QUNfV09STERfTElTVBAFEhIKDkNBX0VOVEVSX1dPUkxEEAYSEgoOQUNfRU5U",
-            "RVJfV09STEQQByo5Cg9BdXRoU2VydmVyU3RhdGUSEwoPSU5URVJOQUxfQUND",
-            "RVNTEAASEQoNUFVCTElDX0FDQ0VTUxABKuQBCg9Mb2dpbkRlbnlSZWFzb24S",
-            "CAoETk9ORRAAEhUKEUFDQ09VTlRfTk9UX0ZPVU5EEAESFAoQSU5WQUxJRF9Q",
-            "QVNTV09SRBACEhIKDkFDQ09VTlRfQkFOTkVEEAMSFgoSU0VSVkVSX01BSU5U",
-            "RU5BTkNFEAQSDwoLU0VSVkVSX0ZVTEwQBRIYChRJTlRFUk5BTF9BQ0NFU1Nf",
-            "T05MWRAGEhMKD0RVUExJQ0FURV9MT0dJThAHEhsKF0NMSUVOVF9WRVJTSU9O",
-            "X01JU01BVENIEAgSEQoNVU5LTk9XTl9FUlJPUhAJKkQKDFNlcnZlclN0YXR1",
-            "cxINCglQUkVQQVJJTkcQABIPCgtNQUlOVEVOQU5DRRABEgoKBlNNT09USBAC",
-            "EggKBEJVU1kQA0IZqgIWU2VydmVyLkRhdGEuQ2xpZW50QXV0aGIGcHJvdG8z"));
+            "YgoKU2VydmVySW5mbxIQCghTZXJ2ZXJJZBgBIAEoBRIMCgROYW1lGAIgASgJ",
+            "EjQKBlN0YXR1cxgDIAEoDjIkLnNlcnZlci5kYXRhLmNsaWVudGF1dGguU2Vy",
+            "dmVyU3RhdHVzIkIKC0FjV29ybGRMaXN0EjMKB1NlcnZlcnMYASADKAsyIi5z",
+            "ZXJ2ZXIuZGF0YS5jbGllbnRhdXRoLlNlcnZlckluZm8iIAoMQ2FFbnRlcldv",
+            "cmxkEhAKCFNlcnZlcklkGAEgASgFIl0KDEFjRW50ZXJXb3JsZBI+CgZSZXN1",
+            "bHQYASABKA4yLi5zZXJ2ZXIuZGF0YS5jbGllbnRhdXRoLkVudGVyZWRXb3Js",
+            "ZERlbnlSZWFzb24SDQoFVG9rZW4YAiABKAkqqAEKEkNsaWVudEF1dGhQYWNr",
+            "ZXRJZBITCg9DQV9TRVJWRVJfU1RBVEUQABITCg9BQ19TRVJWRVJfU1RBVEUQ",
+            "ARIMCghDQV9MT0dJThACEgwKCEFDX0xPR0lOEAMSEQoNQ0FfV09STERfTElT",
+            "VBAEEhEKDUFDX1dPUkxEX0xJU1QQBRISCg5DQV9FTlRFUl9XT1JMRBAGEhIK",
+            "DkFDX0VOVEVSX1dPUkxEEAcqOQoPQXV0aFNlcnZlclN0YXRlEhMKD0lOVEVS",
+            "TkFMX0FDQ0VTUxAAEhEKDVBVQkxJQ19BQ0NFU1MQASrSAQoPTG9naW5EZW55",
+            "UmVhc29uEhoKFkxPR0lOX0RFTllfUkVBU09OX05PTkUQABIVChFBQ0NPVU5U",
+            "X05PVF9GT1VORBABEhQKEElOVkFMSURfUEFTU1dPUkQQAhISCg5BQ0NPVU5U",
+            "X0JBTk5FRBADEhgKFElOVEVSTkFMX0FDQ0VTU19PTkxZEAQSEwoPRFVQTElD",
+            "QVRFX0xPR0lOEAUSGwoXQ0xJRU5UX1ZFUlNJT05fTUlTTUFUQ0gQBhIWChJM",
+            "T0dJTl9ERU5ZX1VOS05PV04QByqEAQoWRW50ZXJlZFdvcmxkRGVueVJlYXNv",
+            "bhIiCh5FTlRFUkVEX1dPUkxEX0RFTllfUkVBU09OX05PTkUQABIWChJTRVJW",
+            "RVJfTUFJTlRFTkFOQ0UQARIPCgtTRVJWRVJfRlVMTBACEh0KGUVOVFJFRF9X",
+            "T1JMRF9ERU5ZX1VOS05PV04QAypECgxTZXJ2ZXJTdGF0dXMSDQoJUFJFUEFS",
+            "SU5HEAASDwoLTUFJTlRFTkFOQ0UQARIKCgZTTU9PVEgQAhIICgRCVVNZEANC",
+            "GaoCFlNlcnZlci5EYXRhLkNsaWVudEF1dGhiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.ClientAuth.ClientAuthPacketId), typeof(global::Server.Data.ClientAuth.AuthServerState), typeof(global::Server.Data.ClientAuth.LoginDenyReason), typeof(global::Server.Data.ClientAuth.ServerStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.ClientAuth.ClientAuthPacketId), typeof(global::Server.Data.ClientAuth.AuthServerState), typeof(global::Server.Data.ClientAuth.LoginDenyReason), typeof(global::Server.Data.ClientAuth.EnteredWorldDenyReason), typeof(global::Server.Data.ClientAuth.ServerStatus), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaServerState), global::Server.Data.ClientAuth.CaServerState.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcServerState), global::Server.Data.ClientAuth.AcServerState.Parser, new[]{ "ServerState" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaLogin), global::Server.Data.ClientAuth.CaLogin.Parser, new[]{ "AccountId", "Password" }, null, null, null, null),
@@ -57,8 +62,8 @@ namespace Server.Data.ClientAuth {
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaWorldList), global::Server.Data.ClientAuth.CaWorldList.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.ServerInfo), global::Server.Data.ClientAuth.ServerInfo.Parser, new[]{ "ServerId", "Name", "Status" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcWorldList), global::Server.Data.ClientAuth.AcWorldList.Parser, new[]{ "Servers" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaEnterWorld), global::Server.Data.ClientAuth.CaEnterWorld.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcEnterWorld), global::Server.Data.ClientAuth.AcEnterWorld.Parser, null, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.CaEnterWorld), global::Server.Data.ClientAuth.CaEnterWorld.Parser, new[]{ "ServerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Server.Data.ClientAuth.AcEnterWorld), global::Server.Data.ClientAuth.AcEnterWorld.Parser, new[]{ "Result", "Token" }, null, null, null, null)
           }));
     }
     #endregion
@@ -82,16 +87,21 @@ namespace Server.Data.ClientAuth {
   }
 
   public enum LoginDenyReason {
-    [pbr::OriginalName("NONE")] None = 0,
+    [pbr::OriginalName("LOGIN_DENY_REASON_NONE")] None = 0,
     [pbr::OriginalName("ACCOUNT_NOT_FOUND")] AccountNotFound = 1,
     [pbr::OriginalName("INVALID_PASSWORD")] InvalidPassword = 2,
     [pbr::OriginalName("ACCOUNT_BANNED")] AccountBanned = 3,
-    [pbr::OriginalName("SERVER_MAINTENANCE")] ServerMaintenance = 4,
-    [pbr::OriginalName("SERVER_FULL")] ServerFull = 5,
-    [pbr::OriginalName("INTERNAL_ACCESS_ONLY")] InternalAccessOnly = 6,
-    [pbr::OriginalName("DUPLICATE_LOGIN")] DuplicateLogin = 7,
-    [pbr::OriginalName("CLIENT_VERSION_MISMATCH")] ClientVersionMismatch = 8,
-    [pbr::OriginalName("UNKNOWN_ERROR")] UnknownError = 9,
+    [pbr::OriginalName("INTERNAL_ACCESS_ONLY")] InternalAccessOnly = 4,
+    [pbr::OriginalName("DUPLICATE_LOGIN")] DuplicateLogin = 5,
+    [pbr::OriginalName("CLIENT_VERSION_MISMATCH")] ClientVersionMismatch = 6,
+    [pbr::OriginalName("LOGIN_DENY_UNKNOWN")] LoginDenyUnknown = 7,
+  }
+
+  public enum EnteredWorldDenyReason {
+    [pbr::OriginalName("ENTERED_WORLD_DENY_REASON_NONE")] None = 0,
+    [pbr::OriginalName("SERVER_MAINTENANCE")] ServerMaintenance = 1,
+    [pbr::OriginalName("SERVER_FULL")] ServerFull = 2,
+    [pbr::OriginalName("ENTRED_WORLD_DENY_UNKNOWN")] EntredWorldDenyUnknown = 3,
   }
 
   public enum ServerStatus {
@@ -1104,7 +1114,7 @@ namespace Server.Data.ClientAuth {
       return new ServerInfo(this);
     }
 
-    /// <summary>Field number for the "serverId" field.</summary>
+    /// <summary>Field number for the "ServerId" field.</summary>
     public const int ServerIdFieldNumber = 1;
     private int serverId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1116,7 +1126,7 @@ namespace Server.Data.ClientAuth {
       }
     }
 
-    /// <summary>Field number for the "name" field.</summary>
+    /// <summary>Field number for the "Name" field.</summary>
     public const int NameFieldNumber = 2;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1128,7 +1138,7 @@ namespace Server.Data.ClientAuth {
       }
     }
 
-    /// <summary>Field number for the "status" field.</summary>
+    /// <summary>Field number for the "Status" field.</summary>
     public const int StatusFieldNumber = 3;
     private global::Server.Data.ClientAuth.ServerStatus status_ = global::Server.Data.ClientAuth.ServerStatus.Preparing;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1374,7 +1384,7 @@ namespace Server.Data.ClientAuth {
       return new AcWorldList(this);
     }
 
-    /// <summary>Field number for the "servers" field.</summary>
+    /// <summary>Field number for the "Servers" field.</summary>
     public const int ServersFieldNumber = 1;
     private static readonly pb::FieldCodec<global::Server.Data.ClientAuth.ServerInfo> _repeated_servers_codec
         = pb::FieldCodec.ForMessage(10, global::Server.Data.ClientAuth.ServerInfo.Parser);
@@ -1551,6 +1561,7 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CaEnterWorld(CaEnterWorld other) : this() {
+      serverId_ = other.serverId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1558,6 +1569,18 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CaEnterWorld Clone() {
       return new CaEnterWorld(this);
+    }
+
+    /// <summary>Field number for the "ServerId" field.</summary>
+    public const int ServerIdFieldNumber = 1;
+    private int serverId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int ServerId {
+      get { return serverId_; }
+      set {
+        serverId_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1575,6 +1598,7 @@ namespace Server.Data.ClientAuth {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (ServerId != other.ServerId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1582,6 +1606,7 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (ServerId != 0) hash ^= ServerId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1600,6 +1625,10 @@ namespace Server.Data.ClientAuth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (ServerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ServerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1610,6 +1639,10 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ServerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ServerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1620,6 +1653,9 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (ServerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ServerId);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1631,6 +1667,9 @@ namespace Server.Data.ClientAuth {
     public void MergeFrom(CaEnterWorld other) {
       if (other == null) {
         return;
+      }
+      if (other.ServerId != 0) {
+        ServerId = other.ServerId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1651,6 +1690,10 @@ namespace Server.Data.ClientAuth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            ServerId = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -1670,6 +1713,10 @@ namespace Server.Data.ClientAuth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            ServerId = input.ReadInt32();
+            break;
+          }
         }
       }
     }
@@ -1712,6 +1759,8 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AcEnterWorld(AcEnterWorld other) : this() {
+      result_ = other.result_;
+      token_ = other.token_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1719,6 +1768,30 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AcEnterWorld Clone() {
       return new AcEnterWorld(this);
+    }
+
+    /// <summary>Field number for the "Result" field.</summary>
+    public const int ResultFieldNumber = 1;
+    private global::Server.Data.ClientAuth.EnteredWorldDenyReason result_ = global::Server.Data.ClientAuth.EnteredWorldDenyReason.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Server.Data.ClientAuth.EnteredWorldDenyReason Result {
+      get { return result_; }
+      set {
+        result_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Token" field.</summary>
+    public const int TokenFieldNumber = 2;
+    private string token_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Token {
+      get { return token_; }
+      set {
+        token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1736,6 +1809,8 @@ namespace Server.Data.ClientAuth {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Result != other.Result) return false;
+      if (Token != other.Token) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1743,6 +1818,8 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Result != global::Server.Data.ClientAuth.EnteredWorldDenyReason.None) hash ^= Result.GetHashCode();
+      if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1761,6 +1838,14 @@ namespace Server.Data.ClientAuth {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Result != global::Server.Data.ClientAuth.EnteredWorldDenyReason.None) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Result);
+      }
+      if (Token.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Token);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1771,6 +1856,14 @@ namespace Server.Data.ClientAuth {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Result != global::Server.Data.ClientAuth.EnteredWorldDenyReason.None) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Result);
+      }
+      if (Token.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Token);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1781,6 +1874,12 @@ namespace Server.Data.ClientAuth {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Result != global::Server.Data.ClientAuth.EnteredWorldDenyReason.None) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
+      }
+      if (Token.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1792,6 +1891,12 @@ namespace Server.Data.ClientAuth {
     public void MergeFrom(AcEnterWorld other) {
       if (other == null) {
         return;
+      }
+      if (other.Result != global::Server.Data.ClientAuth.EnteredWorldDenyReason.None) {
+        Result = other.Result;
+      }
+      if (other.Token.Length != 0) {
+        Token = other.Token;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1812,6 +1917,14 @@ namespace Server.Data.ClientAuth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            Result = (global::Server.Data.ClientAuth.EnteredWorldDenyReason) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            Token = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1831,6 +1944,14 @@ namespace Server.Data.ClientAuth {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            Result = (global::Server.Data.ClientAuth.EnteredWorldDenyReason) input.ReadEnum();
+            break;
+          }
+          case 18: {
+            Token = input.ReadString();
+            break;
+          }
         }
       }
     }

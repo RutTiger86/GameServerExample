@@ -3,11 +3,6 @@ using AuthServer.Models.Configs;
 using log4net;
 using Server.Data.ClientAuth;
 using Server.Utill;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AuthServer.Services
 {

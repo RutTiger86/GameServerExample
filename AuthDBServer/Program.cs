@@ -87,7 +87,7 @@ namespace AuthDBServer
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
 
-            services.AddSingleton<SessionManager<AuthSession, AuthDbPacketManager>>();
+            services.AddSingleton<ISessionManager<AuthSession>, SessionManager<AuthSession>>();
             services.AddSingleton<AuthDbPacketHandler>();
             services.AddSingleton<AuthDbPacketManager>();
             services.AddSingleton<AuthDBServer>();
