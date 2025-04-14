@@ -80,7 +80,17 @@ namespace DummyClient.Service
 
         public void SendEnterWorld(string worldId)
         {
+            if (connector == null)
+                return;
+            if (authSession == null)
+                return;
 
+            var loginPacket = new CaEnterWorld()
+            {
+                WorldId = int.Parse(worldId)
+            };
+
+            authSession.Send(loginPacket);
         }
 
         public void DisconnectAuth()

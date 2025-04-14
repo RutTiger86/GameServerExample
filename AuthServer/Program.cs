@@ -57,16 +57,16 @@ namespace AuthServer
         private static void CommandProcess()
         {
             var logFactory = AppHost!.Services.GetRequiredService<ILogFactory>();
+            var commandService = AppHost.Services.GetRequiredService<CommandService>();
 
             ILog log = logFactory.CreateLogger<Program>();
 
+            Console.WriteLine("Enter command: [quit] or [help]");
             while (true)
             {
-                Console.WriteLine("Enter command: [quit]");
                 string? command = Console.ReadLine();
 
-                if (command == null)
-                    continue;
+                if (string.IsNullOrWhiteSpace(command)) continue;
 
                 switch (command.ToLower())
                 {
@@ -75,7 +75,10 @@ namespace AuthServer
                         return;
 
                     default:
-                        Console.WriteLine("Unknown command.");
+                        if (!commandService.Execute(command))
+                        {
+                            Console.WriteLine("Unknown command. Type 'help' for available commands.");
+                        }
                         break;
                 }
             }
@@ -83,23 +86,25 @@ namespace AuthServer
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
-            services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
-            services.AddSingleton<IGameServerRegistry, GameServerRegistry>();
-            services.AddSingleton<IRedisSession, RedisSession>();
             services.AddSingleton<AuthDBSession>();
-            services.AddSingleton<IClientService, ClientService>();
-
             services.AddSingleton<AuthDbPacketHandler>();
             services.AddSingleton<AuthDbPacketManager>();
             services.AddSingleton<ClientAuthPacketHandler>();
             services.AddSingleton<ClientAuthPacketManager>();
             services.AddSingleton<WorldAuthPacketHandler>();
             services.AddSingleton<WorldAuthPacketManager>();
+            services.AddSingleton<CommandService>();
 
             services.AddSingleton<AuthServer>();
+
+            services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
+            services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
+            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
+            services.AddSingleton<IRedisSession, RedisSession>();
+            services.AddSingleton<IClientService, ClientService>();
+
         }
     }
 }

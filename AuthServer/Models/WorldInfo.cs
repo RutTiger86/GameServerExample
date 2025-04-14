@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Models
 {
-    public class GameServerInfo
+    public class WorldStateInfo
     {
-        public int ServerId { get; set; }
+        public int WorldId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public ServerStatus Status { get; set; }
+        public WorldState Status { get; set; }
         public bool IsVisible { get; set; } = true;
         public DateTime LastHeartbeat { get; set; } = DateTime.MinValue;
     }

@@ -1,14 +1,12 @@
 ﻿using Google.Protobuf;
 using log4net;
 using Server.Core;
-using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Utill;
 using System.Net;
 
 namespace AuthServer.Session
 {
-
     public class AuthDBSession(ILogFactory logFactory, AuthDbPacketManager packetManager) : PacketSession
     {
         private readonly ILog log = logFactory.CreateLogger<AuthDBSession>();

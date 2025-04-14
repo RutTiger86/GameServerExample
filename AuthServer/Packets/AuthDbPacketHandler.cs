@@ -20,7 +20,7 @@ namespace AuthServer.Packets
         {
             if (packet is DaGetAccountVerifyInfo accountInfo)
             {
-                _ = clientService.HandleAccountVerifyAsync(session, accountInfo);
+                _ = clientService.TryAccountVerifyAsync(session, accountInfo);
             }
         }
     }

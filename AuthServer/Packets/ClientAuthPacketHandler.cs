@@ -8,7 +8,7 @@ using Server.Utill;
 
 namespace AuthServer.Packets
 {
-    public class ClientAuthPacketHandler(ILogFactory logFactory, IGameServerRegistry  gameServerRegistry, AuthDBSession authDBSession)
+    public class ClientAuthPacketHandler(ILogFactory logFactory, IClientService clientService)
     {
         private readonly ILog log = logFactory.CreateLogger<ClientAuthPacketHandler>();
         public void CaServerStateHandler(ISession session, IMessage packet)
@@ -18,41 +18,22 @@ namespace AuthServer.Packets
 
         public void CaLoginHandler(ISession session, IMessage packet)
         {
-            CaLogin? caLogin = packet as CaLogin;
-            ClientSession? clientSession = session as ClientSession;
-
-            if (caLogin == null || clientSession == null)
+            if (packet is CaLogin loginInfo)
             {
-                return;
+                _ = clientService.TryLogin(session, loginInfo);
             }
-
-            clientSession.LoginInfo = new Models.Account.LoginInfo()
-            {
-                AccountId = caLogin.AccountId,
-                Password = caLogin.Password
-            };
-            
-            authDBSession.SendLoginRequest(caLogin.AccountId, clientSession.SessionId);
+           
         }
         public void CaWorldListHandler(ISession session, IMessage packet)
-        {
-            ClientSession? clientSession = session as ClientSession;
-
-            var gameServerList = gameServerRegistry.GetAllServerList();
-
-            AcWorldList acWorldList = new AcWorldList();
-            acWorldList.Servers.AddRange(gameServerList.Select(p => new ServerInfo
-            {
-                Name = p.Name,
-                ServerId = p.ServerId,
-                Status = p.Status
-            }));
-
-            clientSession?.Send(acWorldList);
+        { 
+            _ = clientService.SendWorldList(session, packet);
         }
         public void CaEnterWorldHandler(ISession session, IMessage packet)
         {
-
+            if (packet is CaEnterWorld enterWorldInfo)
+            {
+                _ = clientService.TryEnterWorld(session, enterWorldInfo);
+            }           
         }
     }
 }

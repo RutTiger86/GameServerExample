@@ -36,12 +36,12 @@ enum LoginDenyReason
 enum EnteredWorldDenyReason
 {
 	ENTERED_WORLD_DENY_REASON_NONE = 0;
-	SERVER_MAINTENANCE  = 1;
-	SERVER_FULL = 2;
+	WORLD_MAINTENANCE  = 1;
+	WORLD_FULL = 2;
 	ENTRED_WORLD_DENY_UNKNOWN = 3;
 }
 
-enum ServerStatus {
+enum WorldState {
   PREPARING = 0;
   MAINTENANCE = 1;
   SMOOTH = 2;
@@ -69,18 +69,18 @@ message CaWorldList{
 
 }
 
-message ServerInfo {
-	int32 ServerId = 1;
+message WorldInfo {
+	int32 WorldId = 1;
 	string Name = 2;
-	ServerStatus Status = 3;
+	WorldState Status = 3;
 }
 
 message AcWorldList{
-	repeated ServerInfo Servers = 1;
+	repeated WorldInfo Worlds = 1;
 }
 
 message CaEnterWorld{	
-	int32 ServerId = 1;
+	int32 WorldId = 1;
 }
 message AcEnterWorld{
 	EnteredWorldDenyReason  Result = 1;

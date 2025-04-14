@@ -30,14 +30,18 @@ namespace DummyClient.Packets
                 return;
             }
 
-            foreach (var server in acWorldList.Servers)
+            foreach (var server in acWorldList.Worlds)
             {
-                Console.WriteLine($"[Server] [ {server.ServerId} ] {server.Name}  ({server.Status})");
+                Console.WriteLine($"[World] [ {server.WorldId} ] {server.Name}  ({server.Status})");
             }
         }
 
         public void AcEnterWorldHandler(ISession session, IMessage packet)
         {
+            AcEnterWorld? enterWorld = packet as AcEnterWorld;
+            AuthSession? authSession = session as AuthSession;
+
+            Console.WriteLine($"[EnterWorld] Result : {enterWorld?.Result}, Token : {enterWorld?.Token}");
         }
 
     }

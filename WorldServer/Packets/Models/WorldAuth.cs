@@ -27,10 +27,10 @@ namespace Server.Data.WorldAuth {
             "Cg9Xb3JsZEF1dGgucHJvdG8SFXNlcnZlci5kYXRhLndvcmxkYXV0aCIPCg1B",
             "d1NlcnZlclN0YXRlIg8KDVdhU2VydmVyU3RhdGUqPQoRV29ybGRBdXRoUGFj",
             "a2V0SWQSEwoPQVdfU0VSVkVSX1NUQVRFEAASEwoPV0FfU0VSVkVSX1NUQVRF",
-            "EAEqeAoMU2Vzc2lvblN0YXRlEg0KCUNPTk5FQ1RFRBAAEhEKDUFVVEhFTlRJ",
-            "Q0FURUQQAhITCg9XT1JMRF9TRUxFQ1RJTkcQAxIRCg1XQUlUSU5HX0VOVFJZ",
-            "EAQSDAoISU5fV09STEQQBRIQCgxESVNDT05ORUNURUQQBkIYqgIVU2VydmVy",
-            "LkRhdGEuV29ybGRBdXRoYgZwcm90bzM="));
+            "EAEqYwoMU2Vzc2lvblN0YXRlEg0KCUNPTk5FQ1RFRBAAEhEKDUFVVEhFTlRJ",
+            "Q0FURUQQAhIRCg1XQUlUSU5HX0VOVFJZEAMSDAoISU5fV09STEQQBBIQCgxE",
+            "SVNDT05ORUNURUQQBUIYqgIVU2VydmVyLkRhdGEuV29ybGRBdXRoYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Server.Data.WorldAuth.WorldAuthPacketId), typeof(global::Server.Data.WorldAuth.SessionState), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -50,10 +50,9 @@ namespace Server.Data.WorldAuth {
   public enum SessionState {
     [pbr::OriginalName("CONNECTED")] Connected = 0,
     [pbr::OriginalName("AUTHENTICATED")] Authenticated = 2,
-    [pbr::OriginalName("WORLD_SELECTING")] WorldSelecting = 3,
-    [pbr::OriginalName("WAITING_ENTRY")] WaitingEntry = 4,
-    [pbr::OriginalName("IN_WORLD")] InWorld = 5,
-    [pbr::OriginalName("DISCONNECTED")] Disconnected = 6,
+    [pbr::OriginalName("WAITING_ENTRY")] WaitingEntry = 3,
+    [pbr::OriginalName("IN_WORLD")] InWorld = 4,
+    [pbr::OriginalName("DISCONNECTED")] Disconnected = 5,
   }
 
   #endregion
