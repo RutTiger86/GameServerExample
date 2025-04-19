@@ -39,7 +39,7 @@ namespace PacketManagerGenerator
                 .Where(file => Path.GetFileName(file).Contains("AuthDb", StringComparison.OrdinalIgnoreCase))
                 .ToArray();
 
-            string authDbPattern = @"\b[A-Z]D_";
+            string authDbPattern = @"\bAD_";
 
             foreach (string protoFile in authDbProtoFiles)
             {
@@ -62,10 +62,25 @@ namespace PacketManagerGenerator
                 string fileName = Path.GetFileName(protoFile).Split(".")[0];
                 string usingString = $"using DummyClient.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";
 
-                string ClientManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, clientPattern));
-                File.WriteAllText($@"{outputPath}\Tools\DummyClient\Packets\{fileName}PacketManager.cs", ClientManagerText);
+                string clientManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, clientPattern));
+                File.WriteAllText($@"{outputPath}\Tools\DummyClient\Packets\{fileName}PacketManager.cs", clientManagerText);
             }
 
+
+            var worldProtoFiles = protoFiles
+               .Where(file => Path.GetFileName(file).Contains("World", StringComparison.OrdinalIgnoreCase))
+               .ToArray();
+
+            string worldPattern = @"\b[A-Z]W_";
+
+            foreach (string protoFile in worldProtoFiles)
+            {
+                string fileName = Path.GetFileName(protoFile).Split(".")[0];
+                string usingString = $"using WorldServer.Packets;{Environment.NewLine}using Server.Data.{fileName};{Environment.NewLine}";
+
+                string worldManagerText = string.Format(PacketManagerFormat.managerFormat, usingString, fileName, CrateFormatString(protoFile, worldPattern));
+                File.WriteAllText($@"{outputPath}\WorldServer\Packets\{fileName}PacketManager.cs", worldManagerText);
+            }
         }
 
         public static string CrateFormatString(string file, string pattern)

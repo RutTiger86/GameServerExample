@@ -19,6 +19,7 @@ namespace AuthServer
 
         static void Main(string[] args)
         {
+            Console.WriteLine("================= Auth Server ====================");
             // 01. Log4Net 설정
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly()!);
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
@@ -60,7 +61,6 @@ namespace AuthServer
             var commandService = AppHost.Services.GetRequiredService<CommandService>();
 
             ILog log = logFactory.CreateLogger<Program>();
-
             Console.WriteLine("Enter command: [quit] or [help]");
             while (true)
             {

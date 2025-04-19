@@ -21,6 +21,8 @@ namespace AuthDBServer
 
         static void Main(string[] args)
         {
+
+            Console.WriteLine("================= Auth DB Server ====================");
             // 01. Log4Net 설정
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly()!);
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
@@ -59,10 +61,9 @@ namespace AuthDBServer
             var logFactory = AppHost!.Services.GetRequiredService<ILogFactory>();
 
             ILog log = logFactory.CreateLogger<Program>();
-
+            Console.WriteLine("Enter command: [quit], [help]");
             while (true)
             {
-                Console.WriteLine("Enter command: [quit]");
                 string? command = Console.ReadLine();
 
                 if (command == null)

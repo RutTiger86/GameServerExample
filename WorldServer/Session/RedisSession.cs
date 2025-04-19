@@ -1,16 +1,12 @@
-﻿using AuthServer.Models.Configs;
-using Server.Data.WorldAuth;
+﻿using Server.Data.WorldAuth;
 using Server.Utill;
 using Server.Utill.Interface;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WorldServer.Models.Configs;
 
-namespace AuthServer.Session
+namespace WorldServer.Session
 {
+
     public class RedisSession : IRedisSession
     {
         private readonly IDatabase db;
@@ -29,7 +25,7 @@ namespace AuthServer.Session
             new("ip", ip),
             new("port", port.ToString()),
             new("connect_time", DateTime.UtcNow.ToString("o")),
-            new("status", (int)SessionState.Connected)
+            new("status", (int)SessionState.InWorld)
             };
 
             await db.HashSetAsync(key, data);
@@ -76,5 +72,4 @@ namespace AuthServer.Session
             return await db.StringIncrementAsync("session_id_gen");
         }
     }
-
 }

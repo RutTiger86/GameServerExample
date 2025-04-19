@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Server.Core.Interface;
 using Server.Utill;
 using log4net;
-using AuthServer.Packets;
+using WorldServer.Packets;
 using Server.Data.WorldAuth;
 
 
@@ -29,8 +29,8 @@ public class WorldAuthPacketManager : IPacketManager
 	private void Register()
 	{
 				
-		onRecv.Add((ushort)WorldAuthPacketId.WaServerState, MakePacket<WaServerState>);
-		handler.Add((ushort)WorldAuthPacketId.WaServerState, packetHandler.WaServerStateHandler);
+		onRecv.Add((ushort)WorldAuthPacketId.AwServerState, MakePacket<AwServerState>);
+		handler.Add((ushort)WorldAuthPacketId.AwServerState, packetHandler.AwServerStateHandler);
 	}
 
 	public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)

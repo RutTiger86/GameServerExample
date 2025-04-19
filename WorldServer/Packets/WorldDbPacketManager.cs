@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using Server.Core.Interface;
 using Server.Utill;
 using log4net;
-using AuthServer.Packets;
-using Server.Data.WorldAuth;
+using WorldServer.Packets;
+using Server.Data.WorldDb;
 
 
-public class WorldAuthPacketManager : IPacketManager
+public class WorldDbPacketManager : IPacketManager
 {
     private readonly ILog log;
-	private readonly WorldAuthPacketHandler packetHandler;
+	private readonly WorldDbPacketHandler packetHandler;
 
-	public WorldAuthPacketManager(ILogFactory logFactory, WorldAuthPacketHandler packetHandler)
+	public WorldDbPacketManager(ILogFactory logFactory, WorldDbPacketHandler packetHandler)
 	{
-		log = logFactory.CreateLogger<WorldAuthPacketManager>();
+		log = logFactory.CreateLogger<WorldDbPacketManager>();
 		this.packetHandler = packetHandler;
 		Register();
 	}
@@ -29,8 +29,8 @@ public class WorldAuthPacketManager : IPacketManager
 	private void Register()
 	{
 				
-		onRecv.Add((ushort)WorldAuthPacketId.WaServerState, MakePacket<WaServerState>);
-		handler.Add((ushort)WorldAuthPacketId.WaServerState, packetHandler.WaServerStateHandler);
+		onRecv.Add((ushort)WorldDbPacketId.DwServerState, MakePacket<DwServerState>);
+		handler.Add((ushort)WorldDbPacketId.DwServerState, packetHandler.DwServerStateHandler);
 	}
 
 	public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)
