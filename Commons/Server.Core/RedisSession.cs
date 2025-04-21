@@ -1,27 +1,19 @@
-﻿using AuthServer.Models.Configs;
-using Server.Data.WorldAuth;
-using Server.Utill;
-using Server.Utill.Interface;
+﻿using Server.Core.Interface;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AuthServer.Session
+namespace Server.Core
 {
+
     public class RedisSession : IRedisSession
     {
         private readonly IDatabase db;
 
-        public RedisSession(ConfigManager<AppConfig> configManager)
+        public RedisSession(IConnectionMultiplexer connectionMultiplexer)
         {
-            var redis = ConnectionMultiplexer.Connect(configManager.config!.Redis!.GetConnectionString());
-            db = redis.GetDatabase();
+            db = connectionMultiplexer.GetDatabase();
         }
 
-        public async Task RegisterSessionAsync(long sessionId, string ip, int port)
+        public async Task RegisterSessionAsync(long sessionId, string ip, int port, int sessionState)
         {
             var key = $"session:{sessionId}";
             var data = new HashEntry[]
@@ -29,21 +21,21 @@ namespace AuthServer.Session
             new("ip", ip),
             new("port", port.ToString()),
             new("connect_time", DateTime.UtcNow.ToString("o")),
-            new("status", (int)SessionState.Connected)
+            new("status", sessionState)
             };
 
             await db.HashSetAsync(key, data);
             await db.KeyExpireAsync(key, TimeSpan.FromMinutes(30)); // TTL 설정
         }
 
-        public async Task UpdateSessionLoginInfoAsync(long sessionId, string accountId, long accountDbId)
+        public async Task UpdateSessionLoginInfoAsync(long sessionId, string accountId, long accountDbId, int sessionState)
         {
             var key = $"session:{sessionId}";
             var data = new HashEntry[]
             {
                 new("account_id", accountId),
                 new("account_db_id", accountDbId.ToString()),
-                new("status", (int)SessionState.Authenticated)
+                new("status", sessionState)
             };
 
             await db.HashSetAsync(key, data);
@@ -62,13 +54,16 @@ namespace AuthServer.Session
             return value.HasValue ? (long?)value : null;
         }
 
-        public async Task<HashEntry[]?> GetSessionInfoByTokenAsync(string token)
+        public async Task<(long? SessionId, HashEntry[]? Entries)> GetSessionInfoWithIdByTokenAsync(string token)
         {
             var sessionId = await GetSessionIdByTokenAsync(token);
-            if (sessionId == null) return null;
+            if (sessionId == null)
+                return (null, null);
 
             var key = $"session:{sessionId}";
-            return await db.HashGetAllAsync(key);
+            var entries = await db.HashGetAllAsync(key);
+
+            return (sessionId, entries);
         }
 
         public async Task<long> GenerateSessionIdAsync()
@@ -76,5 +71,4 @@ namespace AuthServer.Session
             return await db.StringIncrementAsync("session_id_gen");
         }
     }
-
 }

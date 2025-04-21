@@ -14,6 +14,8 @@ namespace DummyClient.Handlers
             commandMap["auth-login"] = AuthLogin;
             commandMap["auth-worldlist"] = AuthWorldList;
             commandMap["auth-enterworld"] = AuthEnterWorld;
+            commandMap["connect-world"] = ConnectWorld;
+            commandMap["world-enterworld"] = WorldEnterWorld;
             // 추가 가능
         }
 
@@ -45,7 +47,9 @@ namespace DummyClient.Handlers
             Console.WriteLine("- auth-login {ID} {Password}");
             Console.WriteLine("- auth-worldlist");
             Console.WriteLine("- auth-enterworld {WorldId}");
-            Console.WriteLine("- disconnect-auth");
+            Console.WriteLine("- disconnect-auth"); 
+            Console.WriteLine("- connect-world {IP} {Port}");
+            Console.WriteLine("- world-enterworld {Token}");
             Console.WriteLine("- quit");
         }
 
@@ -95,6 +99,36 @@ namespace DummyClient.Handlers
                 return;
             }
             AuthService.Instance.SendEnterWorld(args[1]);
+        }
+
+        static void ConnectWorld(string[] args)
+        {
+            if (args.Length < 3)
+            {
+                Console.WriteLine("Usage: connect-world {IP} {Port}");
+                return;
+            }
+
+            if (int.TryParse(args[2], out int port))
+            {
+                WorldService.Instance.ConnectWorld(args[1], port);
+                Console.WriteLine("ConnectWorld Success");
+            }
+            else
+            {
+                Console.WriteLine("Invalid port number.");
+            }
+        }
+
+        static void WorldEnterWorld(string[] args)
+        {
+            if (args.Length < 2)
+            {
+                Console.WriteLine("Usage: world-enterworld {WorldId}");
+                return;
+            }
+
+            WorldService.Instance.SendEnterWorld(args[1]);
         }
     }
 

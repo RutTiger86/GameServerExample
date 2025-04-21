@@ -7,8 +7,9 @@ option csharp_namespace = "Server.Data.ClientWorld";
 enum ClientWorldPacketId {
   CW_SERVER_STATE = 0;
   WC_SERVER_STATE = 1;
+  CW_ENTER_WORLD = 2;
+  WC_ENTER_WORLD = 3;
 }
-
 
 message CwServerState {
 
@@ -16,4 +17,12 @@ message CwServerState {
 
 message WcServerState {
 
+}
+
+message CwEnterWorld{	
+	string Token = 1;
+}
+message WcEnterWorld{
+	bool Success = 1;
+	string ErrorMessage = 2;
 }

@@ -6,8 +6,11 @@ using log4net;
 using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Server.Core;
+using Server.Core.Interface;
 using Server.Utill;
 using Server.Utill.Interface;
+using StackExchange.Redis;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
@@ -44,7 +47,7 @@ namespace AuthServer
             var cert = new X509Certificate2(configManager.config!.Secure!.CertPath, configManager.config.Secure.CertPassworld);
             clientSessionManager.SetCert(cert);
 
-            //05. Client Session Redis 등록  
+            //05. Client Session Redis 등록 세션 Id 발급용 
             var redisSession = AppHost.Services.GetRequiredService<IRedisSession>();
             clientSessionManager.SetRedis(redisSession);
 
@@ -101,8 +104,16 @@ namespace AuthServer
 
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
-            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
+
+            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>(); services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var config = sp.GetRequiredService<ConfigManager<AppConfig>>();
+                var host = config.config!.Redis!.GetConnectionString();
+                return ConnectionMultiplexer.Connect(host);
+            });
+
             services.AddSingleton<IRedisSession, RedisSession>();
+
             services.AddSingleton<IClientService, ClientService>();
 
         }

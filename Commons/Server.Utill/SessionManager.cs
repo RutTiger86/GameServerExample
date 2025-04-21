@@ -14,6 +14,8 @@ namespace Server.Utill
         Task<TSession> Generate(IPacketManager packetManager);
         TSession? Find(long id);
         void Remove(TSession session);
+
+        bool UpdateSessionId(long oldId, long newId);
     }
 
     public class SessionManager<TSession>(ILogFactory logFactory) :ISessionManager<TSession>
@@ -53,7 +55,6 @@ namespace Server.Utill
                 sessions.Add(id, session);
             }
 
-            log.Info($"SessionManager - Connected : {id}");
             return session;
         }
 
@@ -71,6 +72,20 @@ namespace Server.Utill
             lock (lockObj)
             {
                 sessions.Remove(session.SessionId);
+            }
+        }
+
+        public bool UpdateSessionId(long oldId, long newId)
+        {
+            lock (lockObj)
+            {
+                if (!sessions.TryGetValue(oldId, out var session))
+                    return false;
+
+                sessions.Remove(oldId);
+                session.SessionId = newId;
+                sessions[newId] = session;
+                return true;
             }
         }
     }

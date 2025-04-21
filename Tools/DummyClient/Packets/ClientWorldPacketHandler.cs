@@ -8,5 +8,9 @@ namespace DummyClient.Packets
         public void WcServerStateHandler(ISession session, IMessage packet)
         {
         }
+
+        public void WcEnterWorldHandler(ISession session, IMessage packet)
+        {
+        }
     }
 }

@@ -1,15 +1,16 @@
-﻿using log4net.Config;
-using log4net;
+﻿using log4net;
+using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Server.Core;
+using Server.Core.Interface;
 using Server.Utill;
+using StackExchange.Redis;
 using System.Reflection;
-using Server.Utill.Interface;
-using System.Security.Cryptography.X509Certificates;
 using WorldServer.Models.Configs;
-using WorldServer.Session;
 using WorldServer.Packets;
 using WorldServer.Services;
+using WorldServer.Session;
 
 namespace WorldServer
 {
@@ -96,9 +97,18 @@ namespace WorldServer
 
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
-            services.AddSingleton<IRedisSession, RedisSession>();
-            services.AddSingleton<IClientService, ClientService>();
 
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var config = sp.GetRequiredService<ConfigManager<AppConfig>>();
+                var host = config.config!.Redis!.GetConnectionString();
+                return ConnectionMultiplexer.Connect(host);
+            });
+
+            services.AddSingleton<IRedisSession, RedisSession>();
+
+            services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IAuthenticateService,  AuthenticateService>();
         }
     }
 }

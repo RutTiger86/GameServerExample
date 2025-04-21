@@ -30,7 +30,9 @@ public class ClientWorldPacketManager : IPacketManager
 	{
 				
 		onRecv.Add((ushort)ClientWorldPacketId.CwServerState, MakePacket<CwServerState>);
-		handler.Add((ushort)ClientWorldPacketId.CwServerState, packetHandler.CwServerStateHandler);
+		handler.Add((ushort)ClientWorldPacketId.CwServerState, packetHandler.CwServerStateHandler);		
+		onRecv.Add((ushort)ClientWorldPacketId.CwEnterWorld, MakePacket<CwEnterWorld>);
+		handler.Add((ushort)ClientWorldPacketId.CwEnterWorld, packetHandler.CwEnterWorldHandler);
 	}
 
 	public void OnRecvPacket(ISession session, ReadOnlyMemory<byte> buffer)

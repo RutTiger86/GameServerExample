@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Server.Core.Interface;
 using Server.Data.AuthDb;
 using Server.Data.ClientAuth;
+using Server.Data.WorldAuth;
 using Server.Utill;
 using Server.Utill.Interface;
 using System.Security.Cryptography;
@@ -58,7 +59,7 @@ namespace AuthServer.Services
 
             if (acLogin.Result == LoginDenyReason.None)
             {
-                await redisSession.UpdateSessionLoginInfoAsync(clientSession.SessionId, accountInfo.AccountId, accountInfo.Id);
+                await redisSession.UpdateSessionLoginInfoAsync(clientSession.SessionId, accountInfo.AccountId, accountInfo.Id, (int) SessionState.Authenticated);
             }
             else
             {

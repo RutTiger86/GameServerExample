@@ -1,17 +1,12 @@
 ﻿using Google.Protobuf;
 using log4net;
-using Server.Core.Interface;
 using Server.Core;
-using Server.Utill.Interface;
+using Server.Core.Interface;
+using Server.Data.ClientWorld;
 using Server.Utill;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Server.Utill.Interface;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Server.Data.ClientWorld;
 
 namespace WorldServer.Session
 {
@@ -20,18 +15,23 @@ namespace WorldServer.Session
     {
         private readonly ILog log = logFactory.CreateLogger<ClientSession>();
 
+        private bool isAuthenticated = false;
+        private long? accountId = null;
+        private string ip = string.Empty;
+        private int? port = null;
+
+        public bool IsAuthenticated => isAuthenticated;
+        public string Ip => ip;
+        public int? Port => port;
+
+        public void Authenticate(long accountId)
+        {
+            this.isAuthenticated = true;
+            this.accountId = accountId;
+        }
+
         public static ClientSession Create(ILogFactory logFactory, IPacketManager packetManager, X509Certificate2? cert = null, IRedisSession? redisSession = null)
         {
-            if (cert == null)
-            {
-                throw new ArgumentNullException("cert is Null");
-            }
-
-            if (redisSession == null)
-            {
-                throw new ArgumentNullException("redisSession is Null");
-            }
-
             return new ClientSession(logFactory, packetManager);
         }
 
@@ -51,8 +51,8 @@ namespace WorldServer.Session
 
         public override async void OnConnected(EndPoint endPoint)
         {
-            string ip = ((IPEndPoint)endPoint).Address.ToString();
-            int port = ((IPEndPoint)endPoint).Port;
+            ip = ((IPEndPoint)endPoint).Address.ToString();
+            port = ((IPEndPoint)endPoint).Port;
 
             log.Info($"[CONNECTED] SessionId: {SessionId} from {ip}:{port}");
         }

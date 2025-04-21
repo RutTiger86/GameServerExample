@@ -4,9 +4,9 @@ using log4net;
 using Server.Core;
 using Server.Core.Interface;
 using Server.Data.ClientAuth;
+using Server.Data.WorldAuth;
 using Server.Utill;
 using Server.Utill.Interface;
-using StackExchange.Redis;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
@@ -61,7 +61,7 @@ namespace AuthServer.Session
         {
             string ip = ((IPEndPoint)endPoint).Address.ToString();
             int port = ((IPEndPoint)endPoint).Port;
-            await redisSession.RegisterSessionAsync(SessionId, ip, port);
+            await redisSession.RegisterSessionAsync(SessionId, ip, port, (int)SessionState.Connected);
 
             log.Info($"[CONNECTED] SessionId: {SessionId} from {ip}:{port}");
         }
