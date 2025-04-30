@@ -1,16 +1,34 @@
-﻿using Server.Core.Interface;
+﻿using AuthServer.Models;
+using Server.Core.Interface;
 using StackExchange.Redis;
+using System.Text.Json;
 
-namespace Server.Core
+namespace AuthServer.Session
 {
+    public interface IAuthRedisSession
+    {
+        public Task UpdateSessionLoginInfoAsync(long sessionId, string accountId, long accountDbId, int sessionState);
+        public Task UpdateSessionTokenAsync(long sessionId, string token);
 
-    public class RedisSession : IRedisSession
+        public Task<WorldStateInfo?> GetWorldStateInfoAsync(int worldId);
+
+        public Task<List<WorldStateInfo>> GetAllWorldsAsync();
+        Task<bool> GetIsExternallyOpenAsync();
+    }
+
+    public class RedisSession : IRedisSession, IAuthRedisSession
     {
         private readonly IDatabase db;
+        private const string ExternallyOpenKey = "auth:externally_open";
 
         public RedisSession(IConnectionMultiplexer connectionMultiplexer)
         {
             db = connectionMultiplexer.GetDatabase();
+        }
+        public async Task<bool> GetIsExternallyOpenAsync()
+        {
+            var value = await db.StringGetAsync(ExternallyOpenKey);
+            return value.HasValue && bool.TryParse(value, out var result) && result;
         }
 
         public async Task RegisterSessionAsync(long sessionId, string ip, int port, int sessionState)
@@ -69,6 +87,39 @@ namespace Server.Core
         public async Task<long> GenerateSessionIdAsync()
         {
             return await db.StringIncrementAsync("session_id_gen");
+        }
+
+        private string GetWorldKey(int worldId) => $"world:{worldId}";
+
+        public async Task<WorldStateInfo?> GetWorldStateInfoAsync(int worldId)
+        {
+            var key = GetWorldKey(worldId);
+            var json = await db.StringGetAsync(key);
+            if (json.IsNullOrEmpty)
+                return null;
+
+            return JsonSerializer.Deserialize<WorldStateInfo>(json!);
+        }
+
+        public async Task<List<WorldStateInfo>> GetAllWorldsAsync()
+        {
+            var server = db.Multiplexer.GetServer(db.Multiplexer.GetEndPoints().First());
+            var keys = server.Keys(pattern: "world:*").ToArray();
+
+            var result = new List<WorldStateInfo>();
+
+            foreach (var key in keys)
+            {
+                var json = await db.StringGetAsync(key);
+                if (!json.IsNullOrEmpty)
+                {
+                    var world = JsonSerializer.Deserialize<WorldStateInfo>(json!);
+                    if (world != null)
+                        result.Add(world);
+                }
+            }
+
+            return result;
         }
     }
 }

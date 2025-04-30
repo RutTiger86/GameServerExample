@@ -31,7 +31,7 @@ namespace AuthServer.Services
             var configManager = serviceProvider.GetRequiredService<ConfigManager<AppConfig>>();
             var passwordHasher = new PasswordHasher(configManager.config!.Secure!.PBKDF2Iterations, configManager.config.Secure.HashSize);
             var sessionManager = serviceProvider.GetRequiredService<ISessionManager<ClientSession>>();
-            var redisSession = serviceProvider.GetRequiredService<IRedisSession>();
+            var redisSession = serviceProvider.GetRequiredService<IAuthRedisSession>();
 
             log.Info($"Id : {accountInfo.Id}, AccountID : {accountInfo.AccountId}");
 
@@ -69,13 +69,13 @@ namespace AuthServer.Services
             clientSession.Send(acLogin);
         }
 
-        public Task SendWorldList(ISession session, IMessage packet)
+        public async Task SendWorldList(ISession session, IMessage packet)
         {
             var sessionManager = serviceProvider.GetRequiredService<ISessionManager<ClientSession>>();
-            var gameServerRegistry = serviceProvider.GetRequiredService<IWorldServerRegistry>();
+            var redisSession = serviceProvider.GetRequiredService<IAuthRedisSession>();
             ClientSession? clientSession = session as ClientSession;
 
-            var gameServerList = gameServerRegistry.GetAllServerList();
+            var gameServerList = await redisSession.GetAllWorldsAsync();
 
             AcWorldList acWorldList = new AcWorldList();
             acWorldList.Worlds.AddRange(gameServerList.Select(p => new WorldInfo
@@ -86,19 +86,18 @@ namespace AuthServer.Services
             }));
 
             clientSession?.Send(acWorldList);
-            return Task.CompletedTask;
         }
 
-        public Task TryLogin(ISession session, CaLogin packet)
+        public async Task TryLogin(ISession session, CaLogin packet)
         {
             if (packet == null || session is not ClientSession clientSession)
             {
-                return Task.CompletedTask;
+                return ;
             }
 
-            var gameServerRegistry = serviceProvider.GetRequiredService<IWorldServerRegistry>();
-
-            if (gameServerRegistry.IsExternallyOpen)
+            var redisSession = serviceProvider.GetRequiredService<IAuthRedisSession>();
+            bool isExternally =  await redisSession.GetIsExternallyOpenAsync();
+            if (isExternally)
             {
 
                 var authDBSession = serviceProvider.GetRequiredService<AuthDBSession>();
@@ -119,15 +118,12 @@ namespace AuthServer.Services
                 };
 
                 clientSession.Send(acLogin);
-            }
-            
-            return Task.CompletedTask;
+            }            
         }
 
         public async Task TryEnterWorld(ISession session, CaEnterWorld packet)
         {
-            var redisSession = serviceProvider.GetRequiredService<IRedisSession>();
-            var gameServerRegistry = serviceProvider.GetRequiredService<IWorldServerRegistry>();
+            var redisSession = serviceProvider.GetRequiredService<IAuthRedisSession>();
             ClientSession? clientSession = session as ClientSession;
 
             AcEnterWorld acEnterWorld = new AcEnterWorld()
@@ -135,9 +131,9 @@ namespace AuthServer.Services
                 Result = EnteredWorldDenyReason.None
             };
 
-            var serverInfo = gameServerRegistry.GetServer(packet.WorldId);
+            var serverInfo =  await redisSession.GetWorldStateInfoAsync(packet.WorldId);
 
-            if (serverInfo.IsVisible == false || serverInfo.Status == WorldState.Maintenance || serverInfo.Status == WorldState.Preparing)
+            if (serverInfo== null ||  serverInfo.IsVisible == false || serverInfo.Status == WorldState.Maintenance || serverInfo.Status == WorldState.Preparing)
             {
                 acEnterWorld.Result = EnteredWorldDenyReason.WorldMaintenance;
             }

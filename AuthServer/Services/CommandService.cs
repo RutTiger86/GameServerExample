@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AuthServer.Session;
+using log4net;
+using Server.Utill;
 
 namespace AuthServer.Services
 {
     public class CommandService
     {
-        private Dictionary<string, Action<string[]>> commandMap = new();
-        private readonly IWorldServerRegistry worldServerRegistry;
-        public CommandService(IWorldServerRegistry worldServerRegistry) 
+        private Dictionary<string, Func<string[], Task>> commandMap = new();
+
+        private readonly ILog log;
+        private IAuthRedisSession redisSession;
+
+        public CommandService(ILogFactory logFactory, IAuthRedisSession redisSession )
         {
-            this.worldServerRegistry = worldServerRegistry;
+            this.redisSession = redisSession;
+            log = logFactory.CreateLogger<CommandService>();
             Initialize();
         }
 
         public void Initialize()
         {
-            commandMap["help"] = Help;
-            commandMap["externally-open"] = ExternallyOpen;
-            commandMap["externally-close"] = ExternallyClose;
-            commandMap["world-open"] = WorldOpen;
-            commandMap["world-close"] = WorldClose;
+            commandMap["help"] = HelpAsync;
+            commandMap["world"] = GetWorldInfo;
+            commandMap["externally"] = GetExternally;
             // 추가 가능
         }
 
@@ -40,35 +40,38 @@ namespace AuthServer.Services
             return false;
         }
 
-        static void Help(string[] args)
+        static Task HelpAsync(string[] args)
         {
             Console.WriteLine("Available commands:");
-            Console.WriteLine("- externally-open");
-            Console.WriteLine("- externally-close");
-            Console.WriteLine("- world-open {WorldId}");
-            Console.WriteLine("- world-close {WorldId}");
+            Console.WriteLine("- externally");
+            Console.WriteLine("- world {WorldId or Null}");
             Console.WriteLine("- quit");
+
+            return Task.CompletedTask;
         }
 
-        void ExternallyOpen(string[] args)
+        async Task GetExternally(string[] args)
         {
-            worldServerRegistry.SetIsExternallyOpen(true);
+            var IsOpen = await redisSession.GetIsExternallyOpenAsync();
+            log.Info($"Externally Open State is {IsOpen} ");
         }
-        void ExternallyClose(string[] args)
+        async Task GetWorldInfo(string[] args)
         {
-            worldServerRegistry.SetIsExternallyOpen(false);
-        }
+            log.Info($"GetWorldInfo");
+            if (args.Length > 1 && int.TryParse(args[1], out int worldId))
+            {
+                var worldStateInfo = await redisSession.GetWorldStateInfoAsync(worldId);
+                log.Info(worldStateInfo?.GetStringInfo());
+            }
+            else
+            {
+                var worldStateInfoList = await redisSession.GetAllWorldsAsync();
 
-        void WorldOpen(string[] args)
-        {
-            var worldId = int.Parse(args[1]);
-            worldServerRegistry.OpenWorld(worldId);
-        }
-
-        void WorldClose(string[] args)
-        {
-            var worldId = int.Parse(args[1]);
-            worldServerRegistry.CloseWorld(worldId);
+                foreach (var worldStateInfo in worldStateInfoList)
+                {
+                    log.Info(worldStateInfo.GetStringInfo());
+                }
+            }
         }
     }
 }

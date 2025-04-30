@@ -104,8 +104,8 @@ namespace AuthServer
 
             services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
             services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
-
-            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>(); services.AddSingleton<IConnectionMultiplexer>(sp =>
+                        
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
             {
                 var config = sp.GetRequiredService<ConfigManager<AppConfig>>();
                 var host = config.config!.Redis!.GetConnectionString();
@@ -113,6 +113,7 @@ namespace AuthServer
             });
 
             services.AddSingleton<IRedisSession, RedisSession>();
+            services.AddSingleton<IAuthRedisSession, RedisSession>();
 
             services.AddSingleton<IClientService, ClientService>();
 

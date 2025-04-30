@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certs", "Certs", "{C3AC11B4
 		Certs\testcert.pfx = Certs\testcert.pfx
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServerManager", "AuthServerManager\AuthServerManager.csproj", "{5CE618DB-A473-47A2-863B-B5C67DAFE78D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{4C405265-8E06-4096-A1C1-EFBA43C271F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C405265-8E06-4096-A1C1-EFBA43C271F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C405265-8E06-4096-A1C1-EFBA43C271F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CE618DB-A473-47A2-863B-B5C67DAFE78D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE618DB-A473-47A2-863B-B5C67DAFE78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE618DB-A473-47A2-863B-B5C67DAFE78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE618DB-A473-47A2-863B-B5C67DAFE78D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

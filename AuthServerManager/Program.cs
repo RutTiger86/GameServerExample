@@ -1,28 +1,23 @@
-﻿using log4net;
+﻿using AuthServerManager.Models.Configs;
+using AuthServerManager.Services;
+using AuthServerManager.Sessions;
+using log4net;
 using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Server.Core;
-using Server.Core.Interface;
 using Server.Utill;
 using StackExchange.Redis;
 using System.Reflection;
-using WorldServer.Models.Configs;
-using WorldServer.Packets;
-using WorldServer.Services;
-using WorldServer.Session;
 
-namespace WorldServer
+namespace AuthServerManager
 {
 
     internal class Program
     {
         public static IHost? AppHost { get; private set; }
-
         static void Main(string[] args)
         {
-
-            Console.WriteLine("================= World Server ====================");
+            Console.WriteLine("================= Auth Server Manager ====================");
             // 01. Log4Net 설정
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly()!);
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
@@ -31,7 +26,7 @@ namespace WorldServer
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    context.HostingEnvironment.ApplicationName = "WorldServer";
+                    context.HostingEnvironment.ApplicationName = "AuthServerManager";
                     ConfigureServices(services);
                 }).Build();
 
@@ -42,10 +37,6 @@ namespace WorldServer
                 return;
             }
 
-            // 04. 서버 시작 예시
-            var server = AppHost.Services.GetRequiredService<WorldServer>();
-            server.Start();
-
             CommandProcess();
         }
 
@@ -55,6 +46,11 @@ namespace WorldServer
             var commandService = AppHost.Services.GetRequiredService<CommandService>();
 
             ILog log = logFactory.CreateLogger<Program>();
+
+            commandService.Execute("externally-close");
+            commandService.Execute("init-world");
+            commandService.Execute("world");
+
             Console.WriteLine("Enter command: [quit] or [help]");
             while (true)
             {
@@ -65,7 +61,6 @@ namespace WorldServer
                 switch (command.ToLower())
                 {
                     case "quit":
-                        AppHost.Services.GetRequiredService<WorldServer>().Stop();
                         return;
 
                     default:
@@ -82,21 +77,7 @@ namespace WorldServer
         {
             services.AddSingleton<ConfigManager<AppConfig>>();               // config
 
-            services.AddSingleton<WorldDBSession>();
-
             services.AddSingleton<CommandService>();
-
-            services.AddSingleton<ClientWorldPacketHandler>();
-            services.AddSingleton<ClientWorldPacketManager>();
-            services.AddSingleton<WorldAuthPacketHandler>();
-            services.AddSingleton<WorldAuthPacketManager>();
-            services.AddSingleton<WorldDbPacketHandler>();
-            services.AddSingleton<WorldDbPacketManager>();
-
-            services.AddSingleton<WorldServer>();
-
-            services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
-            services.AddSingleton<ISessionManager<ClientSession>, SessionManager<ClientSession>>();
 
             services.AddSingleton<IConnectionMultiplexer>(sp =>
             {
@@ -105,10 +86,8 @@ namespace WorldServer
                 return ConnectionMultiplexer.Connect(host);
             });
 
-            services.AddSingleton<IWorldRedisSession, RedisSession>();
-
-            services.AddSingleton<IClientService, ClientService>();
-            services.AddSingleton<IAuthenticateService,  AuthenticateService>();
+            services.AddSingleton<ILogFactory, Log4NetFactory>(); // log4net factory
+            services.AddSingleton<IAuthManagerRedisSession, RedisSession>();
         }
     }
 }

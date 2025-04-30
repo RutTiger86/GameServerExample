@@ -1,11 +1,6 @@
-﻿using Server.Data.ClientAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AuthServerManager.Enums;
 
-namespace AuthServer.Models
+namespace AuthServerManager.Models
 {
     public class WorldStateInfo
     {
@@ -13,8 +8,8 @@ namespace AuthServer.Models
         public string Name { get; set; } = string.Empty;
         public WorldState Status { get; set; }
         public bool IsVisible { get; set; } = true;
-        public DateTime LastHeartbeat { get; set; } = DateTime.MinValue; 
-        
+        public DateTime LastHeartbeat { get; set; } = DateTime.MinValue;
+
         public string GetStringInfo()
         {
             return $"WorldId : {WorldId},   Name : {Name},  Status {Status},    IsVisible {IsVisible}";

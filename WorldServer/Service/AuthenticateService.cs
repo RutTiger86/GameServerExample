@@ -12,7 +12,7 @@ namespace WorldServer.Services
         public Task TrySessionAuthenticateAsync(ISession session, CwEnterWorld packet);
     }
 
-    public class AuthenticateService(ILogFactory logFactory, IRedisSession redisSession, ISessionManager<ClientSession> clientSessionManager) : IAuthenticateService
+    public class AuthenticateService(ILogFactory logFactory, IWorldRedisSession redisSession, ISessionManager<ClientSession> clientSessionManager) : IAuthenticateService
     {
         private readonly ILog log = logFactory.CreateLogger<ClientService>();
 
